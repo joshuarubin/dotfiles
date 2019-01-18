@@ -47,7 +47,7 @@
 [commit]
 	gpgsign = true
 [http]
-	cookiefile = /Users/jrubin/.gitcookies
+	cookiefile = {{ .chezmoi.homedir }}/.gitcookies
 [includeIf "gitdir:~/ngrok/"]
 	path = ~/.gitconfig.ngrok
 {{- if eq .chezmoi.os "darwin" }}
