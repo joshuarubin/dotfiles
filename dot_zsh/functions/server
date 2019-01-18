@@ -1,0 +1,27 @@
+function usage {
+  echo "server <PORT>|-h" 1>&2
+  echo "runs simplehttp2server, devd, ran or a python web server for the current directory and opens it in the browser" 1>&2
+}
+
+if [ "${1}" = "-h" ]; then
+  usage
+  return
+fi
+
+PORT=${1}
+if [ -z "${PORT}" ]; then PORT=8000; fi
+
+if (( $+commands[ran] )); then
+  open "http://localhost:${PORT}" && ran --port "${PORT}" --listdir
+elif (( $+commands[simple-httpd] )); then
+  open "http://localhost:${PORT}" && simple-httpd -p "${PORT}"
+elif (( $+commands[simplehttp2server] )); then
+  open "https://localhost:${PORT}" && simplehttp2server -listen "localhost:${PORT}"
+elif (( $+commands[devd] )); then
+  devd --port "${PORT}" --open --livereload .
+elif (( $+commands[python] )); then
+  open "http://localhost:${PORT}" && python -m SimpleHTTPServer "${PORT}"
+else
+  echo "ERROR: neither devd, ran or python is installed" 1>&2
+  usage
+fi
