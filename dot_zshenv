@@ -1,4 +1,4 @@
-export ZSH=${HOME}/.dotfiles/zsh
+export ZSH=${HOME}/.zsh
 
 #
 # Editors
