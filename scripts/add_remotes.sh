@@ -11,3 +11,5 @@ git remote add -f zsh-autosuggestions https://github.com/zsh-users/zsh-autosugge
 git remote add -f dotvim https://github.com/joshuarubin/dotvim
 git remote add -f dotzsh https://github.com/joshuarubin/dotzsh
 git remote add -f tmux-tpm https://github.com/tmux-plugins/tpm
+
+git tag | xargs git tag --delete
