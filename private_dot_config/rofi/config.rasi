@@ -1,0 +1,10 @@
+configuration {
+  theme: "Arc-Dark";
+  combi-modi: "drun,run";
+  modi: "combi";
+  show-icons: true;
+  terminal: "alacritty";
+  display-combi: "run";
+}
+
+/* vim:ft=css

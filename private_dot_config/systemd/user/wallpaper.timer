@@ -1,0 +1,8 @@
+[Unit]
+Description=Change sway background every hour
+
+[Timer]
+OnCalendar=*:0
+
+[Install]
+WantedBy=timers.target

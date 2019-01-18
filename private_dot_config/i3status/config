@@ -1,0 +1,31 @@
+general {
+        colors = true
+        interval = 1
+}
+
+order += cpu_usage
+order += "cpu_temperature 0"
+order += "load"
+order += "volume master"
+order += "tztime local"
+
+tztime local {
+        format = "%Y-%m-%d %-I:%M:%S %p"
+}
+
+load {
+        format = "%1min"
+        max_threshold = "32"
+}
+
+disk "/" {
+        format = "%avail"
+}
+
+cpu_temperature "0" {
+        path = "/sys/bus/pci/drivers/k10temp/*/hwmon/hwmon1/temp1_input"
+}
+
+volume master {
+        device = "pulse"
+}

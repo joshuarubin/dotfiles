@@ -1,0 +1,6 @@
+[Unit]
+Description=Change sway background
+
+[Service]
+Type=oneshot
+ExecStart=/home/jrubin/bin/wallpaper

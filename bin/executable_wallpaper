@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for name in DP-1 DP-2 DP-3; do
+  file=$(find ~/Pictures/Wallpaper | shuf -n 1)
+  swaymsg "output '${name}' bg '${file}' fill"
+done
