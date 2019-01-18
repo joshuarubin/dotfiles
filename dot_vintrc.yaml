@@ -1,0 +1,7 @@
+cmdargs:
+  # Checking more strictly
+  severity: style_problem
+
+  # Enable Neovim syntax
+  env:
+    neovim: true

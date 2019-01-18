@@ -1,0 +1,9 @@
+nviminfo() {
+  TMPFILE=$(mktemp)
+  nvim --headless --noplugin -nesu NONE --cmd "rshada | put =v:oldfiles | set shada = | write | quit" "$TMPFILE"
+  grep '^\/' "$TMPFILE" | egrep -v "/nvim/runtime/|$TMPDIR" | awk -v t="$(date +%s)" '{
+    t -= 60
+    print $0 "|1|" t
+  }'
+  rm "$TMPFILE"
+}

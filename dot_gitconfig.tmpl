@@ -1,0 +1,61 @@
+[alias]
+	sts = status
+	st = status
+	ci = commit -s
+	am = am -s
+	di = diff
+	dis = diff
+	co = checkout
+	br = branch
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	patch = --no-pager diff --no-color
+	quick-stats = ! /usr/local/bin/git-quick-stats
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	grep = auto
+[color "diff-highlight"]
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+	oldNormal = red bold
+[core]
+	excludesfile = ~/.gitignore
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[apply]
+	whitespace = nowarn
+[mergetool]
+	keepBackup = false
+[difftool]
+	prompt = false
+[help]
+	autocorrect = 1
+[push]
+	default = upstream
+	followTags = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+[tag]
+	sort = version:refname
+[user]
+	name = Joshua Rubin
+	email = joshua@rubixconsulting.com
+	signingkey = BFD64727
+[commit]
+	gpgsign = true
+[http]
+	cookiefile = /Users/jrubin/.gitcookies
+[includeIf "gitdir:~/ngrok/"]
+	path = ~/.gitconfig.ngrok
+{{- if eq .chezmoi.os "darwin" }}
+[credential]
+	helper = osxkeychain
+{{- else if eq .chezmoi.os "linux" }}
+[credential]
+	helper = /usr/lib/git-core/git-credential-libsecret
+{{- end }}
+
+# vim: ft=gitconfig
