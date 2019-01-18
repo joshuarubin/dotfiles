@@ -1,0 +1,8 @@
+vendor/
+Godeps/
+node_modules/
+bower_components/
+*.bak
+*.swp
+*~
+_*/
