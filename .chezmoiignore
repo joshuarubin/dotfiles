@@ -18,3 +18,7 @@
 /.config/waybar/
 /bin/wallpaper
 {{- end }}
+
+{{- if not .keyring }}
+/.aws/
+{{- end }}
