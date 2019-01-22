@@ -28,3 +28,8 @@ Host balerion
 Host et
   HostName 74.93.234.253
   Port 2222
+
+Host balerion-backup
+  HostName 10.0.5.10
+  Port 2222
+  User balerion-backup
