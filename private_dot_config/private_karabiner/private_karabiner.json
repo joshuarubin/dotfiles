@@ -15,7 +15,7 @@
         },
         "rules": [
           {
-            "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
+            "description": "Change caps_lock to escape if tapped, control otherwise",
             "manipulators": [
               {
                 "from": {
