@@ -1,0 +1,9 @@
+[profile ngrok-dev]
+role_arn = arn:aws:iam::121193077874:role/OrganizationAccountAccessRole
+source_profile = ngrok
+region = us-west-2
+
+[profile ngrok-stage]
+role_arn = arn:aws:iam::598650118518:role/OrganizationAccountAccessRole
+source_profile = ngrok
+region = us-west-2
