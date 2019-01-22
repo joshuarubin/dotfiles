@@ -56,7 +56,8 @@ path=(
 cdpath=(
   .
   ${HOME}
-  $(go env GOPATH)/src
+  ${HOME}/ngrok
+  ${HOME}/dev
 )
 
 #
@@ -79,7 +80,29 @@ WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
 PROMPT_LEAN_VIMODE=1
 
+{{- if eq .chezmoi.os "linux" }}
 if [ -n "$DESKTOP_SESSION" ];then
     eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
     export SSH_AUTH_SOCK
 fi
+
+export GPG_TTY=$(tty)
+export QT_QPA_PLATFORM=wayland
+
+export RESTIC_PASSWORD_FILE="${HOME}/.config/restic/password"
+
+export RESTIC_REPOSITORY='sftp:balerion-backup:/NetBackup/balerion'
+# export RESTIC_REPOSITORY='b2:balerion:/'
+# NOTE: source ~/.config/restic/b2 for b2 credentials
+{{- end }}
+
+export MAKEFLAGS='-j {{ .numcpu }}'
+export MAGE_VERBOSE=1
+export COMPRESSXZ=(xz -c -z - --threads=0)
+
+export AWS_PROFILE='ngrok-dev'
+export AWS_DEFAULT_REGION='us-east-2'
+export AWS_DEFAULT_OUTPUT='json'
+export AWS_SDK_LOAD_CONFIG='1'
+
+# vim: ft=zsh

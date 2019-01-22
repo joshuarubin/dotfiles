@@ -9,7 +9,6 @@
 	br = branch
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	patch = --no-pager diff --no-color
-	quick-stats = ! /usr/local/bin/git-quick-stats
 [color]
 	diff = auto
 	status = auto
@@ -47,7 +46,7 @@
 [commit]
 	gpgsign = true
 [http]
-	cookiefile = {{ .chezmoi.homedir }}/.gitcookies
+	cookiefile = ~/.gitcookies
 [includeIf "gitdir:~/ngrok/"]
 	path = ~/.gitconfig.ngrok
 {{- if eq .chezmoi.os "darwin" }}
