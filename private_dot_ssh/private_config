@@ -1,0 +1,30 @@
+Host *
+  ControlMaster auto
+  ControlPersist 300
+  ControlPath ~/.ssh/connections/%r_%h_%p
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+
+Host syrax pi3 balerion et
+  # forward local port 2489 for lemonade copy/paste server
+  RemoteForward 2489 127.0.0.1:2489
+
+Host syrax
+  HostName syrax.rubixconsulting.com
+
+Host pub1
+  HostName pub1.rubixconsulting.com
+
+Host pi3
+  HostName 10.0.5.14
+  User pi
+
+Host github.com
+  User git
+
+Host balerion
+  HostName balerion.local
+
+Host et
+  HostName 74.93.234.253
+  Port 2222
