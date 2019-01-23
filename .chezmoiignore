@@ -19,7 +19,7 @@
 /bin/wallpaper
 {{- end }}
 
-{{- if not .keyring }}
+{{- if not .secrets }}
 /.aws/
 {{- end }}
 
