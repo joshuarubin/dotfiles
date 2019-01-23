@@ -1,15 +1,15 @@
 # vim:fileencoding=utf-8:ft=conf
 
-#: Fonts {{{
+#: Fonts
 
 #: kitty has very powerful font management. You can configure
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-font_family      Hack
+font_family      SF Mono
 bold_font        auto
-italic_font      Hasklig
-bold_italic_font Hasklig
+italic_font      auto
+bold_italic_font auto
 
 #: You can specify different fonts for the bold/italic/bold-italic
 #: variants. By default they are derived automatically, by the OSes
@@ -55,9 +55,7 @@ box_drawing_scale 0.001, 1, 1.5, 2
 #: monitor DPI to arrive at a pixel value. There must be four values
 #: corresponding to thin, normal, thick, and very thick lines.
 
-#: }}}
-
-#: Cursor customization {{{
+#: Cursor customization
 
 cursor #02fdff
 
@@ -82,9 +80,7 @@ cursor_stop_blinking_after 15.0
 #: specified number of seconds of keyboard inactivity. Set to zero to
 #: never stop blinking.
 
-#: }}}
-
-#: Scrollback {{{
+#: Scrollback
 
 scrollback_lines 2000
 
@@ -126,9 +122,7 @@ touch_scroll_multiplier 1.0
 #: for high precision scrolling devices on platforms such as macOS and
 #: Wayland. Use negative numbers to change scroll direction.
 
-#: }}}
-
-#: Mouse {{{
+#: Mouse
 
 url_color #02fdff
 url_style curly
@@ -167,7 +161,7 @@ select_by_word_characters :@-./_~?&=%+#
 #: addition to these characters any character that is marked as an
 #: alpha-numeric character in the unicode database will be matched.
 
-click_interval -1.0
+click_interval 0.5
 
 #: The interval between successive clicks to detect double/triple
 #: clicks (in seconds). Negative numbers will use the system default
@@ -183,9 +177,7 @@ focus_follows_mouse no
 #: Set the active window to the window under the mouse when moving the
 #: mouse around
 
-#: }}}
-
-#: Performance tuning {{{
+#: Performance tuning
 
 repaint_delay 10
 
@@ -204,7 +196,7 @@ input_delay 3
 #: in full screen programs that redraw the entire screen on each loop,
 #: because kitty is so fast that partial screen updates will be drawn.
 
-sync_to_monitor yes
+sync_to_monitor no
 
 #: Sync screen updates to the refresh rate of the monitor. This
 #: prevents tearing (https://en.wikipedia.org/wiki/Screen_tearing)
@@ -213,9 +205,7 @@ sync_to_monitor yes
 #: keyboard repeat rate, you may notice some slight input latency. If
 #: so, set this to no.
 
-#: }}}
-
-#: Terminal bell {{{
+#: Terminal bell
 
 enable_audio_bell yes
 
@@ -238,9 +228,7 @@ bell_on_tab yes
 #: windows in the tab and the window is not the currently focused
 #: window
 
-#: }}}
-
-#: Window layout {{{
+#: Window layout
 
 remember_window_size  yes
 initial_window_width  640
@@ -322,11 +310,9 @@ hide_window_decorations no
 #: this works and exactly what effect it has depends on the window
 #: manager/operating system.
 
-#: }}}
+#: Tab bar
 
-#: Tab bar {{{
-
-tab_bar_edge bottom
+tab_bar_edge top
 
 #: Which edge to show the tab bar on, top or bottom
 
@@ -370,9 +356,7 @@ inactive_tab_font_style normal
 
 #: Tab bar colors and styles
 
-#: }}}
-
-#: Color scheme {{{
+#: Color scheme
 
 foreground #c5c8c6
 background #232c31
@@ -453,9 +437,7 @@ color15 #c5c8c6
 
 #: white
 
-#: }}}
-
-#: Advanced {{{
+#: Advanced
 
 shell .
 
@@ -534,9 +516,7 @@ term xterm-kitty
 #: from key-presses, to colors, to various advanced features may not
 #: work.
 
-#: }}}
-
-#: OS specific tweaks {{{
+#: OS specific tweaks
 
 macos_titlebar_color system
 
@@ -591,9 +571,7 @@ macos_custom_beam_cursor no
 #: on both light and dark backgrounds. WARNING: this might make your
 #: mouse cursor invisible on dual GPU machines.
 
-#: }}}
-
-#: Keyboard shortcuts {{{
+#: Keyboard shortcuts
 
 #: For a list of key names, see: GLFW keys
 #: <http://www.glfw.org/docs/latest/group__keys.html>. The name to use
@@ -647,8 +625,11 @@ macos_custom_beam_cursor no
 
 #:     map ctrl+f>2 set_font_size 20
 
-# kitty_mod ctrl+shift
+{{ if eq .chezmoi.os "linux" -}}
+kitty_mod ctrl+shift
+{{- else if eq .chezmoi.os "darwin" -}}
 kitty_mod super
+{{- end }}
 
 #: The value of kitty_mod is used as the modifier for all default
 #: shortcuts, you can change it in your kitty.conf to change the
@@ -659,7 +640,7 @@ clear_all_shortcuts no
 #: You can have kitty remove all shortcut definition seen up to this
 #: point. Useful, for instance, to remove the default shortcuts.
 
-#: Clipboard {{{
+#: Clipboard
 
 map kitty_mod+c copy_to_clipboard
 
@@ -683,14 +664,12 @@ map kitty_mod+o  pass_selection_to_program
 
 #:     map kitty_mod+y new_window less @selection
 
-#: }}}
-
-#: Scrolling {{{
+#: Scrolling
 
 map kitty_mod+up        scroll_line_up
-map kitty_mod+k         scroll_line_up
+# map kitty_mod+k         scroll_line_up
 map kitty_mod+down      scroll_line_down
-map kitty_mod+j         scroll_line_down
+# map kitty_mod+j         scroll_line_down
 map kitty_mod+page_up   scroll_page_up
 map kitty_mod+page_down scroll_page_down
 map kitty_mod+home      scroll_home
@@ -707,11 +686,9 @@ map kitty_mod+h         show_scrollback
 #: For more details on piping screen and buffer contents to external
 #: programs, see pipe.
 
-#: }}}
+#: Window management
 
-#: Window management {{{
-
-map kitty_mod+d new_window
+map kitty_mod+enter new_window_with_cwd
 
 #: You can open a new window running an arbitrary program, for
 #: example::
@@ -731,13 +708,24 @@ map kitty_mod+d new_window
 #:     map ctrl+enter new_window @ some_program
 
 map kitty_mod+n new_os_window
+{{ if eq .chezmoi.os "linux" -}}
+map kitty_mod+q close_window
+{{- else if eq .chezmoi.os "darwin" -}}
 map shift+kitty_mod+w close_window
+{{- end }}
 map kitty_mod+] next_window
 map kitty_mod+[ previous_window
+{{ if eq .chezmoi.os "linux" -}}
+map kitty_mod+f move_window_forward
+map kitty_mod+b move_window_backward
+map kitty_mod+` move_window_to_top
+map kitty_mod+r start_resizing_window
+{{- else if eq .chezmoi.os "darwin" -}}
 map ctrl+kitty_mod+. move_window_forward
 map ctrl+kitty_mod+, move_window_backward
 map ctrl+kitty_mod+t move_window_to_top
 map ctrl+kitty_mod+r start_resizing_window
+{{- end }}
 # map kitty_mod+1 first_window
 # map kitty_mod+2 second_window
 # map kitty_mod+3 third_window
@@ -748,13 +736,17 @@ map ctrl+kitty_mod+r start_resizing_window
 # map kitty_mod+8 eighth_window
 # map kitty_mod+9 ninth_window
 # map kitty_mod+0 tenth_window
-#: }}}
 
-#: Tab management {{{
+#: Tab management
 
+{{ if eq .chezmoi.os "linux" -}}
+map kitty_mod+tab   next_tab
+map kitty_mod+alt+tab   previous_tab
+{{- else if eq .chezmoi.os "darwin" -}}
 map shift+kitty_mod+] next_tab
 map shift+kitty_mod+[ previous_tab
-map kitty_mod+t     new_tab
+{{- end }}
+map kitty_mod+t     new_tab_with_cwd
 map kitty_mod+w     close_tab
 map shift+kitty_mod+.     move_tab_forward
 map shift+kitty_mod+,     move_tab_backward
@@ -782,11 +774,14 @@ map kitty_mod+9 goto_tab 9
 #: the current tab rather than at the end of the tabs list, use::
 
 #:     map ctrl+t new_tab !neighbor [optional cmd to run]
-#: }}}
 
-#: Layout management {{{
+#: Layout management
 
+{{ if eq .chezmoi.os "linux" -}}
+map super+l next_layout
+{{- else if eq .chezmoi.os "darwin" -}}
 map kitty_mod+l next_layout
+{{- end }}
 
 #: You can also create shortcuts to switch to specific layouts::
 
@@ -796,9 +791,8 @@ map kitty_mod+l next_layout
 #: Similarly, to switch back to the previous layout::
 
 #:    map ctrl+alt+p last_used_layout
-#: }}}
 
-#: Font sizes {{{
+#: Font sizes
 
 #: You can change the font size for all top-level kitty OS windows at
 #: a time or only the current one.
@@ -815,9 +809,8 @@ map kitty_mod+0         change_font_size all 0
 #: size::
 
 #:     map kitty_mod+f6 change_font_size current 10.0
-#: }}}
 
-#: Select and act on visible text {{{
+#: Select and act on visible text
 
 #: Use the hints kitten to select text and either pass it to an
 #: external program or insert it into the terminal or copy it to the
@@ -856,12 +849,14 @@ map kitty_mod+p>h kitten hints --type hash --program -
 
 #: The hints kitten has many more modes of operation that you can map
 #: to different shortcuts. For a full description see kittens/hints.
-#: }}}
 
-#: Miscellaneous {{{
+#: Miscellaneous
 
-# map kitty_mod+f11    toggle_fullscreen
+{{ if eq .chezmoi.os "linux" -}}
+map kitty_mod+f11    toggle_fullscreen
+{{- else if eq .chezmoi.os "darwin" -}}
 map ctrl+kitty_mod+f    toggle_fullscreen
+{{- end }}
 map kitty_mod+u      kitten unicode_input
 map kitty_mod+f2     edit_config_file
 map kitty_mod+escape kitty_shell window
@@ -923,7 +918,3 @@ map ctrl+shift+l send_text all \x01\x4c
 
 #:     map ctrl+alt+a send_text normal Word\x1b[H
 #:     map ctrl+alt+a send_text application Word\x1bOH
-
-#: }}}
-
-# }}}
