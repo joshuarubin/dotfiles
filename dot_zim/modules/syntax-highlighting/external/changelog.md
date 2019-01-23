@@ -309,66 +309,50 @@ in this area.
 - incomplete sudo commands
   (a3047a912100, 2f05620b19ae)
 
-    ```zsh
-    sudo;
-    sudo -u;
-    ```
+        sudo;
+        sudo -u;
 
 - command words following reserved words
   (#207, #222, b397b12ac139 et seq, 6fbd2aa9579b et seq, 8b4adbd991b0)
 
-    ```zsh
-    if ls; then ls; else ls; fi
-    repeat 10 do ls; done
-    ```
+        if ls; then ls; else ls; fi
+        repeat 10 do ls; done
 
     (The `ls` are now highlighted as a command.)
 
 - comments (when `INTERACTIVE_COMMENTS` is set)
   (#163, #167, 693de99a9030)
 
-    ```zsh
-    echo Hello # comment
-    ```
+        echo Hello # comment
 
 - closing brackets of arithmetic expansion, subshells, and blocks
   (#226, a59f442d2d34, et seq)
 
-    ```zsh
-    (( foo ))
-    ( foo )
-    { foo }
-    ```
+        (( foo ))
+        ( foo )
+        { foo }
 
 - command names enabled by the `PATH_DIRS` option
   (#228, 96ee5116b182)
 
-    ```zsh
-    # When ~/bin/foo/bar exists, is executable, ~/bin is in $PATH,
-    # and 'setopt PATH_DIRS' is in effect
-    foo/bar
-    ```
+        # When ~/bin/foo/bar exists, is executable, ~/bin is in $PATH,
+        # and 'setopt PATH_DIRS' is in effect
+        foo/bar
 
 - parameter expansions with braces inside double quotes
   (#186, 6e3720f39d84)
 
-    ```zsh
-    echo "${foo}"
-    ```
+        echo "${foo}"
 
 - parameter expansions in command word
   (#101, 4fcfb15913a2)
 
-    ```zsh
-    x=/bin/ls
-    $x -l
-    ```
+        x=/bin/ls
+        $x -l
 
-- the command separators '\|&', '&!', '&\|'
+- the command separators '|&', '&!', '&|'
 
-    ```zsh
-    view file.pdf &!  ls
-    ```
+        view file.pdf &!  ls
 
 
 ## Fixed highlighting of:
@@ -376,31 +360,23 @@ in this area.
 - precommand modifiers at non-command-word position
   (#209, 2c9f8c8c95fa)
 
-    ```zsh
-    ls command foo
-    ```
+        ls command foo
 
 - sudo commands with infix redirections
   (#221, be006aded590, 86e924970911)
 
-    ```zsh
-    sudo -u >/tmp/foo.out user ls
-    ```
+        sudo -u >/tmp/foo.out user ls
 
 - subshells; anonymous functions
   (#166, #194, 0d1bfbcbfa67, 9e178f9f3948)
 
-    ```zsh
-    (true)
-    () { true }
-    ```
+        (true)
+        () { true }
 
 - parameter assignment statements with no command
   (#205, 01d7eeb3c713)
 
-    ```zsh
-    A=1;
-    ```
+        A=1;
 
     (The semicolon used to be highlighted as a mistake)
 
@@ -491,95 +467,69 @@ in this area.
 
 - suffix aliases (requires zsh 5.1.1 or newer):
 
-    ```zsh
-    alias -s png=display
-    foo.png
-    ```
+        alias -s png=display
+        foo.png
 
 - prefix redirections:
 
-    ```zsh
-    <foo.txt cat
-    ```
+        <foo.txt cat
 
 - redirection operators:
 
-    ```zsh
-    echo > foo.txt
-    ```
+        echo > foo.txt
 
 - arithmetic evaluations:
 
-    ```zsh
-    (( 42 ))
-    ```
+        (( 42 ))
 
 - $'' strings, including \x/\octal/\u/\U escapes
 
-    ```zsh
-    : $'foo\u0040bar'
-    ```
+        : $'foo\u0040bar'
 
 - multiline strings:
 
-    ```zsh
-    % echo "line 1
-    line 2"
-    ```
+        % echo "line 1
+        line 2"
 
 - string literals that haven't been finished:
 
-    ```zsh
-    % echo "Hello, world
-    ```
+        % echo "Hello, world
+
 - command words that involve tilde expansion:
 
-    ```zsh
-    % ~/bin/foo
-    ```
+        % ~/bin/foo
+
 
 ## Fixed highlighting of:
 
 - quoted command words:
 
-    ```zsh
-    % \ls
-    ```
+        % \ls
 
 - backslash escapes in "" strings:
 
-    ```zsh
-    % echo "\x41"
-    ```
+        % echo "\x41"
 
 - noglob after command separator:
 
-    ```zsh
-    % :; noglob echo *
-    ```
+        % :; noglob echo *
 
 - glob after command separator, when the first command starts with 'noglob':
 
-    ```zsh
-    % noglob true; echo *
-    ```
+        % noglob true; echo *
 
 - the region (vi visual mode / set-mark-command) (issue #165)
 
 - redirection and command separators that would be highlighted as `path_approx`
 
-    ```zsh
-    % echo foo;‸
-    % echo <‸
-    ```
+        % echo foo;‸
+        % echo <‸
 
     (where `‸` represents the cursor location)
 
 - escaped globbing (outside quotes)
 
-    ```zsh
-    % echo \*
-    ```
+        % echo \*
 
 
 ## Other changes:

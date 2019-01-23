@@ -27,15 +27,10 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-if [[ $OSTYPE == msys ]]; then
-  skip_test='Cannot create symlinks in msys2'
-else
-  ln -s /nonexistent broken-symlink
-  BUFFER=': broken-symlink'
-  CURSOR=5 # to make path_prefix ineligible
+ln -s /nonexistent broken-symlink
+BUFFER=': broken-symlink'
+CURSOR=5 # to make path_prefix ineligible
 
-  expected_region_highlight=(
-    "1 1 builtin" # :
-    "3 16 path" # broken-symlink
-  )
-fi
+expected_region_highlight=(
+  "3 16 path" # broken-symlink
+)

@@ -31,12 +31,9 @@ BUFFER=': "$" "$42foo"'
 BUFFER+=\ \"\\\'\\x\"
 
 expected_region_highlight=(
-  "1 1 builtin" # :
-  "3 5 default" # "$"
   "3 5 double-quoted-argument" # "$"
-  "7 14 default" # "$42foo"
-  "7 14 double-quoted-argument" # "$42foo"
+  "7 7 double-quoted-argument" # "
   "8 10 dollar-double-quoted-argument" # $42
-  "16 21 default" # "\'\x"
+  "11 14 double-quoted-argument" # foo"
   "16 21 double-quoted-argument" # "\'\x" - \' and \x are not escape sequences
 )

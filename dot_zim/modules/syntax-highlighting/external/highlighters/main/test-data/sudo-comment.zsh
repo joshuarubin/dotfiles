@@ -27,8 +27,6 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-sudo(){}
-
 setopt interactive_comments
 BUFFER='sudo -u # comment'
 

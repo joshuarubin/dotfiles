@@ -33,6 +33,5 @@
 BUFFER='ls /bin/s'
 
 expected_region_highlight=(
-  "1 2 command" # ls
-  "4 9 path_prefix" # /bin/s
+  "4 9 path_prefix"    # /bin/s
 )

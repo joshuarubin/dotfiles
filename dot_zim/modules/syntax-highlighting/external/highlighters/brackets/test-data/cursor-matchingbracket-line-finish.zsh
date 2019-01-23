@@ -33,4 +33,5 @@ BUFFER=': $foo[bar]'
 CURSOR=6 # cursor is zero-based
 
 expected_region_highlight=(
+  "11 11 NONE"
 )

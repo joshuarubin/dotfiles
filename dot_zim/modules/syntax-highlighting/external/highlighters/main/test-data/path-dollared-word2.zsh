@@ -27,11 +27,10 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-local lambda="''"
+lambda="''"
 touch \$lambda
 BUFFER=': \$lambda'
 
 expected_region_highlight=(
-  "1 1 builtin" # :
-  "3 10 path" # \$lambda
+  "3 8 path" # \$lambda
 )

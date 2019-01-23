@@ -35,6 +35,5 @@ ZSH_HIGHLIGHT_STYLES[path_pathseparator]=value
 BUFFER='ls /bin/'
 
 expected_region_highlight=(
-  "1 2 command" # ls
   "4 8 path"    # /bin/
 )

@@ -13,24 +13,13 @@ The value of that parameter is a list of strings of the form  `"$i $j $style"`.
 or `"$i $j $style $todo"`.
 Each string specifies the highlighting that `$BUFFER[$i,$j]` should have;
 that is, `$i` and `$j` specify a range, 1-indexed, inclusive of both endpoints.
-`$style` is a key of `$ZSH_HIGHLIGHT_STYLES`.
+`$style` is either a key of `$ZSH_HIGHLIGHT_STYLES` or `NONE` to specify no
+highlighting should be observed.
 If `$todo` exists, the test point is marked as TODO (the failure of that test
 point will not fail the test), and `$todo` is used as the explanation.
-If a test sets `$skip_test` to a non-empty string, the test will be skipped
-with the provided string as the reason.
-If a test sets `unsorted=1` the order of highlights in `$expected_region_highlight`
-need not match the order in `$region_highlight`.
-
-Normally, tests fail if `$expected_region_highlight` and `$region_highlight`
-have different numbers of elements.  Tests may set `$expected_mismatch` to an
-explanation string (like `$todo`) to avoid this and mark the cardinality check
-as todo.
 
 **Note**: `$region_highlight` uses the same `"$i $j $style"` syntax but
 interprets the indexes differently.
-
-**Note**: Tests are run with `setopt NOUNSET WARN_CREATE_GLOBAL`, so any
-variables the test creates must be declared local.
 
 **Isolation**: Each test is run in a separate subshell, so any variables,
 aliases, functions, etc., it defines will be visible to the tested code (that
@@ -38,19 +27,17 @@ computes `$region_highlight`), but will not affect subsequent tests.  The
 current working directory of tests is set to a newly-created empty directory,
 which is automatically cleaned up after the test exits. For example:
 
-```zsh
-setopt PATH_DIRS
-mkdir -p foo/bar
-touch foo/bar/testing-issue-228
-chmod  +x foo/bar/testing-issue-228
-path+=( "$PWD"/foo )
+    setopt PATH_DIRS
+    mkdir -p foo/bar
+    touch foo/bar/testing-issue-228
+    chmod  +x foo/bar/testing-issue-228
+    path+=( "$PWD"/foo )
 
-BUFFER='bar/testing-issue-228'
+    BUFFER='bar/testing-issue-228'
 
-expected_region_highlight=(
-  "1 21 command" # bar/testing-issue-228
-)
-```
+    expected_region_highlight=(
+      "1 21 command" # bar/testing-issue-228
+    )
 
 
 Writing new tests
@@ -58,9 +45,7 @@ Writing new tests
 
 An experimental tool is available to generate test files:
 
-```zsh
-zsh -f tests/generate.zsh 'ls -x' acme newfile
-```
+    zsh -f tests/generate.zsh 'ls -x' acme newfile
 
 This generates a `highlighters/acme/test-data/newfile.zsh` test file based on
 the current highlighting of the given `$BUFFER` (in this case, `ls -x`).
@@ -75,15 +60,11 @@ Highlighting test
 [`test-highlighting.zsh`](tests/test-highlighting.zsh) tests the correctness of
 the highlighting. Usage:
 
-```zsh
-zsh test-highlighting.zsh <HIGHLIGHTER NAME>
-```
+    zsh test-highlighting.zsh <HIGHLIGHTER NAME>
 
 All tests may be run with
 
-```zsh
-make test
-```
+    make test
 
 which will run all highlighting tests and report results in [TAP format][TAP].
 By default, the results of all tests will be printed; to show only "interesting"
@@ -99,12 +80,8 @@ Performance test
 [`test-perfs.zsh`](tests/test-perfs.zsh) measures the time spent doing the
 highlighting. Usage:
 
-```zsh
-zsh test-perfs.zsh <HIGHLIGHTER NAME>
-```
+    zsh test-perfs.zsh <HIGHLIGHTER NAME>
 
 All tests may be run with
 
-```zsh
-make perf
-```
+    make perf

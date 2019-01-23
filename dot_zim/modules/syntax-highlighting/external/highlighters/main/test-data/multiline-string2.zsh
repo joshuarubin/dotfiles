@@ -27,10 +27,8 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-BUFFER=$'echo \'foo1\n'
+BUFFER=$'echo "foo1\n'
 
 expected_region_highlight=(
-  "1 4 builtin" # echo
-  "6 11 default" # 'foo1\n
-  "6 11 single-quoted-argument-unclosed" # 'foo1\n
+  "6 10 double-quoted-argument" # 'foo2"'
 )

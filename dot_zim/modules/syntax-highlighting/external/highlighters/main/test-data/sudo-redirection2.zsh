@@ -27,8 +27,6 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-sudo(){}
-
 BUFFER='sudo >/tmp -u otheruser ls'
 
 expected_region_highlight=(

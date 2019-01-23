@@ -34,6 +34,5 @@ BUFFER='ls /bin/s'
 WIDGET=zle-line-finish
 
 expected_region_highlight=(
-  "1 2 command" # ls
-  "4 9 default" # /bin/s
+  "4 9 default"    # /bin/s
 )

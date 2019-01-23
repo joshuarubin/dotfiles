@@ -30,6 +30,5 @@
 BUFFER='hello --world'
 
 expected_region_highlight=(
-  "1 5 unknown-token" # hello
   "7 13 double-hyphen-option" # --world
 )
