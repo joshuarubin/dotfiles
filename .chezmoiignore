@@ -22,3 +22,8 @@
 {{- if not .keyring }}
 /.aws/
 {{- end }}
+
+{{- if not .usenvim }}
+/bin/vi
+/bin/vim
+{{- end }}

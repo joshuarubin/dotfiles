@@ -2,3 +2,4 @@
 data:
   numcpu: 1
   keyring: false
+  usenvim: ""
