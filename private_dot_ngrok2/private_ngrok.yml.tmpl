@@ -1,0 +1,7 @@
+---
+{{- if .ngrokdev }}
+server_addr: tunnel.us.ngrok.com.local:443
+root_cas: {{ .chezmoi.homedir }}/ngrok/ender/keys/vagrant/tls/root.crt
+{{- else if .secrets }}
+authtoken: {{ pass "chezmoi/ngrok/joshua@ngrok.com" }}
+{{- end }}
