@@ -776,7 +776,7 @@ map kitty_mod+9 goto_tab 9
 #: Layout management
 
 {{ if eq .chezmoi.os "linux" -}}
-map super+l next_layout
+map kitty_mod+alt+l next_layout
 {{- else if eq .chezmoi.os "darwin" -}}
 map kitty_mod+l next_layout
 {{- end }}
