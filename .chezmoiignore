@@ -17,6 +17,7 @@
 /.config/systemd/
 /.config/waybar/
 /bin/wallpaper
+/bin/pinentry-auto
 {{- end }}
 
 {{- if not .secrets }}
