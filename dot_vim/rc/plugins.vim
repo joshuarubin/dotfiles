@@ -131,7 +131,7 @@ Plug 'vimwiki/vimwiki', { 'tag': '*' }
 Plug 'junegunn/goyo.vim', { 'tag': '*' }
 
 " matchparen for html tags
-Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
+" Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 
 " haskell
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell', 'tag': '*' }
