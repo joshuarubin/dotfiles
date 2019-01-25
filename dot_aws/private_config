@@ -7,3 +7,8 @@ region = us-west-2
 role_arn = arn:aws:iam::598650118518:role/OrganizationAccountAccessRole
 source_profile = ngrok
 region = us-west-2
+
+[profile ngrok-prod]
+role_arn = arn:aws:iam::179275156621:role/OrganizationAccountAccessRole
+source_profile = ngrok
+region = us-west-2
