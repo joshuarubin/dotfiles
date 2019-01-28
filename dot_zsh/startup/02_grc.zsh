@@ -3,39 +3,25 @@ if [ "$TERM" != dumb ]; then
 fi
 
 if [ -n "$GRC" ]; then
-  alias colourify="$GRC -es --colour=auto"
-  alias blkid='colourify blkid'
-  alias configure='colourify ./configure'
-  alias df='colourify df'
-  alias diff='colourify diff'
-  # alias docker='colourify docker'
-  # alias docker-machine='colourify docker-machine'
-  alias du='colourify du'
-  alias env='colourify env'
-  alias free='colourify free'
-  # alias make='colourify make'
-  alias gcc='colourify gcc'
-  alias g++='colourify g++'
-  alias ip='colourify ip'
-  alias iptables='colourify iptables'
-  alias as='colourify as'
-  alias gas='colourify gas'
-  alias ld='colourify ld'
-  # alias ls='colourify ls --color'
-  alias lsblk='colourify lsblk'
-  alias lspci='colourify lspci'
-  alias netstat='colourify netstat'
-  alias ping='colourify ping'
-  alias ping6='colourify ping6'
-  alias traceroute='colourify /usr/sbin/traceroute'
-  alias traceroute6='colourify /usr/sbin/traceroute6'
-  alias head='colourify head'
-  alias tail='colourify tail'
-  alias dig='colourify dig'
-  alias mount='colourify mount'
-  alias ps='colourify ps'
-  alias mtr='colourify mtr'
-  alias semanage='colourify semanage'
-  alias getsebool='colourify setsebool'
-  alias ifconfig='colourify /sbin/ifconfig'
+  _colourify_cmds=(
+      'as' 'blkid' 'cc' 'configure' 'cvs' 'df' 'diff' 'dig' 'docker'
+      'docker-machine' 'du' 'env' 'free' 'g++' 'gas' 'gcc' 'gmake' 'head'
+      'ifconfig' 'ip' 'iptables' 'iwconfig' 'last' 'ld' 'ldap' 'lsblk' 'lspci'
+      'make' 'mount' 'mtr' 'netstat' 'ping' 'ping6' 'ps' 'semanage' 'setsebool'
+      'tail' 'traceroute' 'traceroute6' 'wdiff' 'whois'
+  )
+
+  for _cmd in "${_colourify_cmds[@]}"; do
+    if (( ${+commands[${_cmd}]} )); then
+      eval "
+        function ${_cmd} {
+          $GRC -es --colour=auto '${commands[${_cmd}]}' \"\$@\"
+        }
+      "
+    fi
+  done
+
+  unset _colourify_cmds
 fi
+
+unset GRC
