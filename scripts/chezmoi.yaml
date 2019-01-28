@@ -4,3 +4,4 @@ data:
   secrets: false
   usenvim: ""
   ngrokdev: false
+  gpg: false

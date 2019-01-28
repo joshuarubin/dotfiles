@@ -42,9 +42,11 @@
 [user]
 	name = Joshua Rubin
 	email = joshua@rubixconsulting.com
+{{- if .gpg }}
 	signingkey = BFD64727
 [commit]
 	gpgsign = true
+{{ end -}}
 [http]
 	cookiefile = ~/.gitcookies
 [includeIf "gitdir:~/ngrok/"]

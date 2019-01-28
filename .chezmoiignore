@@ -28,3 +28,7 @@
 /bin/vi
 /bin/vim
 {{- end }}
+
+{{- if not .gpg }}
+/.gnupg/
+{{- end }}
