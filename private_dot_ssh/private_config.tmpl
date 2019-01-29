@@ -2,10 +2,10 @@ Host *
   ControlMaster auto
   ControlPersist 300
   ControlPath ~/.ssh/connections/%r_%h_%p
-  ForwardAgent yes
   IdentityFile ~/.ssh/id_ed25519
 
 Host syrax pi3 balerion et
+  ForwardAgent yes
   # forward local port 2489 for lemonade copy/paste server
   RemoteForward 2489 127.0.0.1:2489
 
