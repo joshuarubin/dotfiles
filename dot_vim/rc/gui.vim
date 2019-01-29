@@ -33,7 +33,8 @@ elseif has('gui_running')
     set guifont=FuraCode\ Nerd\ Font:h13
     set macmeta
   elseif has('gui_gtk')
-    set guifont=Inconsolata\ for\ Powerline\ Medium\ 10
+    set guifont=Hack\ 11
+    set guioptions=agit
   endif
 elseif !has('nvim')
   " different cursors for insert vs normal mode
