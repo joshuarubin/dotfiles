@@ -33,7 +33,7 @@ elseif has('gui_running')
     set guifont=FuraCode\ Nerd\ Font:h13
     set macmeta
   elseif has('gui_gtk')
-    set guifont=Hack\ 11
+    set guifont=SFMono\ for\ Powerline\ 11
     set guioptions=agit
   endif
 elseif !has('nvim')
