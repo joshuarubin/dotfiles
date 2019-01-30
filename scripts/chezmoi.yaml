@@ -5,3 +5,4 @@ data:
   usenvim: ""
   ngrokdev: false
   gpg: false
+  sshagent: true

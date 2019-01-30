@@ -1,10 +1,9 @@
 configuration {
   theme: "Arc-Dark";
-  combi-modi: "drun,run";
-  modi: "combi";
+  combi-modi: "drun,run,ssh";
+  modi: "combi,calc:qalc";
   show-icons: true;
-  terminal: "alacritty";
-  display-combi: "run";
+  terminal: "kitty";
 }
 
 /* vim:ft=css
