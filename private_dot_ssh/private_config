@@ -14,6 +14,7 @@ Host syrax
 
 Host pub1
   HostName pub1.rubixconsulting.com
+  IdentityFile ~/.ssh/id_rsa_legacy
 
 Host pi3
   HostName 10.0.5.14
@@ -41,6 +42,8 @@ Host ngrok
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
   PasswordAuthentication no
-  IdentityFile {{ .chezmoi.homedir }}/ngrok/vm/.vagrant/machines/ngrok/docker/private_key
+  IdentityFile ~/ngrok/vm/.vagrant/machines/ngrok/docker/private_key
   IdentitiesOnly yes
   LogLevel FATAL
+
+# vim: ft=sshconfig
