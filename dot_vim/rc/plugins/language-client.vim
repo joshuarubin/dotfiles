@@ -51,6 +51,6 @@ endfunction
 
 if executable('bingo')
   let g:LanguageClient_rootMarkers['go'] = ['go.mod', '.git']
-  let g:LanguageClient_serverCommands['go'] = ['bingo', '--mode', 'stdio', '-enable-global-cache', '-format-style', 'goimports', '-diagnostics-style', 'instant']
+  let g:LanguageClient_serverCommands['go'] = ['bingo', '--mode', 'stdio', '-enable-global-cache', '-format-style', 'goimports', '-diagnostics-style', 'none']
   call s:lsp_key_mapping('go')
 endif
