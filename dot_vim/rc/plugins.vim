@@ -110,7 +110,7 @@ Plug 'lambdalisue/suda.vim'
 " full featured go development environment support for vim
 Plug 'fatih/vim-go', { 'for': ['go', 'gomod'], 'tag': '*' }
 
-" a collection of language packs for vim, forked from sheerun/vim-polyglot
+" a collection of language packs for vim
 Plug 'sheerun/vim-polyglot', { 'tag': '*' }
 
 " other language packs
@@ -120,12 +120,13 @@ Plug 'zchee/vim-flatbuffers'
 Plug 'jparise/vim-graphql', { 'tag': '*' }
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'othree/javascript-libraries-syntax.vim', { 'tag': '*' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 " use vim as $PAGER
 Plug 'rkitover/vimpager', { 'do': 'make; ln -sf man man1', 'tag': '*' }
 
 " personal wiki for vim
-Plug 'vimwiki/vimwiki', { 'tag': '*' }
+" Plug 'vimwiki/vimwiki', { 'tag': '*' }
 
 " distraction-free writing in vim
 Plug 'junegunn/goyo.vim', { 'tag': '*' }

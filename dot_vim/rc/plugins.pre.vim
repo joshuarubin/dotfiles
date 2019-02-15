@@ -18,8 +18,14 @@ let g:haskellmode_completion_ghc = 0
 
 " vim-polyglot
 let g:jsx_ext_required = 0
+let g:polyglot_disabled = ['go', 'scss', 'gmpl', 'markdown', 'liquid']
+
+" vim-markdown
 let g:vim_markdown_folding_disabled = 1
-let g:polyglot_disabled = ['go', 'scss', 'gmpl']
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
 
 " undotree
 let g:undotree_SetFocusWhenToggle=1

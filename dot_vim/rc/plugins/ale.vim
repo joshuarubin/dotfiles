@@ -29,6 +29,7 @@ let g:ale_linters = {
 \   'text':       [ 'alex', 'proselint', 'vale', 'write-good', 'redpen' ],
 \   'go':         [ 'govet', 'golangci-lint' ],
 \   'proto':      [ 'prototool' ],
+\   'markdown':   [ 'markdownlint', 'mdl', 'redpen', 'remark_lint', 'textlint', 'vale' ],
 \}
 
 let g:ale_go_govet_options = '-shadow'
