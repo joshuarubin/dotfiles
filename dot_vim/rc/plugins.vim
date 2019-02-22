@@ -43,7 +43,7 @@ Plug 'ncm2/ncm2-html-subscope'
 Plug 'ncm2/ncm2-markdown-subscope'
 Plug 'ncm2/ncm2-rst-subscope'
 Plug 'filipekiss/ncm2-look.vim'
-Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': 'typescript' }
+Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
 
 " snippets
 Plug 'SirVer/ultisnips'
