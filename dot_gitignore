@@ -1,5 +1,6 @@
 tmp
 .envrc
+.stignore
 *.zwc
 *.zwc.old
 
