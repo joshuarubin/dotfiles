@@ -249,6 +249,7 @@ for_window [class="Firefox"] {
 
 for_window [class="XEyes"] floating enable
 for_window [title="Volume Control"] floating enable
+for_window [title="Syncthing-GTK"] floating enable
 for_window [class="Slack"] move window to output DP-3
 for_window [class="Spotify"] move window to output DP-3
 for_window [class="Signal"] move window to output DP-3
@@ -258,9 +259,16 @@ include /etc/sway/config.d/*
 # select workspace 1 and set it to tabbed layout
 exec swaymsg 'workspace 1;layout tabbed'
 
+# start background apps
 exec mako --default-timeout 10000 --format '<b>%a:</b> <i>%s</i>\n%b'
 exec waybar
 exec lxpolkit
+
+# start foreground apps
+exec $term
+exec firefox
+exec signal-desktop
+exec flatpak run com.slack.Slack
 
 # depends on /usr/share/gnome-session/sessions/sway.session which was
 # copied from /usr/share/gnome-session/sessions/gnome.session but with
