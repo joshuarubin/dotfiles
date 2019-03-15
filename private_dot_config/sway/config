@@ -256,9 +256,6 @@ for_window [class="Signal"] move window to output DP-3
 
 include /etc/sway/config.d/*
 
-# select workspace 1 and set it to tabbed layout
-exec swaymsg 'workspace 1;layout tabbed'
-
 # start background apps
 exec mako --default-timeout 10000 --format '<b>%a:</b> <i>%s</i>\n%b'
 exec waybar
