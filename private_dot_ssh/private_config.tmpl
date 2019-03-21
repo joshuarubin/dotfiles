@@ -2,10 +2,12 @@ Host *
   ControlMaster auto
   ControlPersist 300
   ControlPath ~/.ssh/connections/%r_%h_%p
+  IdentityAgent ~/.kr/krd-agent.sock
+  ProxyCommand /usr/local/bin/krssh %h %p
+  IdentityFile ~/.ssh/id_krypton
   IdentityFile ~/.ssh/id_ed25519
 
 Host syrax pi3 balerion et
-  ForwardAgent yes
   # forward local port 2489 for lemonade copy/paste server
   RemoteForward 2489 127.0.0.1:2489
 
@@ -36,13 +38,19 @@ Host balerion-backup
   User balerion-backup
 
 Host ngrok
+{{- if eq .chezmoi.hostname "balerion" }}
   HostName 127.0.0.1
-  User vagrant
   Port 2222
+  IdentityFile ~/ngrok/vm/.vagrant/machines/ngrok/docker/private_key
+{{- else if eq .chezmoi.hostname "vhagar" }}
+  HostName 10.211.55.11
+  Port 22
+  IdentityFile /Users/jrubin/ngrok/vm/.vagrant/machines/ngrok/parallels/private_key
+{{- end }}
+  User vagrant
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
   PasswordAuthentication no
-  IdentityFile ~/ngrok/vm/.vagrant/machines/ngrok/docker/private_key
   IdentitiesOnly yes
   LogLevel FATAL
 

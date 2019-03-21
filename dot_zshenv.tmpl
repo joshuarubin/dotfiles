@@ -50,6 +50,7 @@ path=(
   ${HOME}/bin
   /snap/bin
   /usr/local/{bin,sbin}
+  /usr/local/opt/mysql-client/bin
   $path
 )
 
@@ -86,9 +87,6 @@ if [ -n "$DESKTOP_SESSION" ];then
     export SSH_AUTH_SOCK
 fi
 
-{{ if .gpg -}}
-export GPG_TTY=$(tty)
-{{- end }}
 export QT_QPA_PLATFORM=wayland
 
 export RESTIC_PASSWORD_FILE="${HOME}/.config/restic/password"
@@ -96,6 +94,10 @@ export RESTIC_PASSWORD_FILE="${HOME}/.config/restic/password"
 export RESTIC_REPOSITORY='sftp:balerion-backup:/NetBackup/balerion'
 # export RESTIC_REPOSITORY='b2:balerion:/'
 # NOTE: source ~/.config/restic/b2 for b2 credentials
+{{- end }}
+
+{{ if .gpg -}}
+export GPG_TTY=$(tty)
 {{- end }}
 
 export MAKEFLAGS='-j {{ .numcpu }}'

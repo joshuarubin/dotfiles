@@ -39,13 +39,15 @@
 	required = true
 [tag]
 	sort = version:refname
+	forceSignAnnotated = true
 [user]
 	name = Joshua Rubin
-	email = joshua@rubixconsulting.com
+	email = me@jawa.dev
 {{- if .gpg }}
-	signingkey = BFD64727
 [commit]
-	gpgsign = true
+	gpgSign = true
+[gpg]
+	program = krgpg
 {{- end }}
 [http]
 	cookiefile = ~/.gitcookies
