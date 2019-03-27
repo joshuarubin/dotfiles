@@ -196,8 +196,8 @@ nnoremap <silent> <leader>gf :Gfetch<cr>
 nnoremap <silent> <leader>gv :Gitv<cr>
 nnoremap <silent> <leader>gV :Gitv!<cr>
 
-" has to be called before overriding <cr>
-if exists('g:loaded_lexima')
+if isdirectory(join(filter(split(&runtimepath, ','), 'v:val =~# "lexima.vim"'), ','))
+  " has to be called before overriding <cr>
   call lexima#init()
 endif
 
@@ -251,11 +251,16 @@ snoremap <expr> <tab>
 inoremap <silent> <expr> <c-space> coc#refresh()
 
 " - if completion popup is showing:
-"   - stop completion and go back to originally typed text
-"   - switch to normal mode
+"   - if no completion is selected
+"     - stop completion and go back to originally typed text
+"     - return to normal mode
+"   - else if a completion is selected
+"     - accept the completion
+"     - return to normal mode
 " - else lexima escape (includes <esc>)
 inoremap <expr> <silent> <esc>
-  \ pumvisible() ? "\<c-e>\<esc>" :
+  \ pumvisible() && len(v:completed_item) == 0 ? "\<c-e>\<esc>" :
+  \ pumvisible() ? "\<c-y>\<esc>" :
   \ lexima#insmode#escape()."\<esc>"
 
 " tmux style navigation
@@ -355,7 +360,7 @@ nmap <leader>ac <plug>(coc-codeaction)
 
 nnoremap <silent> K :call <sid>show_documentation()<cr>
 
-function! s:show_documentation()
+function! s:show_documentation() abort
   if &filetype ==# 'vim'
     execute 'h '.expand('<cword>')
   else

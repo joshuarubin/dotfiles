@@ -1,6 +1,5 @@
 execute 'runtime' 'rc/init.vim'
 execute 'runtime' 'rc/view.vim'
-execute 'runtime' 'rc/secret.vim'
 execute 'runtime' 'rc/plugins.vim'
 execute 'runtime' 'rc/edit.vim'
 execute 'runtime' 'rc/mappings.vim'
