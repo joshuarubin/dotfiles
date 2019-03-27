@@ -1,6 +1,7 @@
 tmp
 .envrc
 .stignore
+.stversions/
 *.zwc
 *.zwc.old
 
