@@ -18,6 +18,8 @@
 /.config/waybar/
 /bin/wallpaper
 /bin/pinentry-auto
+/bin/pbcopy
+/bin/pbpaste
 {{- end }}
 
 {{- if not .secrets }}

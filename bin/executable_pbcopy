@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+if [[ -n "$WAYLAND_DISPLAY" && $+commands[wl-copy] ]]; then
+  wl-copy --primary
+elif [[ -n "$DISPLAY" && $+commands[xclip] ]]; then
+  xclip -selection clipboard -in
+elif [[ -n "$DISPLAY" && $+commands[xsel] ]]; then
+  xsel --clipboard --input
+elif [[ -n "$SSH_CLIENT" && $+commands[lemonade] ]]; then
+  lemonade copy
+fi
