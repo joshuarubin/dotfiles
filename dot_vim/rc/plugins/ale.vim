@@ -32,8 +32,6 @@ let g:ale_linters = {
 \   'markdown':   [ 'markdownlint', 'mdl', 'redpen', 'remark_lint', 'textlint', 'vale' ],
 \}
 
-let g:ale_go_govet_options = '-shadow'
-
 let g:ale_go_gofmt_options = '-s'
 
 let g:ale_go_golangci_lint_package = 1
