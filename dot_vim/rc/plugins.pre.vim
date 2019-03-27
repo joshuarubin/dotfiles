@@ -109,12 +109,6 @@ let g:ansible_template_syntaxes = {
   \   '*.yml.j2': 'yaml'
   \ }
 
-let g:lexima_map_escape = ''
-let g:lexima_enable_basic_rules = 0
-let g:lexima_enable_newline_rules = 0
-let g:lexima_enable_space_rules = 0
-let g:lexima_enable_endwise_rules = 1
-
 " netrw
 let g:netrw_winsize = -30 " absolute width of netrw window
 let g:netrw_banner = 0 " do not display info on the top of window

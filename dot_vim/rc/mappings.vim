@@ -196,21 +196,18 @@ nnoremap <silent> <leader>gf :Gfetch<cr>
 nnoremap <silent> <leader>gv :Gitv<cr>
 nnoremap <silent> <leader>gV :Gitv!<cr>
 
-if isdirectory(join(filter(split(&runtimepath, ','), 'v:val =~# "lexima.vim"'), ','))
-  " has to be called before overriding <cr>
-  call lexima#init()
-endif
-
 " - if completion popup is showing:
 "   - if nothing is selected and the text is expandable, expand it
 "   - else accept the completion entry
 " - else if the text is expandable, expand it
-" - else use lexima to complete endwise (includes <cr>)
-inoremap <silent> <expr> <cr>
+" - else if endwise exists, use it to complete (includes <cr>)
+" - else <cr>
+imap <silent> <expr> <cr>
   \ pumvisible() && len(v:completed_item) == 0 && neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
   \ pumvisible() ? "\<c-y>" :
   \ neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
-  \ lexima#expand('<lt>cr>', 'i')
+  \ exists('*EndwiseDiscretionary') ? "\<cr>\<plug>DiscretionaryEnd" :
+  \ "\<cr>"
 
 " - if completion popup is showing:
 "   - if nothing is selected and the text is jumpable, jump next (for coc and neosnippet)
@@ -257,11 +254,11 @@ inoremap <silent> <expr> <c-space> coc#refresh()
 "   - else if a completion is selected
 "     - accept the completion
 "     - return to normal mode
-" - else lexima escape (includes <esc>)
+" - else <esc>
 inoremap <expr> <silent> <esc>
   \ pumvisible() && len(v:completed_item) == 0 ? "\<c-e>\<esc>" :
   \ pumvisible() ? "\<c-y>\<esc>" :
-  \ lexima#insmode#escape()."\<esc>"
+  \ "\<esc>"
 
 " tmux style navigation
 if !exists('$TMUX')

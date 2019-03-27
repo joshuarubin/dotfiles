@@ -82,8 +82,7 @@ Plug 'tpope/vim-unimpaired', { 'tag': '*' }
 Plug 'tpope/vim-surround', { 'tag': '*' }
 Plug 'tpope/vim-repeat', { 'tag': '*' }
 Plug 'tpope/vim-eunuch', { 'tag': '*' }
-
-Plug 'cohama/lexima.vim'
+Plug 'tpope/vim-endwise'
 
 Plug 'gregsexton/gitv', { 'on': 'Gitv', 'tag': '*' }
 Plug 'lambdalisue/suda.vim'
