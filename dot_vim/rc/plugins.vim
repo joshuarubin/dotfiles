@@ -104,14 +104,8 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " use vim as $PAGER
 Plug 'rkitover/vimpager', { 'do': 'make; ln -sf man man1', 'tag': '*' }
 
-" personal wiki for vim
-" Plug 'vimwiki/vimwiki', { 'tag': '*' }
-
 " distraction-free writing in vim
 Plug 'junegunn/goyo.vim', { 'tag': '*' }
-
-" matchparen for html tags
-" Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 
 " haskell
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell', 'tag': '*' }
