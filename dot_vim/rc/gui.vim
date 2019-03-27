@@ -23,6 +23,8 @@ augroup HighlightTODO
 augroup END
 
 highlight Comment gui=italic cterm=italic
+highlight link CocHighlightText Visual
+highlight link goSameId Visual
 
 if exists('neovim_dot_app')
   call MacSetFont('Hasklig', 11)

@@ -6,8 +6,6 @@ autocmd MyAutoCmd VimEnter *
   \|   PlugInstall
   \| endif
 
-autocmd MyAutoCmd BufEnter * call ncm2#enable_for_buffer()
-
 let g:startify_skiplist = add(
       \ map(split(&runtimepath, ','), 'escape(resolve(v:val . ''/doc''), ''\'')'),
       \ 'COMMIT_EDITMSG')

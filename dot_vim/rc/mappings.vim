@@ -66,9 +66,6 @@ nnoremap - <c-x>
 " ctrl-sr: Easier (s)earch and (r)eplace
 nnoremap <c-s><c-r> :%s/<c-r><c-w>//gc<left><left><left>
 
-" space open/closes folds
-nnoremap <space> za
-
 " ctrl-w: Delete previous word, create undo point
 inoremap <c-w> <c-g>u<c-w>
 
@@ -144,9 +141,6 @@ inoremap <c-u> <s-up>
 
 " plugin specific mappings
 
-" dispatch
-nnoremap <silent> <leader>k :Make<cr>
-
 " surround
 " ctrl-sw: Quickly surround word (must be recursive)
 nmap <c-s><c-w> ysiw
@@ -202,32 +196,65 @@ nnoremap <silent> <leader>gf :Gfetch<cr>
 nnoremap <silent> <leader>gv :Gitv<cr>
 nnoremap <silent> <leader>gV :Gitv!<cr>
 
-" snippets
-imap <silent> <c-k> <c-r>=rubix#i_ctrl_k()<cr>
+" has to be called before overriding <cr>
+call lexima#init()
 
-smap <silent> <c-k> <c-r>=
-  \ rubix#expand_or_jump() ? "" :
-  \ "\<c-w>k"
-  \ <cr>
+" - if completion popup is showing:
+"   - if nothing is selected and the text is expandable, expand it
+"   - else accept the completion entry
+" - else if the text is expandable, expand it
+" - else use lexima to complete endwise (includes <cr>)
+inoremap <silent> <expr> <cr>
+  \ pumvisible() && len(v:completed_item) == 0 && neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
+  \ pumvisible() ? "\<c-y>" :
+  \ neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
+  \ lexima#expand('<lt>cr>', 'i')
 
-smap <silent> <tab> <c-r>=
-  \ rubix#expand_or_jump() ? "" :
+" - if completion popup is showing:
+"   - if nothing is selected and the text is jumpable, jump next (for coc and neosnippet)
+"   - else select next completion
+" - else if the text is jumpable, jump next (for coc and neosnippet)
+" - else <tab>
+inoremap <expr> <tab>
+  \ pumvisible() && len(v:completed_item) == 0 && neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
+  \ pumvisible() && len(v:completed_item) == 0 && coc#jumpable() ? coc#rpc#request('snippetNext', []) :
+  \ pumvisible() ? "\<c-n>" :
+  \ neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
+  \ coc#jumpable() ? coc#rpc#request('snippetNext', []) :
   \ "\<tab>"
-  \ <cr>
 
-imap <silent> <tab> <c-r>=rubix#i_tab()<cr>
-
+" - if completion popup is showing:
+"   - if nothing is selected and the text is jumpable, jump prev (for coc)
+"   - else select previous completion
+" - else if the text is jumpable, jump prev (for coc)
+" - else <backspace>
 inoremap <expr> <s-tab>
+  \ pumvisible() && len(v:completed_item) == 0 && coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
   \ pumvisible() ? "\<c-p>" :
+  \ coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
   \ "\<c-h>"
 
-imap <expr> <cr> rubix#cr()
+" when filling out expanded snippet, jump prev (for coc)
+snoremap <expr> <s-tab>
+  \ coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
+  \ ""
 
-" inoremap <expr> <esc> pumvisible() ? "\<c-e>" : "\<esc>"
+" when filling out expanded snippet, jump next (for coc and neosnippet)
+snoremap <expr> <tab>
+  \ neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
+  \ coc#jumpable() ? coc#rpc#request('snippetNext', []) :
+  \ "\<tab>"
 
-" snippets handle the <cr> mapping, but since all (2) endwise mappings were
-" disabled, this restores the other one
-imap <expr> <c-x><cr> "<plug>AlwaysEnd"
+" show the completion popup
+inoremap <silent> <expr> <c-space> coc#refresh()
+
+" - if completion popup is showing:
+"   - stop completion and go back to originally typed text
+"   - switch to normal mode
+" - else lexima escape (includes <esc>)
+inoremap <expr> <silent> <esc>
+  \ pumvisible() ? "\<c-e>\<esc>" :
+  \ lexima#insmode#escape()."\<esc>"
 
 " tmux style navigation
 if !exists('$TMUX')
@@ -239,26 +266,17 @@ if !exists('$TMUX')
   vnoremap <c-h> <c-w>h
   vnoremap <c-j> <c-w>j
   vnoremap <c-l> <c-w>l
+  vnoremap <c-k> <c-w>k
 
   inoremap <c-h> <esc><c-w>h
-  inoremap <c-j> <esc><c-w>j
   inoremap <c-l> <esc><c-w>l
 
-  " <c-k> is also the snippet expand key,
-  " only overwrite if it is not already set
-  " and check for smap and xmap separately (from vmap)
-
-  if maparg('<c-k>', 'x') ==# ''
-    xnoremap <c-k> <c-w>k
-  endif
-
-  if maparg('<c-k>', 's') ==# ''
-    snoremap <c-k> <c-w>k
-  endif
-
-  if maparg('<c-k>', 'i') ==# ''
-    inoremap <c-k> <esc><c-w>k
-  endif
+  inoremap <expr> <c-j>
+    \ pumvisible() ? "\<c-n>" :
+    \ "\<esc>\<c-w>j"
+  inoremap <expr> <c-k>
+    \ pumvisible() ? "\<c-p>" :
+    \ "\<esc>\<c-w>k"
 
   if has('nvim')
     tnoremap <c-h> <c-\><c-n><c-w>h
@@ -320,3 +338,36 @@ noremap <silent> <c-n> :call rubix#toggle_netrw()<cr>
 
 " abbreviations
 iabbrev TODO TODO(jawa)
+iabbrev meml me@jawa.dev
+iabbrev weml joshua@ngrok.com
+
+" coc mappings
+
+nmap <silent> gd <plug>(coc-definition)
+nmap <silent> gy <plug>(coc-type-definition)
+nmap <silent> gi <plug>(coc-implementation)
+nmap <silent> gr <plug>(coc-references)
+nmap <leader>rn <plug>(coc-rename)
+nmap <leader>ff <plug>(coc-fix-current)
+nmap <leader>ac <plug>(coc-codeaction)
+
+nnoremap <silent> K :call <sid>show_documentation()<cr>
+
+function! s:show_documentation()
+  if &filetype ==# 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+command! -nargs=0 Format :call CocAction('format')
+
+nnoremap <silent> <leader>ca :<c-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ce :<c-u>CocList extensions<cr>
+nnoremap <silent> <leader>cc :<c-u>CocList commands<cr>
+nnoremap <silent> <leader>co :<c-u>CocList outline<cr>
+nnoremap <silent> <leader>cs :<c-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
+nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
+nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>

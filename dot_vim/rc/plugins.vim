@@ -13,40 +13,20 @@ Plug 'ton/vim-bufsurf', { 'tag': '*' }
 Plug 'chrisbra/Colorizer'
 
 Plug 'roxma/vim-hug-neovim-rpc', rubix#plug#cond(!has('nvim'))
-Plug 'roxma/nvim-yarp'
+Plug 'roxma/nvim-yarp', rubix#plug#cond(!has('nvim'))
 
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 Plug 'Shougo/echodoc.vim'
 
-" language server client
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', 'tag': '*' }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-snippets', {'tag': '*'}
+Plug 'neoclide/coc-neco'
 
-" ncm2
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-syntax'
-Plug 'ncm2/ncm2-neoinclude'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-github'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-tagprefix'
-Plug 'ncm2/ncm2-cssomni'
-Plug 'ncm2/ncm2-tern', { 'do': 'npm install' }
-Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-racer'
-Plug 'ncm2/ncm2-pyclang'
-Plug 'ncm2/ncm2-vim'
-Plug 'ncm2/ncm2-html-subscope'
-Plug 'ncm2/ncm2-markdown-subscope'
-Plug 'ncm2/ncm2-rst-subscope'
-Plug 'filipekiss/ncm2-look.vim'
 Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
 
 " snippets
-Plug 'SirVer/ultisnips'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets', { 'tag': '*' }
 
 Plug 'Shougo/context_filetype.vim'
@@ -102,7 +82,8 @@ Plug 'tpope/vim-unimpaired', { 'tag': '*' }
 Plug 'tpope/vim-surround', { 'tag': '*' }
 Plug 'tpope/vim-repeat', { 'tag': '*' }
 Plug 'tpope/vim-eunuch', { 'tag': '*' }
-Plug 'tpope/vim-endwise'
+
+Plug 'cohama/lexima.vim'
 
 Plug 'gregsexton/gitv', { 'on': 'Gitv', 'tag': '*' }
 Plug 'lambdalisue/suda.vim'
@@ -118,7 +99,6 @@ Plug 'hail2u/vim-css3-syntax', { 'tag': '*' }
 Plug 'chrisbra/csv.vim'
 Plug 'zchee/vim-flatbuffers'
 Plug 'jparise/vim-graphql', { 'tag': '*' }
-Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'othree/javascript-libraries-syntax.vim', { 'tag': '*' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 

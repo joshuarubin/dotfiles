@@ -1,0 +1,13 @@
+{
+  "suggest.noselect": true,
+  "coc.preferences.diagnostic.displayByAle": true,
+  "coc.preferences.hoverTarget": "preview",
+  "languageserver": {
+    "golang": {
+      "command": "bingo",
+      "args": ["--diagnostics-style=instant", "--format-style=goimports"],
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
+  }
+}

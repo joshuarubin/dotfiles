@@ -54,7 +54,7 @@ set lazyredraw
 
 if has('conceal')
   set conceallevel=2
-  set concealcursor=nv
+  set concealcursor=niv
   set listchars+=conceal:Δ
 endif
 
@@ -78,3 +78,5 @@ if has('nvim')
 elseif has('terminal')
   autocmd MyAutoCmd TerminalOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight
 endif
+
+autocmd MyAutoCmd CursorHold * silent call CocActionAsync('highlight')

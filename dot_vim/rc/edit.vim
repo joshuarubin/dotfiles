@@ -34,7 +34,7 @@ endif
 set isfname-== " exclude = from isfilename.
 
 set timeout timeoutlen=3000 ttimeoutlen=10
-set updatetime=500
+set updatetime=300
 set virtualedit=block
 
 " check timestamp more for 'autoread'

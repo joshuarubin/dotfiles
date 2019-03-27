@@ -19,6 +19,7 @@ let g:haskellmode_completion_ghc = 0
 " vim-polyglot
 let g:jsx_ext_required = 0
 let g:polyglot_disabled = ['go', 'scss', 'gmpl', 'markdown', 'liquid']
+let g:vim_json_syntax_conceal = 1
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
@@ -84,6 +85,31 @@ let g:UltiSnipsExpandTrigger = '<plug>UltiSnipsExpandTrigger'
 let g:UltiSnipsListSnippets = '<plug>UltiSnipsListSnippets'
 let g:UltiSnipsJumpForwardTrigger = '<plug>UltiSnipsJumpForwardTrigger'
 let g:UltiSnipsJumpBackwardTrigger = '<plug>UltiSnipsJumpBackwardTrigger'
+
+let g:coc_global_extensions = [
+  \   'coc-json',
+  \   'coc-neosnippet',
+  \   'coc-emoji',
+  \   'coc-tsserver',
+  \   'coc-html',
+  \   'coc-css',
+  \   'coc-yaml',
+  \   'coc-syntax',
+  \   'coc-tag',
+  \   'coc-rls',
+  \ ]
+
+let g:coc_selectmode_mapping = 0
+
+let g:coc_filetype_map = {
+  \   'yml.jinja2': 'yaml',
+  \ }
+
+let g:ansible_template_syntaxes = {
+  \   '*.yml.j2': 'yaml'
+  \ }
+
+let g:lexima_map_escape = ''
 
 " netrw
 let g:netrw_winsize = -30 " absolute width of netrw window
