@@ -197,7 +197,9 @@ nnoremap <silent> <leader>gv :Gitv<cr>
 nnoremap <silent> <leader>gV :Gitv!<cr>
 
 " has to be called before overriding <cr>
-call lexima#init()
+if exists('*lexima#init')
+  call lexima#init()
+endif
 
 " - if completion popup is showing:
 "   - if nothing is selected and the text is expandable, expand it
