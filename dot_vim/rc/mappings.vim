@@ -197,7 +197,7 @@ nnoremap <silent> <leader>gv :Gitv<cr>
 nnoremap <silent> <leader>gV :Gitv!<cr>
 
 " has to be called before overriding <cr>
-if exists('*lexima#init')
+if exists('g:loaded_lexima')
   call lexima#init()
 endif
 
