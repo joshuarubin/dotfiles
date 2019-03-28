@@ -14,7 +14,7 @@ let g:ale_fixers = {
 \   'go':         [ 'goimports', 'gofmt' ],
 \   'gomod':      [ 'gomod' ],
 \   'javascript': [ 'prettier_standard' ],
-\   'typescript': [ 'prettier' ],
+\   'typescript': [ 'prettier', 'tslint' ],
 \   'css':        [ 'prettier' ],
 \   'scss':       [ 'prettier' ],
 \   'less':       [ 'prettier' ],
@@ -24,7 +24,8 @@ let g:ale_fixers = {
 
 let g:ale_linters = {
 \   'javascript': [ 'standard' ],
-\   'jsx':        [ 'standard', 'stylelint' ],
+\   'typescript': [ 'tslint', 'tsserver' ],
+\   'jsx':        [ 'standard' ],
 \   'vimwiki':    [ 'alex', 'mdl', 'prettier', 'proselint', 'redpen', 'remark-lint', 'vale' ],
 \   'text':       [ 'alex', 'proselint', 'vale', 'write-good', 'redpen' ],
 \   'go':         [ 'govet', 'golangci-lint' ],
@@ -33,7 +34,6 @@ let g:ale_linters = {
 \}
 
 let g:ale_go_gofmt_options = '-s'
-
 let g:ale_go_golangci_lint_package = 1
 let g:ale_go_golangci_lint_options = ''
 \   . ' --exclude-use-default'

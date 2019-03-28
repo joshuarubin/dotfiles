@@ -256,7 +256,6 @@ inoremap <silent> <expr> <c-space> coc#refresh()
 "     - return to normal mode
 " - else <esc>
 inoremap <expr> <silent> <esc>
-  \ pumvisible() && len(v:completed_item) == 0 ? "\<c-e>\<esc>" :
   \ pumvisible() ? "\<c-y>\<esc>" :
   \ "\<esc>"
 

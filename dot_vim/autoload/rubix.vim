@@ -44,6 +44,21 @@ function! s:_path2project_directory_git(path) abort
   endwhile
 endfunction
 
+function! s:_path2project_directory_parent(path) abort
+  let l:parent = a:path
+
+  while 1
+    if l:parent == getcwd()
+      return l:parent
+    endif
+    let l:next = fnamemodify(l:parent, ':h')
+    if l:next == l:parent
+      return ''
+    endif
+    let l:parent = l:next
+  endwhile
+endfunction
+
 function! s:_path2project_directory_svn(path) abort
   let l:search_directory = a:path
   let l:directory = ''
@@ -119,6 +134,11 @@ function! s:path2project_directory(path, ...) abort
     if l:base =~# '/src/'
       let l:directory = l:base[: strridx(l:base, '/src/') + 3]
     endif
+  endif
+
+  " if :pwd is parent of a:path, use that
+  if l:directory ==# ''
+    let l:directory = s:_path2project_directory_parent(l:search_directory)
   endif
 
   if l:directory ==# '' && !l:is_allow_empty

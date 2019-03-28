@@ -5,7 +5,11 @@
   "languageserver": {
     "golang": {
       "command": "bingo",
-      "args": ["--diagnostics-style=instant", "--format-style=goimports"],
+      "args": [
+        "--diagnostics-style=instant",
+        "--format-style=goimports",
+        "--enhance-signature-help"
+      ],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     }
