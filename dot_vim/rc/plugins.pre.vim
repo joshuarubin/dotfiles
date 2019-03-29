@@ -126,18 +126,10 @@ let g:netrw_home=rubix#cache#dir('netrw')
 
 " Ack
 if executable('rg')
-  let g:ackprg='rg --no-heading --vimgrep --smart-case --follow'
+  let g:ackprg='rg --no-heading --line-number --hidden --smart-case --follow'
 elseif executable('ag')
   let g:ackprg='ag --nogroup --column --smart-case --nocolor --follow'
 endif
-
-" vimwiki
-
-let g:vimwiki_list = [{
-\   'path': '~/vimwiki/',
-\   'syntax': 'markdown',
-\   'ext': '.md'
-\ }]
 
 " goyo
 let g:goyo_width = '120'

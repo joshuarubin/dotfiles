@@ -22,7 +22,7 @@ set autoread             " reload files changed outside vim
 set infercase " ignore case on insert completion
 
 if executable('rg')
-  set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case\ --follow
+  set grepprg=rg\ --no-heading\ --line-number\ --hidden\ --smart-case\ --follow
   set grepformat=%f:%l:%c:%m
 elseif executable('ag')
   set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
@@ -83,8 +83,6 @@ autocmd MyAutoCmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \  execute 'normal! g`"zvzz' |
   \ endif
-
-autocmd MyAutoCmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
 command! -nargs=* Only call rubix#only()
 command! Kwbd call rubix#kwbd(1)

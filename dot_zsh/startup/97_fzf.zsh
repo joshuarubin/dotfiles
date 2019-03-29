@@ -1,7 +1,7 @@
 if (( $#commands[fzf] )); then
 
 if (( $#commands[rg] )); then
-  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_COMMAND='rg --files --hidden'
   export FZF_CTRL_T_COMMAND=${FZF_DEFAULT_COMMAND}
 fi
 
@@ -106,7 +106,7 @@ zle     -N     fzf-history-widget-accept
 bindkey '^X^R' fzf-history-widget-accept
 
 _fzf_compgen_path() {
-  rg --files "$1"
+  "$FZF_DEFAULT_COMMAND" "$1"
 }
 
 fi

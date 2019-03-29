@@ -1,7 +1,10 @@
 {
   "suggest.noselect": true,
+  "suggest.snippetIndicator": "►",
+  "suggest.triggerAfterInsertEnter": true,
   "coc.preferences.diagnostic.displayByAle": true,
   "coc.preferences.hoverTarget": "preview",
+  "diagnostic.refreshOnInsertMode": true,
   "languageserver": {
     "golang": {
       "command": "bingo",

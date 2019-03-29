@@ -248,16 +248,11 @@ snoremap <expr> <tab>
 inoremap <silent> <expr> <c-space> coc#refresh()
 
 " - if completion popup is showing:
-"   - if no completion is selected
-"     - stop completion and go back to originally typed text
-"     - return to normal mode
-"   - else if a completion is selected
-"     - accept the completion
-"     - return to normal mode
+"   - select completed value and switch to normal mode (note that this will not
+"     do snippet completion because it is async and the switch to normal mode
+"     happens first
 " - else <esc>
-inoremap <expr> <silent> <esc>
-  \ pumvisible() ? "\<c-y>\<esc>" :
-  \ "\<esc>"
+inoremap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
 
 " tmux style navigation
 if !exists('$TMUX')

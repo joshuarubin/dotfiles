@@ -34,7 +34,7 @@ endfunction
 
 " rg command suffix, [options]
 function! rubix#fzf#rg_raw(command_suffix, ...) abort
-  return call('fzf#vim#grep', extend(['rg --no-heading --vimgrep --smart-case --follow --color always '.a:command_suffix, 1], a:000))
+  return call('fzf#vim#grep', extend(['rg --no-heading --line-number --hidden --smart-case --follow --color always '.a:command_suffix, 1], a:000))
 endfunction
 
 function! rubix#fzf#rg_repeat(...) abort
