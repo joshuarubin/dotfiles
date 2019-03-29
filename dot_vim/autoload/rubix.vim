@@ -150,6 +150,11 @@ function! s:path2project_directory(path, ...) abort
 endfunction
 
 function! s:get_buffer_directory(bufnr) abort
+  " if buffer is a terminal, return its cwd
+  if getbufvar(a:bufnr, '&buftype') ==# 'terminal'
+    return getcwd(bufwinnr(a:bufnr))
+  endif
+
   return s:path2directory(bufname(a:bufnr))
 endfunction
 
@@ -167,8 +172,7 @@ function! s:parse_source_path(path) abort
     let l:path = rubix#project_dir() . a:path[2:]
   elseif a:path =~# '^!'
     " Use project directory from cwd
-    let l:path = getcwd()
-    let l:path = s:path2project_directory(l:path) . a:path[1:]
+    let l:path = s:path2project_directory(getcwd()) . a:path[1:]
   elseif a:path =~# '^?'
     " Use buffer directory
     let l:path = rubix#buffer_dir() . a:path[1:]

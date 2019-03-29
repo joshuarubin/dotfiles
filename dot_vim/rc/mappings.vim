@@ -254,6 +254,37 @@ inoremap <silent> <expr> <c-space> coc#refresh()
 " - else <esc>
 inoremap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
 
+function! s:save_terminal_mode() abort
+  let l:key = bufnr('%')
+
+  if &buftype !=# 'terminal'
+    return ''
+  endif
+
+  if (exists('w:last_mode') && get(w:last_mode, l:key, '0') !=# '0')
+    return ''
+  endif
+
+  if !exists('w:last_mode')
+    let w:last_mode = {}
+  endif
+
+  let w:last_mode[l:key] = mode()
+  return ''
+endfunction
+
+function! s:restore_terminal_mode() abort
+  let l:key = bufnr('%')
+
+  if &buftype !=# 'terminal' || !exists('w:last_mode') || get(w:last_mode, l:key, '0') ==# '0'
+    return
+  endif
+
+  if remove(w:last_mode, l:key) ==# 't'
+    startinsert
+  endif
+endfunction
+
 " tmux style navigation
 if !exists('$TMUX')
   nnoremap <c-h> <c-w>h
@@ -269,27 +300,32 @@ if !exists('$TMUX')
   inoremap <c-h> <esc><c-w>h
   inoremap <c-l> <esc><c-w>l
 
-  inoremap <expr> <c-j>
-    \ pumvisible() ? "\<c-n>" :
-    \ "\<esc>\<c-w>j"
-  inoremap <expr> <c-k>
-    \ pumvisible() ? "\<c-p>" :
-    \ "\<esc>\<c-w>k"
+  inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<esc>\<c-w>j"
+  inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<esc>\<c-w>k"
 
   if has('nvim')
-    tnoremap <c-h> <c-\><c-n><c-w>h
-    tnoremap <c-j> <c-\><c-n><c-w>j
-    tnoremap <c-k> <c-\><c-n><c-w>k
-    tnoremap <c-l> <c-\><c-n><c-w>l
+    tnoremap <expr> <c-h> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>h"
+    tnoremap <expr> <c-j> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>j"
+    tnoremap <expr> <c-k> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>k"
+    tnoremap <expr> <c-l> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>l"
+
     tnoremap <c-y> <c-\><c-n><c-y>
     tnoremap <c-u> <c-\><c-n><c-u>
 
+    tnoremap <silent> <expr> <c-p> <sid>save_terminal_mode() . "\<c-\>\<c-n>:FilesProjectDir\<cr>"
+    tnoremap <silent> <expr> <c-b> <sid>save_terminal_mode() . "\<c-\>\<c-n>:Buffers\<cr>"
+
     " switch to insert mode and press <up> for shell history when in normal mode
-    autocmd MyAutoCmd TermOpen term://* nnoremap <buffer> <up> i<up>
-    autocmd MyAutoCmd TermOpen term://* nnoremap <buffer> <c-r> i<c-r>
+    autocmd MyAutoCmd TermOpen * nnoremap <buffer> <up> i<up>
+    autocmd MyAutoCmd TermOpen * nnoremap <buffer> <c-r> i<c-r>
+
+    " save the buffer mode when leaving, restore (insert) mode if necessary on
+    " enter. this isn't needed in vim, just nvim
+    autocmd MyAutoCmd BufEnter,WinEnter * :call s:restore_terminal_mode()
+    autocmd MyAutoCmd BufLeave,WinLeave * :call s:save_terminal_mode()
 
     " disable macros in terminal windows
-    autocmd MyAutoCmd TermOpen term://* nnoremap <buffer> q <nop>
+    autocmd MyAutoCmd TermOpen * nnoremap <buffer> q <nop>
   endif
 
   if has('terminal')
@@ -300,6 +336,9 @@ if !exists('$TMUX')
     tnoremap <c-y> <c-\><c-n><c-y>
     tnoremap <c-u> <c-\><c-n><c-u>
     tnoremap <c-w> <c-w>.
+
+    tnoremap <silent> <c-p> <c-\><c-n>:FilesProjectDir<cr>
+    tnoremap <silent> <c-b> <c-\><c-n>:Buffers<cr>
 
     " switch to insert mode and press <up> for shell history when in normal mode
     autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> <up> i<up>
@@ -325,11 +364,6 @@ nnoremap <silent> <c-s><c-a> :RgRepeat<cr>
 nnoremap <silent> <c-s><c-s> :RgProjectDirCursor<cr>
 nnoremap <silent> <c-s><c-d> :RgProjectDirPrompt<cr>
 nnoremap <silent> <c-s><c-f> :BLines<cr>
-
-if has('nvim') || has('terminal')
-  tnoremap <silent> <c-p> <c-\><c-n>:FilesProjectDir<cr>
-  tnoremap <silent> <c-b> <c-\><c-n>:Buffers<cr>
-endif
 
 " netrw
 noremap <silent> <c-n> :call rubix#toggle_netrw()<cr>
