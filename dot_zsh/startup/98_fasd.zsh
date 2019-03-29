@@ -94,9 +94,9 @@ alias j="fasd_cd -di"
 alias e="fasd -ftie ${EDITOR} -b viminfo -B nviminfo" # quick opening files with vim
 alias nv="fasd -ftib viminfo -B nviminfo"
 
-if (( $+commands[fzf-tmux] )); then
+if (( $+commands[$(__fzfcmd)] )); then
   fasd_i() {
-    fasd -l "$@" | fzf-tmux --tac --no-sort
+    fasd -l "$@" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --no-sort $FZF_DEFAULT_OPTS --tiebreak=index +m" $(__fzfcmd)
   }
 
   fasd_i_cd() {
@@ -106,7 +106,7 @@ if (( $+commands[fzf-tmux] )); then
       cd "$_fasd_all"
       return
     fi
-    local _fasd_ret="$(fasd -ld "$@" | fzf-tmux --tac --no-sort)"
+    local _fasd_ret="$(fasd -ld "$@" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --no-sort $FZF_DEFAULT_OPTS --tiebreak=index +m" $(__fzfcmd))"
     [ -d "$_fasd_ret" ] && cd "$_fasd_ret" || printf %s\n "$_fasd_ret"
   }
 
@@ -117,7 +117,7 @@ if (( $+commands[fzf-tmux] )); then
       ${EDITOR} "$_fasd_all"
       return
     fi
-    local _fasd_ret="$(fasd -ltfb viminfo -B nviminfo "$@" | fzf-tmux --tac --no-sort)"
+    local _fasd_ret="$(fasd -ltfb viminfo -B nviminfo "$@" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --no-sort $FZF_DEFAULT_OPTS --tiebreak=index +m" $(__fzfcmd))"
     [ -f "$_fasd_ret" ] && ${EDITOR} "$_fasd_ret" || printf %s\n "$_fasd_ret"
   }
 
