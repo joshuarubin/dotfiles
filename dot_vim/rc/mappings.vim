@@ -255,13 +255,13 @@ inoremap <silent> <expr> <c-space> coc#refresh()
 inoremap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
 
 function! s:save_terminal_mode() abort
-  let l:key = bufnr('%')
-
   if &buftype !=# 'terminal'
     return ''
   endif
 
-  if (exists('w:last_mode') && get(w:last_mode, l:key, '0') !=# '0')
+  let l:key = bufnr('%')
+
+  if exists('w:last_mode') && get(w:last_mode, l:key, '0') !=# '0'
     return ''
   endif
 
@@ -274,9 +274,13 @@ function! s:save_terminal_mode() abort
 endfunction
 
 function! s:restore_terminal_mode() abort
+  if &buftype !=# 'terminal'
+    return ''
+  endif
+
   let l:key = bufnr('%')
 
-  if &buftype !=# 'terminal' || !exists('w:last_mode') || get(w:last_mode, l:key, '0') ==# '0'
+  if !exists('w:last_mode') || get(w:last_mode, l:key, '0') ==# '0'
     return
   endif
 
