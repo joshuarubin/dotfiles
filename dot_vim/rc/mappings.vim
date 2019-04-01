@@ -255,38 +255,23 @@ inoremap <silent> <expr> <c-space> coc#refresh()
 inoremap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
 
 function! s:save_terminal_mode() abort
-  if &buftype !=# 'terminal'
-    return ''
+  let l:win = winnr()
+  if s:get_last_mode(l:win) ==# ''
+    call s:set_last_mode(l:win, mode())
   endif
 
-  let l:key = bufnr('%')
-
-  if exists('w:last_mode') && get(w:last_mode, l:key, '0') !=# '0'
-    return ''
-  endif
-
-  if !exists('w:last_mode')
-    let w:last_mode = {}
-  endif
-
-  let w:last_mode[l:key] = mode()
-  return ''
+  return "\<c-\>\<c-n>"
 endfunction
 
 function! s:restore_terminal_mode() abort
-  if &buftype !=# 'terminal'
-    return ''
+  let l:win = winnr()
+  let l:mode = s:remove_last_mode(l:win)
+
+  if l:mode ==# 't'
+    call s:start_insert_term()
   endif
 
-  let l:key = bufnr('%')
-
-  if !exists('w:last_mode') || get(w:last_mode, l:key, '0') ==# '0'
-    return
-  endif
-
-  if remove(w:last_mode, l:key) ==# 't'
-    startinsert
-  endif
+  return ''
 endfunction
 
 " tmux style navigation
@@ -307,26 +292,25 @@ if !exists('$TMUX')
   inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<esc>\<c-w>j"
   inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<esc>\<c-w>k"
 
+  " save the buffer mode when leaving, restore (insert) mode if necessary on <cr>
+  autocmd MyAutoCmd BufEnter,WinEnter * :call s:restore_terminal_mode()
+  autocmd MyAutoCmd BufLeave,WinLeave * :call s:save_terminal_mode()
+
   if has('nvim')
-    tnoremap <expr> <c-h> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>h"
-    tnoremap <expr> <c-j> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>j"
-    tnoremap <expr> <c-k> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>k"
-    tnoremap <expr> <c-l> <sid>save_terminal_mode() . "\<c-\>\<c-n>\<c-w>l"
+    tnoremap <expr> <c-h> <sid>save_terminal_mode() . "\<c-w>h"
+    tnoremap <expr> <c-j> <sid>save_terminal_mode() . "\<c-w>j"
+    tnoremap <expr> <c-k> <sid>save_terminal_mode() . "\<c-w>k"
+    tnoremap <expr> <c-l> <sid>save_terminal_mode() . "\<c-w>l"
 
     tnoremap <c-y> <c-\><c-n><c-y>
     tnoremap <c-u> <c-\><c-n><c-u>
 
-    tnoremap <silent> <expr> <c-p> <sid>save_terminal_mode() . "\<c-\>\<c-n>:FilesProjectDir\<cr>"
-    tnoremap <silent> <expr> <c-b> <sid>save_terminal_mode() . "\<c-\>\<c-n>:Buffers\<cr>"
+    tnoremap <silent> <expr> <c-p> <sid>save_terminal_mode() . ":FilesProjectDir\<cr>"
+    tnoremap <silent> <expr> <c-b> <sid>save_terminal_mode() . ":Buffers\<cr>"
 
     " switch to insert mode and press <up> for shell history when in normal mode
     autocmd MyAutoCmd TermOpen * nnoremap <buffer> <up> i<up>
     autocmd MyAutoCmd TermOpen * nnoremap <buffer> <c-r> i<c-r>
-
-    " save the buffer mode when leaving, restore (insert) mode if necessary on
-    " enter. this isn't needed in vim, just nvim
-    autocmd MyAutoCmd BufEnter,WinEnter * :call s:restore_terminal_mode()
-    autocmd MyAutoCmd BufLeave,WinLeave * :call s:save_terminal_mode()
 
     " disable macros in terminal windows
     autocmd MyAutoCmd TermOpen * nnoremap <buffer> q <nop>
@@ -352,6 +336,107 @@ if !exists('$TMUX')
     autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> q <nop>
   endif
 endif
+
+function! s:get_last_mode(win) abort
+  let l:buf = winbufnr(a:win)
+  let l:last_mode = getbufvar(l:buf, 'last_mode', {})
+  return get(l:last_mode, a:win, '')
+endfunction
+
+function! s:remove_last_mode(win) abort
+  let l:buf = winbufnr(a:win)
+
+  if getbufvar(l:buf, '&buftype') !=# 'terminal'
+    return ''
+  endif
+
+  let l:last_mode = getbufvar(l:buf, 'last_mode', {})
+
+  if get(l:last_mode, a:win, '') ==# ''
+    return ''
+  endif
+
+  let l:ret = remove(l:last_mode, a:win)
+  call setbufvar(l:buf, 'last_mode', l:last_mode)
+  return l:ret
+endfunction
+
+function! s:set_last_mode(win, mode) abort
+  let l:buf = winbufnr(a:win)
+
+  if getbufvar(l:buf, '&buftype') !=# 'terminal'
+    return
+  endif
+
+  let l:last_mode = getbufvar(l:buf, 'last_mode', {})
+  let l:last_mode[a:win] = a:mode
+  call setbufvar(l:buf, 'last_mode', l:last_mode)
+endfunction
+
+let s:term = {
+  \   'buf': 0,
+  \   'height': 10,
+  \ }
+
+function! s:start_insert_term() abort
+  if has('nvim')
+    startinsert
+  endif
+
+  if has('terminal') && mode() !=# 't'
+    execute 'normal i'
+  endif
+endfunction
+
+function! s:term_toggle() abort
+  " user is in the terminal, close it and return to the previous location
+  if s:term.buf == bufnr('')
+    let l:win = winnr()
+    let s:term.height = winheight(l:win)
+    wincmd p
+    execute l:win.'close'
+    return
+  endif
+
+  " if the terminal window is already shown, switch to it
+  let l:win = bufwinnr(s:term.buf)
+  if s:term.buf != 0 && l:win != -1
+    execute l:win.'wincmd w'
+    call s:start_insert_term()
+    return
+  endif
+
+  " create the window and switch to it
+  execute 'botright '.s:term.height.'new'
+
+  " if the terminal buffer exists show it in the window
+  if s:term.buf != 0 && bufexists(s:term.buf)
+    let l:buf = bufnr('')
+    execute 'buffer '.s:term.buf
+    execute 'bwipeout '.l:buf
+    call s:start_insert_term()
+    return
+  endif
+
+  " create a new terminal buffer
+  if has('nvim')
+    call termopen(&shell)
+  endif
+
+  if has('terminal')
+    terminal ++curwin
+  endif
+
+  setlocal nobuflisted bufhidden=hide winfixwidth winfixheight
+  let s:term.buf = bufnr('')
+  call s:start_insert_term()
+endfunction
+
+autocmd MyAutoCmd User TerminalToggle nested call <sid>term_toggle()
+
+tnoremap <silent> <expr> <c-t> <sid>save_terminal_mode() . ":doautocmd User TerminalToggle\<cr>"
+nnoremap <silent> <c-t> :doautocmd User TerminalToggle<cr>
+inoremap <silent> <c-t> :doautocmd User TerminalToggle<cr>
 
 " fzf
 nmap <leader><tab> <plug>(fzf-maps-n)
