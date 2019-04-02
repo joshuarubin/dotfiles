@@ -432,11 +432,11 @@ function! s:term_toggle() abort
   call s:start_insert_term()
 endfunction
 
-autocmd MyAutoCmd User TerminalToggle nested call <sid>term_toggle()
+command! -nargs=0 TerminalToggle :call <sid>term_toggle()
 
-tnoremap <silent> <expr> <c-t> <sid>save_terminal_mode() . ":doautocmd User TerminalToggle\<cr>"
-nnoremap <silent> <c-t> :doautocmd User TerminalToggle<cr>
-inoremap <silent> <c-t> :doautocmd User TerminalToggle<cr>
+tnoremap <silent> <expr> <c-t> <sid>save_terminal_mode() . ":TerminalToggle\<cr>"
+nnoremap <silent> <c-t> :TerminalToggle<cr>
+inoremap <silent> <c-t> :TerminalToggle<cr>
 
 " fzf
 nmap <leader><tab> <plug>(fzf-maps-n)
