@@ -7,7 +7,7 @@ noremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<cr>
 nnoremap <leader>`` :qa!<cr>
 
 " <leader>q: Quit all, very useful in vimdiff
-nnoremap <leader>q :qa<cr>
+nnoremap <silent> <leader>q :qa<cr>
 
 " <leader>cd: Switch to the directory of the open buffer
 nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
@@ -317,18 +317,18 @@ if !exists('$TMUX')
   endif
 endif
 
-tnoremap <silent> <expr> <leader>t rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
-nnoremap <silent> <leader>t :TerminalToggle<cr>
-inoremap <silent> <leader>t :TerminalToggle<cr>
+tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
+nnoremap <silent> <c-x> :TerminalToggle<cr>
+inoremap <silent> <c-x> <c-\><c-n>:TerminalToggle<cr>
 
 " fzf
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+" nmap <leader><tab> <plug>(fzf-maps-n)
+" xmap <leader><tab> <plug>(fzf-maps-x)
+" omap <leader><tab> <plug>(fzf-maps-o)
+" imap <c-x><c-k> <plug>(fzf-complete-word)
+" imap <c-x><c-f> <plug>(fzf-complete-path)
+" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+" imap <c-x><c-l> <plug>(fzf-complete-line)
 nnoremap <silent> <c-p> :FilesProjectDir<cr>
 nnoremap <silent> <c-b> :Buffers<cr>
 nnoremap <silent> <c-f> :RubixHistory<cr>
