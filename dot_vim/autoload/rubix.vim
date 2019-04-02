@@ -337,18 +337,3 @@ function! rubix#UpdateRemotePlugins(info) abort
     execute 'UpdateRemotePlugins'
   endif
 endfunction
-
-function! rubix#neomake(event) abort
-  if expand('%') =~# '^fugitive:\/\/'
-    return
-  endif
-
-  if a:event ==# 'BufWinEnter' && exists('b:rubix_neomake_bufwinenter')
-    " only neomake once per buffer so that switching back to an already
-    " loaded buffer will not trigger another neomake
-    return
-  endif
-
-  let b:rubix_neomake_bufwinenter = 1
-  execute 'Neomake'
-endfunction
