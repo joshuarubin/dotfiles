@@ -126,7 +126,7 @@ let g:netrw_home=rubix#cache#dir('netrw')
 
 " Ack
 if executable('rg')
-  let g:ackprg='rg --no-heading --line-number --hidden --smart-case --follow'
+  let g:ackprg='rg --with-filename --no-heading --line-number --column --hidden --smart-case --follow'
 elseif executable('ag')
   let g:ackprg='ag --nogroup --column --smart-case --nocolor --follow'
 endif

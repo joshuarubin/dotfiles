@@ -375,3 +375,5 @@ nnoremap <silent> <leader>cs :<c-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
 nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
 nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>
+
+command! -nargs=0 TerminalToggle :call rubix#terminal#toggle()

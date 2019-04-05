@@ -250,6 +250,7 @@ for_window [class="Firefox"] {
 for_window [class="XEyes"] floating enable
 for_window [title="Volume Control"] floating enable
 for_window [title="Syncthing-GTK"] floating enable
+for_window [app_id="nm-connection-editor"] floating enable
 for_window [class="Slack"] move window to output DP-3
 for_window [class="Spotify"] move window to output DP-3
 for_window [class="Signal"] move window to output DP-3

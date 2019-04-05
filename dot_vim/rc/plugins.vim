@@ -101,9 +101,6 @@ Plug 'jparise/vim-graphql', { 'tag': '*' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'tag': '*' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
-" use vim as $PAGER
-Plug 'rkitover/vimpager', { 'do': 'make; ln -sf man man1' }
-
 " distraction-free writing in vim
 Plug 'junegunn/goyo.vim', { 'tag': '*' }
 
