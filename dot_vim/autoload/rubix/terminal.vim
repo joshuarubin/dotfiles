@@ -44,6 +44,9 @@ function! rubix#terminal#toggle() abort
   " user is in the terminal, close it and return to the previous location
   if s:term.buf == bufnr('')
     let l:win = winnr()
+    if l:win == 1 && winnr('$') == 1
+      return
+    endif
     let s:term.height = winheight(l:win)
     wincmd p
     execute l:win.'close'
