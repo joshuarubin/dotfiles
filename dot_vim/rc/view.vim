@@ -68,15 +68,17 @@ set sidescrolloff=15
 set sidescroll=1
 set scrolljump=3
 set numberwidth=1
+set signcolumn=yes
 
 autocmd MyAutoCmd BufEnter * call rubix#update_title()
 autocmd MyAutoCmd InsertEnter * setlocal nohlsearch
 autocmd MyAutoCmd InsertLeave * setlocal hlsearch
 
 if has('nvim')
-  autocmd MyAutoCmd TermOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight
+  autocmd MyAutoCmd TermOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight signcolumn=no
 elseif has('terminal')
-  autocmd MyAutoCmd TerminalOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight
+  autocmd MyAutoCmd TerminalOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight signcolumn=no
 endif
 
 autocmd MyAutoCmd CursorHold * silent call CocActionAsync('highlight')
+autocmd MyAutoCmd BufReadPost fugitive://* let b:ale_enabled=0

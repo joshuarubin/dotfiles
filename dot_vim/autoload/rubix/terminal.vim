@@ -68,7 +68,7 @@ function! rubix#terminal#toggle() abort
   if s:term.buf != 0 && bufexists(s:term.buf)
     let l:buf = bufnr('')
     execute 'buffer '.s:term.buf
-    execute 'bwipeout '.l:buf
+    execute 'bdelete '.l:buf
     call s:start_insert_term()
     return
   endif
