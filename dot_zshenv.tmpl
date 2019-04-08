@@ -102,7 +102,7 @@ export GPG_TTY=$(tty)
 
 export MAKEFLAGS='-j {{ .numcpu }}'
 export MAGE_VERBOSE=1
-export COMPRESSXZ=(xz -c -z - --threads=0)
+export XZ_DEFAULTS='--threads=0'
 
 export AWS_PROFILE='ngrok-dev'
 export AWS_DEFAULT_REGION='us-east-2'

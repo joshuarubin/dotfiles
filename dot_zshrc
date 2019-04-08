@@ -2,6 +2,11 @@
 # User configuration sourced by interactive shells
 #
 
+# this is for non-login terminals in arch, treat it like a login terminal
+if [ -e /etc/zsh/zprofile ]; then
+  source /etc/zsh/zprofile
+fi
+
 setopt EXTENDED_GLOB NO_NOMATCH
 
 fpath[1,0]=${ZSH}/functions

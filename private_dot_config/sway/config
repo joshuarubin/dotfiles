@@ -41,8 +41,7 @@ output DP-2 pos 6400 360 res 2560x1440@143.856003Hz
 exec swayidle \
    timeout 300 'swaylock -c 000000' \
    timeout 600 'swaymsg "output * dpms off"' \
-      resume 'swaymsg "output * dpms on"' \
-   before-sleep 'swaylock -c 000000'
+      resume 'swaymsg "output * dpms on"'
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -228,12 +227,12 @@ bindsym $mod+Comma border normal 2
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    mode invisible
+    mode dock
     position bottom
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    # status_command i3status
+    status_command i3status
 
     colors {
         statusline #ffffff
@@ -259,7 +258,7 @@ include /etc/sway/config.d/*
 
 # start background apps
 exec mako --default-timeout 10000 --format '<b>%a:</b> <i>%s</i>\n%b'
-exec waybar
+# exec waybar
 exec lxpolkit
 
 # start foreground apps
