@@ -134,6 +134,12 @@ endif
 " goyo
 let g:goyo_width = '120'
 
+" limelight
+autocmd MyAutoCmd User GoyoEnter Limelight
+autocmd MyAutoCmd User GoyoLeave Limelight!
+let g:limelight_conceal_guifg = '#425059'
+let g:limelight_default_coefficient = 0.7
+
 " unimpaired
 let g:nremap = {
 \   '=': ''

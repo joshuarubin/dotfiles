@@ -102,7 +102,8 @@ Plug 'othree/javascript-libraries-syntax.vim', { 'tag': '*' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 " distraction-free writing in vim
-Plug 'junegunn/goyo.vim', { 'tag': '*' }
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " haskell
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell', 'tag': '*' }
