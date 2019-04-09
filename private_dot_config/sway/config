@@ -30,9 +30,15 @@ set $menu rofi -show combi,calc
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output DP-3 pos    0 360 res 2560x1440
-output DP-1 pos 2560   0 res 3840x2160
-output DP-2 pos 6400 360 res 2560x1440@143.856003Hz
+# output DP-3 pos    0 360 res 2560x1440
+# output DP-1 pos 2560   0 res 3840x2160
+# output DP-2 pos 6400 360 res 2560x1440@143.856003Hz
+# output DP-3 pos    0 160 res 2560x1440
+# output DP-1 pos 2560   0 res 3840x2160 scale 1.25
+# output DP-2 pos 5440 160 res 2560x1440@143.856003Hz
+output DP-3 pos    0 0 res 2560x1440
+output DP-1 pos 2560 0 res 3840x2160 scale 1.5
+output DP-2 pos 5120 0 res 2560x1440@143.856003Hz
 
 ### Idle configuration
 #
@@ -60,13 +66,11 @@ exec_always ~/bin/wallpaper
 #       natural_scroll enabled
 #       middle_emulation enabled
 #   }
+
 input "5426:92:Razer_Razer_DeathAdder_Elite" {
     natural_scroll enabled
 }
 
-input "1133:49291:Logitech_G502_HERO_Gaming_Mouse" {
-    natural_scroll enabled
-}
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -125,9 +129,13 @@ input "1133:49291:Logitech_G502_HERO_Gaming_Mouse" {
 #
 # Workspaces:
 #
+    workspace 1      output DP-3
+    workspace 2:term output DP-1
+    workspace 3      output DP-2
+
     # switch to workspace
     bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2
+    bindsym $mod+2 workspace 2:term
     bindsym $mod+3 workspace 3
     bindsym $mod+4 workspace 4
     bindsym $mod+5 workspace 5
@@ -138,7 +146,7 @@ input "1133:49291:Logitech_G502_HERO_Gaming_Mouse" {
     bindsym $mod+0 workspace 10
     # move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+2 move container to workspace 2:term
     bindsym $mod+Shift+3 move container to workspace 3
     bindsym $mod+Shift+4 move container to workspace 4
     bindsym $mod+Shift+5 move container to workspace 5
@@ -149,7 +157,7 @@ input "1133:49291:Logitech_G502_HERO_Gaming_Mouse" {
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-    bindsym $mod+tab workspace back_and_forth
+    # bindsym $mod+tab workspace back_and_forth
 #
 # Layout stuff:
 #
@@ -243,16 +251,16 @@ bar {
 
 for_window [class="Firefox"] {
   border pixel 2
-  move window to output DP-2
+  move window to workspace 3
 }
 
 for_window [class="XEyes"] floating enable
 for_window [title="Volume Control"] floating enable
 for_window [title="Syncthing-GTK"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
-for_window [class="Slack"] move window to output DP-3
-for_window [class="Spotify"] move window to output DP-3
-for_window [class="Signal"] move window to output DP-3
+for_window [class="Slack"]   move window to workspace 1
+for_window [class="Spotify"] move window to workspace 1
+for_window [class="Signal"]  move window to workspace 1
 
 include /etc/sway/config.d/*
 
