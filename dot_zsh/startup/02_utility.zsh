@@ -41,8 +41,6 @@ alias pu='pushd'
 alias type='type -a'
 alias reload!='. ~/.zshrc'
 
-alias rg='rg --smart-case --hidden'
-
 # Global aliases
 alias -g ...='../..'
 alias -g ....='../../..'
