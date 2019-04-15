@@ -272,7 +272,7 @@ if !exists('$TMUX')
   inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<esc>\<c-w>j"
   inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<esc>\<c-w>k"
 
-  " save the buffer mode when leaving, restore (insert) mode if necessary on <cr>
+  " save the buffer mode when leaving, restore (insert) mode if necessary
   autocmd MyAutoCmd BufEnter,WinEnter * :call rubix#terminal#restore_mode()
   autocmd MyAutoCmd BufLeave,WinLeave * :call rubix#terminal#save_mode()
 
@@ -376,4 +376,4 @@ nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
 nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
 nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>
 
-command! -nargs=0 TerminalToggle :call rubix#terminal#toggle()
+command! -nargs=0 TerminalToggle :call rubix#terminal#toggle(<q-mods>)

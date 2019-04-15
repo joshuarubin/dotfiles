@@ -67,7 +67,8 @@ exec_always ~/bin/wallpaper
 #       middle_emulation enabled
 #   }
 
-input "5426:92:Razer_Razer_DeathAdder_Elite" {
+input * {
+    xkb_options altwin:ctrl_win
     natural_scroll enabled
 }
 

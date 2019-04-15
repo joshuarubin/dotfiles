@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-set synmaxcol=256
+set synmaxcol=512
 syntax sync minlines=256
 
 set list

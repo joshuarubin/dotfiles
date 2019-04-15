@@ -36,18 +36,41 @@ function! s:start_insert_term() abort
 endfunction
 
 let s:term = {
-  \   'buf': 0,
-  \   'height': 10,
+  \   'buf':           0,
+  \   'last_vertical': 0,
+  \   'last_height':   0,
+  \   'last_width':    0,
+  \   'last_topleft':  0,
   \ }
 
-function! rubix#terminal#toggle() abort
+function! rubix#terminal#toggle(mods) abort
   " user is in the terminal, close it and return to the previous location
   if s:term.buf == bufnr('')
     let l:win = winnr()
     if l:win == 1 && winnr('$') == 1
       return
     endif
-    let s:term.height = winheight(l:win)
+
+    let l:maxheight  = &lines - &cmdheight
+    let l:maxheight -= &laststatus == 2  || &laststatus  == 1 &&     winnr('$') > 1 ? 1 : 0
+    let l:maxheight -= &showtabline == 2 || &showtabline == 1 && tabpagenr('$') > 1 ? 1 : 0
+
+    let s:term.last_topleft = winnr() == 1 ? 1 : 0
+    let s:term.last_vertical = 0
+
+    if winwidth(l:win) == &columns
+      " term was horizontal
+      let s:term.last_height = winheight(l:win)
+    elseif winheight(l:win) == l:maxheight
+      " term was vertical
+      let s:term.last_vertical = 1
+      let s:term.last_width = winwidth(l:win)
+    else
+      " unknown, reset
+      let s:term.last_height = 0
+      let s:term.last_width  = 0
+    endif
+
     wincmd p
     execute l:win.'close'
     return
@@ -57,19 +80,43 @@ function! rubix#terminal#toggle() abort
   let l:win = bufwinnr(s:term.buf)
   if s:term.buf != 0 && l:win != -1
     execute l:win.'wincmd w'
-    call s:start_insert_term()
     return
   endif
 
+  let l:mods = a:mods
+
+  let l:vertical = match(l:mods, 'vertical') != -1
+  if match(l:mods, 'topleft') == -1 && match(l:mods, 'botright') == -1
+    let l:mods .= ' ' . (s:term.last_topleft ? 'topleft' : 'botright')
+  endif
+
+  let l:def_height = 10
+  let l:def_width  = 80
+
+  if s:term.last_height == 0 && s:term.last_width == 0
+    " no previously opened term, use defaults
+    let l:size = l:vertical ? l:def_width : l:def_height
+  elseif l:vertical
+    " term _must_ be vertical, if it was previously vertical, reuse that width,
+    " otherwise default
+    let l:size = s:term.last_width > 0 ? s:term.last_width : l:def_width
+  elseif s:term.last_vertical
+    " previous term was vertical, reuse its width
+    let l:mods .= ' vertical'
+    let l:size = s:term.last_width
+  else
+    " previous term was horizontal (or unknown), reuse its height
+    let l:size = s:term.last_height > 0 ? s:term.last_height : l:def_height
+  endif
+
   " create the window and switch to it
-  execute 'botright '.s:term.height.'new'
+  execute l:mods.' '.l:size.'new'
 
   " if the terminal buffer exists show it in the window
   if s:term.buf != 0 && bufexists(s:term.buf)
     let l:buf = bufnr('')
     execute 'buffer '.s:term.buf
     execute 'bdelete '.l:buf
-    call s:start_insert_term()
     return
   endif
 
