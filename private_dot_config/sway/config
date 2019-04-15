@@ -89,7 +89,7 @@ input * {
     # start your launcher
     bindsym $mod+d exec $menu
 
-    bindsym Mod4+l exec swaylock -c 000000
+    # bindsym Mod4+l exec swaylock -c 000000
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -267,6 +267,7 @@ include /etc/sway/config.d/*
 
 # start background apps
 exec mako --default-timeout 10000 --format '<b>%a:</b> <i>%s</i>\n%b'
+exec sway-focused
 # exec waybar
 exec lxpolkit
 
