@@ -817,13 +817,10 @@ map kitty_mod+p>h kitten hints --type hash --program -
 #: to different shortcuts. For a full description see kittens/hints.
 
 #: Miscellaneous
-
-{{- if eq .chezmoi.os "darwin" -}}
-map ctrl+kitty_mod+f    toggle_fullscreen
-{{- end }}
-map kitty_mod+i   kitten unicode_input
-map kitty_mod+c   edit_config_file
-map kitty_mod+s   kitty_shell window
+map ctrl+kitty_mod+f toggle_fullscreen
+map kitty_mod+i      kitten unicode_input
+map kitty_mod+s      kitty_shell window
+# map kitty_mod+c      edit_config_file
 
 #: Open the kitty shell in a new window/tab/overlay/os_window to
 #: control kitty using commands.
