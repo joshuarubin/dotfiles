@@ -40,12 +40,14 @@ output DP-3 pos    0 0 res 2560x1440
 output DP-1 pos 2560 0 res 3840x2160 scale 1.5
 output DP-2 pos 5120 0 res 2560x1440@143.856003Hz
 
+exec systemctl --user import-environment SWAYSOCK
+
 ### Idle configuration
 #
 # Example configuration:
 
 exec swayidle \
-   timeout 300 'swaylock -c 000000' \
+   timeout 300 '~/bin/lock' \
    timeout 600 'swaymsg "output * dpms off"' \
       resume 'swaymsg "output * dpms on"'
 
@@ -53,7 +55,6 @@ exec swayidle \
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-exec systemctl --user import-environment SWAYSOCK
 exec_always ~/bin/wallpaper
 
 ### Input configuration
@@ -87,7 +88,7 @@ input * {
     bindsym $mod+Shift+q kill
 
     # start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+space exec $menu
 
     # bindsym Mod4+l exec swaylock -c 000000
 
@@ -180,7 +181,7 @@ input * {
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    bindsym $mod+Control+space focus mode_toggle
 
     # move focus to the parent container
     bindsym $mod+a focus parent
@@ -274,8 +275,9 @@ exec lxpolkit
 # start foreground apps
 exec $term
 exec firefox
-exec signal-desktop
+# exec signal-desktop
 exec flatpak run com.slack.Slack
+exec flatpak run org.signal.Signal
 
 # depends on /usr/share/gnome-session/sessions/sway.session which was
 # copied from /usr/share/gnome-session/sessions/gnome.session but with

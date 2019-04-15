@@ -33,6 +33,8 @@ let g:ale_linters = {
 \   'markdown':   [ 'markdownlint', 'mdl', 'redpen', 'remark_lint', 'textlint', 'vale' ],
 \}
 
+let g:ale_go_goimports_executable = 'gofumports'
+let g:ale_go_gofmt_executable = 'gofumpt'
 let g:ale_go_gofmt_options = '-s'
 let g:ale_go_goimports_options = '-local go.ngrok.com'
 let g:ale_go_golangci_lint_package = 1

@@ -35,10 +35,10 @@ cnoremap <c-g> <right>
 cnoremap <c-v> <c-r>"
 
 " Q: Closes the window
-nnoremap Q :q<cr>
+nnoremap <silent> Q :q<cr>
 
 " W: Save
-nnoremap W :w<cr>
+nnoremap <silent> W :w<cr>
 
 " J: join without the cursor jumping around
 " nnoremap J mzJ`z
