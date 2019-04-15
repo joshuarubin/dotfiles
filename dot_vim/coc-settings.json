@@ -7,12 +7,7 @@
   "diagnostic.refreshOnInsertMode": true,
   "languageserver": {
     "golang": {
-      "command": "bingo",
-      "args": [
-        "--diagnostics-style=instant",
-        "--format-style=goimports",
-        "--enhance-signature-help"
-      ],
+      "command": "gopls",
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     }

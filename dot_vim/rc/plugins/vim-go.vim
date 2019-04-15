@@ -12,7 +12,7 @@ let g:go_echo_command_info = 0
 let g:go_statusline_duration = 1000
 
 let g:go_list_height = 10
-let g:go_def_mode = 'guru'
+let g:go_def_mode = 'gopls'
 let g:go_def_reuse_buffer = 1
 
 let g:go_highlight_operators = 1

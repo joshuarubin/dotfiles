@@ -28,7 +28,7 @@ let g:ale_linters = {
 \   'jsx':        [ 'standard' ],
 \   'vimwiki':    [ 'alex', 'mdl', 'prettier', 'proselint', 'redpen', 'remark-lint', 'vale' ],
 \   'text':       [ 'alex', 'proselint', 'vale', 'write-good', 'redpen' ],
-\   'go':         [ 'govet', 'golangci-lint' ],
+\   'go':         [ 'golangci-lint' ],
 \   'proto':      [ 'prototool' ],
 \   'markdown':   [ 'markdownlint', 'mdl', 'redpen', 'remark_lint', 'textlint', 'vale' ],
 \}
