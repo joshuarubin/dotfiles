@@ -18,7 +18,9 @@ set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 # set $menu dmenu_path | dmenu | xargs swaymsg exec
-set $menu rofi -show combi,calc
+# set $menu rofi -show combi,calc
+# set $menu bemenu-run -p '>'
+set $menu albert toggle
 
 ### Output configuration
 #
@@ -112,6 +114,8 @@ input * {
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
+    bindsym $mod+Control+$left workspace prev
+    bindsym $mod+Control+$right workspace next
     # or use $mod+[up|down|left|right]
     # bindsym $mod+Left focus left
     # bindsym $mod+Down focus down
@@ -223,14 +227,22 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pacmd list-sinks | awk '/* index:/{print $3}') +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pacmd list-sinks | awk '/* index:/{print $3}') -5%
-bindsym XF86AudioMute        exec pactl set-sink-mute   $(pacmd list-sinks | awk '/* index:/{print $3}') toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
 bindsym Print                exec grim -g "$(slurp)" "${HOME}/screenshot.png"
 
 default_border normal 2
 bindsym $mod+Period border toggle
 bindsym $mod+Comma border normal 2
+
+font "SF Mono 10"
+
+#                       border  background text    indicator child_border
+client.focused          #2d3c46 #2d3c46    #6c7a80 #6c7a80   #425059
+client.focused_inactive #232c31 #232c31    #425059 #303030   #303030
+client.unfocused        #303030 #303030    #425059 #303030   #303030
+client.urgent           #2d3c46 #cc6666    #232c31 #6c7a80   #425059
 
 #
 # Status Bar:
@@ -245,9 +257,13 @@ bar {
     status_command i3status
 
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        statusline #c5c8c6
+        background #303030
+
+        focused_workspace  #2d3c46 #2d3c46 #6c7a80
+        active_workspace   #303030 #303030 #6c7a80
+        inactive_workspace #303030 #303030 #425059
+        urgent_workspace   #2d3c46 #cc6666 #232c31
     }
 }
 
@@ -271,6 +287,7 @@ exec mako --default-timeout 10000 --format '<b>%a:</b> <i>%s</i>\n%b'
 exec sway-focused
 # exec waybar
 exec lxpolkit
+exec 'QT_QPA_PLATFORM="xcb" albert'
 
 # start foreground apps
 exec $term
