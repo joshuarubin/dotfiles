@@ -2,7 +2,6 @@ let g:fzf_history_dir = rubix#cache#dir('fzf')
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'down': '10' }
 let g:fzf_nvim_statusline = 0
-let g:fzf_action = { 'ctrl-x': 'vsplit' }
 
 command! -bang FilesProjectDir call fzf#vim#files(rubix#project_dir(), <bang>0)
 command! -bang FilesBufferDir  call fzf#vim#files(rubix#buffer_dir(),  <bang>0)

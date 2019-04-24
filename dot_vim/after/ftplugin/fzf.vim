@@ -5,4 +5,5 @@ if has('nvim') || has('terminal')
   tnoremap <buffer> <c-k> <c-k>
   " <c-x> shouldn't open term here, fzf will open a vertical split if used
   tnoremap <buffer> <c-x> <c-x>
+  tnoremap <buffer> <c-v> <c-v>
 endif
