@@ -48,7 +48,8 @@ Plug 'ap/vim-buftabline'
 Plug 'klen/python-mode', { 'for': 'python', 'tag': '*' }
 
 " shows recently used files, bookmarks and sessions
-Plug 'mhinz/vim-startify', { 'tag': '*' }
+Plug 'mhinz/vim-startify'
+Plug 'ryanoasis/vim-devicons', { 'tag': '*' }
 
 " syntax checking
 Plug 'w0rp/ale', { 'tag': '*' }        " for everything else

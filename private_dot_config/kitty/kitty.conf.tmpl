@@ -6,7 +6,7 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-font_family      SF Mono
+font_family      SFMono
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
@@ -23,7 +23,7 @@ bold_italic_font auto
 #:     bold_italic_font Operator Mono Medium Italic
 
 {{ if eq .chezmoi.os "linux" -}}
-font_size 9.0
+font_size 10.0
 {{- else if eq .chezmoi.os "darwin" -}}
 font_size 11.0
 {{- end }}
@@ -41,6 +41,7 @@ adjust_column_width 0
 #: artifacts).
 
 # symbol_map U+E0A0-U+E0A2,U+E0B0-U+E0B3 PowerlineSymbols
+symbol_map U+E000-U+FFFF SFMono Nerd Font
 
 #: Map the specified unicode codepoints to a particular font. Useful
 #: if you need special rendering for some symbols, such as for

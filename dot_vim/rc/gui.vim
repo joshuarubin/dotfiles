@@ -27,15 +27,15 @@ highlight link CocHighlightText Visual
 highlight link goSameId Visual
 
 if exists('neovim_dot_app')
-  call MacSetFont('Hasklig', 11)
+  call MacSetFont('SFMono Nerd Font', 11)
 elseif has('gui_running')
   if has('gui_macvim')
     set transparency=0
     set macligatures
-    set guifont=SFMono\ for\ Powerline:h11
+    set guifont=SFMono\ Nerd\ Font:h11
     set macmeta
   elseif has('gui_gtk')
-    set guifont=SFMono\ for\ Powerline\ 11
+    set guifont=SFMono\ Nerd\ Font\ 11
     set guioptions=agit
   endif
 elseif !has('nvim')

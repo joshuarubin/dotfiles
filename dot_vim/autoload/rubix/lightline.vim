@@ -80,7 +80,7 @@ function! rubix#lightline#fileformat() abort
     let l:status_enc = &fileencoding
   endif
 
-  return l:status_enc . '[' . &fileformat . ']'
+  return l:status_enc . '[' . &fileformat . ' ' . WebDevIconsGetFileFormatSymbol() . ']'
 endfunction
 
 function! rubix#lightline#filetype() abort
@@ -93,7 +93,7 @@ function! rubix#lightline#filetype() abort
   endif
 
   if &filetype !=# ''
-    return &filetype
+    return &filetype . ' ' . WebDevIconsGetFileTypeSymbol()
   endif
 
   return ''
