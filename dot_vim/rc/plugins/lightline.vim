@@ -49,8 +49,11 @@ let g:lightline = {
       \     [ 'buffers' ]
       \   ],
       \   'right': [
-      \     [ 'close' ]
+      \     [ 'lambda' ]
       \   ]
+      \ },
+      \ 'component': {
+      \   'lambda': 'λ',
       \ },
       \ 'component_function': {
       \   'fugitive':     'rubix#lightline#fugitive',
@@ -85,5 +88,5 @@ let g:lightline = {
 
 let g:tagbar_status_func = 'rubix#lightline#tagbar_status'
 
-autocmd MyAutoCmd User ALELint call lightline#update()
-autocmd MyAutoCmd CursorHold *.go call lightline#update()
+autocmd MyAutoCmd User ALELint             call lightline#update()
+autocmd MyAutoCmd User CocDiagnosticChange call lightline#update()
