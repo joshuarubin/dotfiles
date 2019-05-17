@@ -129,7 +129,7 @@ function! rubix#terminal#toggle(mods) abort
     terminal ++curwin
   endif
 
-  setlocal bufhidden=hide winfixwidth winfixheight
+  setlocal bufhidden=hide winfixwidth winfixheight nobuflisted
   let s:term.buf = bufnr('')
   call s:start_insert_term()
 endfunction

@@ -24,6 +24,11 @@ Plug 'neoclide/coc-neco'
 
 Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
 
+" file browser
+Plug 'Shougo/defx.nvim', { 'do': function('rubix#UpdateRemotePlugins') }
+Plug 'kristijanhusak/defx-icons', { 'do': function('rubix#UpdateRemotePlugins') }
+Plug 'kristijanhusak/defx-git', { 'do': function('rubix#UpdateRemotePlugins') }
+
 " snippets
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -42,7 +47,7 @@ Plug 'joshuarubin/lightline-hybrid.vim'
 
 " a light and configurable statusline/tabline
 Plug 'itchyny/lightline.vim'
-Plug 'ap/vim-buftabline'
+Plug 'mengelbrecht/lightline-bufferline'
 
 " helps you to create python code very quickly
 Plug 'klen/python-mode', { 'for': 'python', 'tag': '*' }
@@ -59,7 +64,7 @@ Plug 'uber/prototool', { 'rtp': 'vim/prototool', 'tag': '*' }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize', 'tag': '*' }
 
 " displays tags in a window, ordered by scope http://majutsushi.github.com/tagbar/
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle', 'tag': '*' }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 " textobj
 Plug 'kana/vim-textobj-user', { 'tag': '*' }

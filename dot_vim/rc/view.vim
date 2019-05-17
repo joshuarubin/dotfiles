@@ -5,7 +5,7 @@ syntax sync minlines=256
 
 set list
 
-set listchars=tab:\│\ ,trail:•,extends:❯,precedes:❮,nbsp:.
+set listchars=tab:\│\ ,trail:•,precedes:❮,nbsp:.
 set fillchars=vert:│,fold:-
 
 set laststatus=2 " always show the statusline
@@ -51,6 +51,7 @@ set winheight=10
 set winminheight=1
 set ttyfast " assume fast terminal connection
 set lazyredraw
+set showtabline=2
 
 if has('conceal')
   set conceallevel=2

@@ -338,7 +338,7 @@ nnoremap <silent> <c-s><c-d> :RgProjectDirPrompt<cr>
 nnoremap <silent> <c-s><c-f> :BLines<cr>
 
 " netrw
-noremap <silent> <c-n> :call rubix#toggle_netrw()<cr>
+noremap <silent> <c-n> :Defx<cr>
 
 " abbreviations
 iabbrev TODO TODO(jawa)
@@ -375,5 +375,16 @@ nnoremap <silent> <leader>cs :<c-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
 nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
 nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>
+
+nmap <leader>1 <plug>lightline#bufferline#go(1)
+nmap <leader>2 <plug>lightline#bufferline#go(2)
+nmap <leader>3 <plug>lightline#bufferline#go(3)
+nmap <leader>4 <plug>lightline#bufferline#go(4)
+nmap <leader>5 <plug>lightline#bufferline#go(5)
+nmap <leader>6 <plug>lightline#bufferline#go(6)
+nmap <leader>7 <plug>lightline#bufferline#go(7)
+nmap <leader>8 <plug>lightline#bufferline#go(8)
+nmap <leader>9 <plug>lightline#bufferline#go(9)
+nmap <leader>0 <plug>lightline#bufferline#go(10)
 
 command! -nargs=0 TerminalToggle :call rubix#terminal#toggle(<q-mods>)

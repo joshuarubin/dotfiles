@@ -43,6 +43,7 @@ let g:startify_session_persistence = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_update_oldfiles = 1
 let g:startify_session_sort = 1
+let g:startify_custom_header = []
 
 " python-mode
 let g:pymode_folding  = 0
@@ -87,16 +88,18 @@ let g:UltiSnipsJumpForwardTrigger = '<plug>UltiSnipsJumpForwardTrigger'
 let g:UltiSnipsJumpBackwardTrigger = '<plug>UltiSnipsJumpBackwardTrigger'
 
 let g:coc_global_extensions = [
+  \   'coc-css',
+  \   'coc-emoji',
+  \   'coc-highlight',
+  \   'coc-html',
   \   'coc-json',
   \   'coc-neosnippet',
-  \   'coc-emoji',
-  \   'coc-tsserver',
-  \   'coc-html',
-  \   'coc-css',
-  \   'coc-yaml',
+  \   'coc-python',
+  \   'coc-rls',
   \   'coc-syntax',
   \   'coc-tag',
-  \   'coc-rls',
+  \   'coc-tsserver',
+  \   'coc-yaml',
   \ ]
 
 let g:coc_selectmode_mapping = 0

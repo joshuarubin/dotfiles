@@ -1,17 +1,22 @@
 scriptencoding utf-8
 
-let g:buftabline_show=1
-let g:buftabline_numbers=1
-let g:buftabline_indicators=1
-let g:buftabline_separators=1
+let g:lightline#bufferline#show_number=3
+let g:lightline#bufferline#enable_devicons=1
+let g:lightline#bufferline#unicode_symbols=1
+let g:lightline#bufferline#filename_modifier=':t'
+let g:lightline#bufferline#unnamed = '[No Name]'
+let g:lightline#bufferline#number_map = {
+  \   0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
+  \   5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
+  \ }
 
 let g:lightline_tagbar_disabled=1
 let g:lightline_readonly_filetypes = ['help', 'tagbar', 'man', 'qf', 'taskreport', 'taskinfo']
-let g:lightline_filetype_mode_filetypes = ['help', 'man', 'fzf', 'tagbar', 'qf']
-let g:lightline_no_lineinfo_filetypes = ['fzf', 'tagbar', 'taskreport', 'taskinfo']
-let g:lightline_no_fileformat_filetypes = ['fzf', 'man', 'help', 'tagbar', 'qf', 'taskreport', 'taskinfo']
-let g:lightline_no_filename_filetypes = ['fzf', 'tagbar', 'qf', 'taskreport', 'taskinfo']
-let g:lightline_no_termtitle_filetypes = ['fzf']
+let g:lightline_filetype_mode_filetypes = ['help', 'man', 'fzf', 'tagbar', 'qf', 'defx']
+let g:lightline_no_lineinfo_filetypes = ['fzf', 'tagbar', 'taskreport', 'taskinfo', 'defx']
+let g:lightline_no_fileformat_filetypes = ['fzf', 'man', 'help', 'tagbar', 'qf', 'taskreport', 'taskinfo', 'defx']
+let g:lightline_no_filename_filetypes = ['fzf', 'tagbar', 'qf', 'taskreport', 'taskinfo', 'defx']
+let g:lightline_no_termtitle_filetypes = ['fzf', 'defx']
 
 let g:lightline = {
       \ 'colorscheme': 'hybrid',
@@ -39,6 +44,14 @@ let g:lightline = {
       \     [ 'go', 'filetype' ]
       \   ]
       \ },
+      \ 'tabline': {
+      \   'left': [
+      \     [ 'buffers' ]
+      \   ],
+      \   'right': [
+      \     [ 'close' ]
+      \   ]
+      \ },
       \ 'component_function': {
       \   'fugitive':     'rubix#lightline#fugitive',
       \   'filename':     'rubix#lightline#filename',
@@ -58,14 +71,16 @@ let g:lightline = {
       \   'lineinfo':     'rubix#lightline#line_info',
       \   'aleerror':     'rubix#lightline#aleerror',
       \   'alewarn':      'rubix#lightline#alewarn',
+      \   'buffers':      'lightline#bufferline#buffers',
       \ },
       \ 'component_type': {
       \   'aleerror': 'error',
       \   'alewarn':  'warning',
+      \   'buffers':  'tabsel',
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' },
-      \ 'enable': { 'statusline': 1, 'tabline': 0 },
+      \ 'enable': { 'statusline': 1, 'tabline': 1 },
       \ }
 
 let g:tagbar_status_func = 'rubix#lightline#tagbar_status'
