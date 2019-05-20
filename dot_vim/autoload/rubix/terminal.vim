@@ -111,6 +111,7 @@ function! rubix#terminal#toggle(mods) abort
 
   " create the window and switch to it
   execute l:mods.' '.l:size.'new'
+  setlocal winfixwidth winfixheight
 
   " if the terminal buffer exists show it in the window
   if s:term.buf != 0 && bufexists(s:term.buf)
@@ -129,7 +130,7 @@ function! rubix#terminal#toggle(mods) abort
     terminal ++curwin
   endif
 
-  setlocal bufhidden=hide winfixwidth winfixheight nobuflisted
+  setlocal bufhidden=hide nobuflisted
   let s:term.buf = bufnr('')
   call s:start_insert_term()
 endfunction
