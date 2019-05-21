@@ -9,6 +9,7 @@ let g:go_auto_type_info = 0
 let g:go_auto_sameids = 1
 let g:go_updatetime = 300
 let g:go_echo_command_info = 0
+let g:go_echo_go_info = 0
 let g:go_statusline_duration = 1000
 
 let g:go_list_height = 10

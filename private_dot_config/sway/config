@@ -249,12 +249,14 @@ client.urgent           #2d3c46 #cc6666    #232c31 #6c7a80   #425059
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
+    swaybar_command waybar
+
     mode dock
     position bottom
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command i3status
+    # status_command i3status
 
     colors {
         statusline #c5c8c6
@@ -290,6 +292,7 @@ exec sway-focused
 exec lxpolkit
 exec QT_QPA_PLATFORM=xcb albert
 exec KEYBASE_AUTOSTART=1 run_keybase
+exec nm-applet --indicator
 
 # start foreground apps
 exec $term

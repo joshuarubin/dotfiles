@@ -16,10 +16,8 @@ Plug 'roxma/vim-hug-neovim-rpc', rubix#plug#cond(!has('nvim'))
 Plug 'roxma/nvim-yarp', rubix#plug#cond(!has('nvim'))
 
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
-Plug 'Shougo/echodoc.vim'
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-Plug 'neoclide/coc-snippets', {'tag': '*'}
 Plug 'neoclide/coc-neco'
 
 Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
@@ -48,6 +46,7 @@ Plug 'joshuarubin/lightline-hybrid.vim'
 " a light and configurable statusline/tabline
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
+Plug 't9md/vim-choosewin'
 
 " helps you to create python code very quickly
 Plug 'klen/python-mode', { 'for': 'python', 'tag': '*' }
@@ -57,11 +56,10 @@ Plug 'mhinz/vim-startify'
 Plug 'ryanoasis/vim-devicons', { 'tag': '*' }
 
 " syntax checking
-Plug 'w0rp/ale', { 'tag': '*' }        " for everything else
+Plug 'w0rp/ale'
 Plug 'uber/prototool', { 'rtp': 'vim/prototool', 'tag': '*' }
 
-" text filtering and alignment
-Plug 'godlygeek/tabular', { 'on': 'Tabularize', 'tag': '*' }
+Plug 'junegunn/vim-easy-align'
 
 " displays tags in a window, ordered by scope http://majutsushi.github.com/tagbar/
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
@@ -81,6 +79,9 @@ Plug 'tmux-plugins/vim-tmux-focus-events', rubix#plug#cond(exists('$TMUX'), { 't
 " display your undo history in a graph
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle', 'tag': '*' }
 
+
+Plug 'liuchengxu/vim-which-key'
+
 " tpope
 Plug 'tpope/vim-fugitive', { 'tag': '*' }
 Plug 'tpope/vim-rhubarb'
@@ -89,9 +90,13 @@ Plug 'tpope/vim-surround', { 'tag': '*' }
 Plug 'tpope/vim-repeat', { 'tag': '*' }
 Plug 'tpope/vim-eunuch', { 'tag': '*' }
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-rsi'
 
 Plug 'gregsexton/gitv', { 'on': 'Gitv', 'tag': '*' }
 Plug 'lambdalisue/suda.vim'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'rhysd/git-messenger.vim'
 
 " full featured go development environment support for vim
 Plug 'fatih/vim-go', { 'for': ['go', 'gomod'], 'tag': '*' }
@@ -118,8 +123,14 @@ Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 " search for selection with '*' in visual mode
 Plug 'thinca/vim-visualstar', { 'tag': '*' }
 
+Plug 'haya14busa/is.vim'
+Plug 'osyo-manga/vim-anzu'
+Plug 'kshenoy/vim-signature'
+
 " easy to use, file-type sensible comments
 Plug 'tomtom/tcomment_vim', { 'tag': '*' }
+
+Plug 'easymotion/vim-easymotion'
 
 " Add plugins to &runtimepath, and:
 " filetype plugin indent on

@@ -161,3 +161,17 @@ function! rubix#terminal#restore_mode() abort
     call s:start_insert_term()
   endif
 endfunction
+
+function! rubix#terminal#new() abort
+  if has('nvim')
+    enew
+    call termopen(&shell)
+    startinsert
+    return
+  endif
+
+  if has('terminal')
+    enew
+    terminal ++curwin
+  endif
+endfunction

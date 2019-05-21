@@ -1,10 +1,12 @@
 {
-  "suggest.noselect": true,
-  "suggest.snippetIndicator": "►",
-  "suggest.triggerAfterInsertEnter": true,
-  "coc.preferences.diagnostic.displayByAle": true,
-  "coc.preferences.hoverTarget": "preview",
+  "coc.preferences.formatOnType": true,
+  "codeLens.enable": true,
+  "diagnostic.displayByAle": true,
   "diagnostic.refreshOnInsertMode": true,
+  "suggest.detailField": "abbr",
+  "suggest.noselect": true,
+  "suggest.snippetIndicator": "🌟",
+  "suggest.triggerAfterInsertEnter": true,
   "languageserver": {
     "golang": {
       "command": "gopls",

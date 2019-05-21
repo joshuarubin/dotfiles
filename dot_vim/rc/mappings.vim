@@ -1,29 +1,115 @@
+call which_key#register(',', 'g:which_key_map')
+
+let g:which_key_map.c = {'name': '+code'}
+let g:which_key_map.f = {'name': '+format'}
+
+let g:which_key_map['_'] = {
+      \ 'name': '+comment',
+      \ '_':    'comment',
+      \ 'p':    'comment the current inner paragraph',
+      \ ' ':    ':TComment <query comment-begin ?comment-end>',
+      \ 'i':    'comment inline',
+      \ 'r':    'comment right',
+      \ 'b':    'comment block',
+      \ 'a':    ':TcommentAs <query comment type>',
+      \ 'n':    ':TcommentAs &filetype <query count>',
+      \ 's':    ':TcommentAs &filetype_<query comment subtype>',
+      \ }
+
 nnoremap <silent> <leader>n :silent :nohlsearch<cr>
+let g:which_key_map.n = 'stop highlighting search'
 
 " find merge conflict markers
 noremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<cr>
+let g:which_key_map.f.c = 'find merge conflict markers'
 
-" <leader>``: Force quit all
-nnoremap <leader>`` :qa!<cr>
-
-" <leader>q: Quit all, very useful in vimdiff
 nnoremap <silent> <leader>q :qa<cr>
+let g:which_key_map.q = 'quit'
+
+nnoremap <silent> <leader>Q :qa!<cr>
+let g:which_key_map.Q = 'quit without saving'
 
 " <leader>cd: Switch to the directory of the open buffer
 nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
+let g:which_key_map.c.d = 'lcd to buffer dir'
 
 " <leader>m: Toggle Maximize current window
 nnoremap <leader>m :call rubix#maximize_toggle()<cr>
+let g:which_key_map.m = 'maximize toggle'
 
 " <leader>,: Switch to previous window
-nnoremap <leader>, <c-w>p
+nnoremap <leader>p <c-w>p
+let g:which_key_map['p'] = 'previous window'
+
+let g:which_key_map[','] = {'name': '+easymotion'}
+
+map <silent> <leader><leader>f <plug>(easymotion-f)
+let g:which_key_map[','].f = 'char to the right'
+
+map <silent> <leader><leader>F <plug>(easymotion-F)
+let g:which_key_map[','].F = 'char to the left'
+
+map <silent> <leader><leader>t <plug>(easymotion-t)
+let g:which_key_map[','].t = 'till before char to the right'
+
+map <silent> <leader><leader>T <plug>(easymotion-T)
+let g:which_key_map[','].T = 'till after char to the left'
+
+map <silent> <leader><leader>w <plug>(easymotion-w)
+let g:which_key_map[','].w = 'beginning of word forward'
+
+map <silent> <leader><leader>W <plug>(easymotion-W)
+let g:which_key_map[','].W = 'beginning of WORD forward'
+
+map <silent> <leader><leader>b <plug>(easymotion-b)
+let g:which_key_map[','].b = 'beginning of word backward'
+
+map <silent> <leader><leader>B <plug>(easymotion-B)
+let g:which_key_map[','].B = 'beginning of WORD backward'
+
+map <silent> <leader><leader>e <plug>(easymotion-e)
+let g:which_key_map[','].e = 'end of word forward'
+
+map <silent> <leader><leader>E <plug>(easymotion-E)
+let g:which_key_map[','].E = 'end of WORD forward'
+
+let g:which_key_map[','].g = {'name': '+end-of-word'}
+
+map <silent> <leader><leader>ge <plug>(easymotion-ge)
+let g:which_key_map[','].g.e = 'end of word backward'
+
+map <silent> <leader><leader>gE <plug>(easymotion-gE)
+let g:which_key_map[','].g.E = 'end of WORD backward'
+
+map <silent> <leader><leader>j <plug>(easymotion-j)
+let g:which_key_map[','].j = 'line downward'
+
+map <silent> <leader><leader>k <plug>(easymotion-k)
+let g:which_key_map[','].k = 'line upward'
+
+map <silent> <leader><leader>n <plug>(easymotion-n)
+let g:which_key_map[','].n = 'jump to search forward'
+
+map <silent> <leader><leader>N <plug>(easymotion-N)
+let g:which_key_map[','].N = 'jump to search backward'
+
+map <silent> <leader><leader>s <plug>(easymotion-s)
+let g:which_key_map[','].s = 'search char forward and backward'
 
 " adjust viewports to the same size
 noremap <leader>= <c-w>=
+let g:which_key_map['='] = 'make windows equal size'
 
 " formatting shortcuts
-nnoremap <leader>fef :call rubix#preserve('normal gg=G')<cr>
+nnoremap <leader>fa :call rubix#preserve('normal gg=G')<cr>
+let g:which_key_map.f.a = 'indent whole file'
+
 nnoremap <leader>f$ :call rubix#trim()<cr>
+let g:which_key_map.f['$'] = 'trim trailing whitespace'
+
+nnoremap <leader>fR :source $MYVIMRC<cr>
+let g:which_key_map.f.R = 'reload .vimrc'
+
 vnoremap <leader>s :sort<cr>
 
 cnoremap <c-j> <down>
@@ -133,12 +219,6 @@ noremap <silent> <c-a>r :redraw!<cr>
 " ctrl-w to delete the current buffer without closing the window
 nnoremap <silent> <c-w><c-w> :confirm :Kwbd<cr>
 
-" scrolling in insert mode
-inoremap <c-d> <s-down>
-inoremap <c-u> <s-up>
-" inoremap <c-e> <c-x><c-e>
-" inoremap <c-y> <c-x><c-y>
-
 " plugin specific mappings
 
 " surround
@@ -147,54 +227,71 @@ nmap <c-s><c-w> ysiw
 
 " undotree
 nnoremap <leader>u :UndotreeToggle<cr>
+let g:which_key_map.u = 'undotree toggle'
 
 " bufsurf
 nnoremap <silent> Z :BufSurfBack<cr>
 nnoremap <silent> X :BufSurfForward<cr>
 
-" vimpager
-nnoremap <silent> <leader>v :Page<cr>
-
 " tagbar
 nnoremap <silent> <c-g> :TagbarToggle<cr>
 
-" tabularize
-nnoremap <leader>a&     :Tabularize /&<cr>
-vnoremap <leader>a&     :Tabularize /&<cr>
-nnoremap <leader>a=     :Tabularize /=<cr>
-vnoremap <leader>a=     :Tabularize /=<cr>
-nnoremap <leader>a:     :Tabularize /:<cr>
-vnoremap <leader>a:     :Tabularize /:<cr>
-nnoremap <leader>a::    :Tabularize /:\zs<cr>
-vnoremap <leader>a::    :Tabularize /:\zs<cr>
-nnoremap <leader>a,     :Tabularize /,<cr>
-vnoremap <leader>a,     :Tabularize /,<cr>
-nnoremap <leader>a,,    :Tabularize /,\zs<cr>
-vnoremap <leader>a,,    :Tabularize /,\zs<cr>
-nnoremap <leader>a<bar> :Tabularize /<bar><cr>
-vnoremap <leader>a<bar> :Tabularize /<bar><cr>
-nnoremap <leader>a\|    :Tabularize /\|<cr>
-vnoremap <leader>a\|    :Tabularize /\|<cr>
-nnoremap <leader>a#     :Tabularize /#<cr>
-vnoremap <leader>a#     :Tabularize /#<cr>
+" easy align
+xmap ga <plug>(EasyAlign)
+nmap ga <plug>(EasyAlign)
 
 " fugitive/gitv
+let g:which_key_map.g = {'name': '+git'}
 nnoremap <silent> <leader>gs :Gstatus<cr>
+let g:which_key_map.g.s = 'status'
+
 nnoremap <silent> <leader>gd :Gvdiff<cr>
+let g:which_key_map.g.d = 'diff'
+
 nnoremap <silent> <leader>gc :Gcommit<cr>
+let g:which_key_map.g.c = 'commit'
+
 nnoremap <silent> <leader>gb :Gblame<cr>
+let g:which_key_map.g.b = 'blame'
+
 nnoremap <silent> <leader>gl :Glog<cr>
+let g:which_key_map.g.l = 'log'
+
 nnoremap <silent> <leader>gp :Gpush<cr>
+let g:which_key_map.g.p = 'push'
+
 nnoremap <silent> <leader>gr :Gremove<cr>
+let g:which_key_map.g.r = 'remove'
+
 nnoremap <silent> <leader>gw :Gwrite<cr>
+let g:which_key_map.g.w = 'write'
+
 nnoremap <silent> <leader>ge :Gedit<cr>
+let g:which_key_map.g.e = 'edit'
+
 nnoremap <silent> <leader>gm :Gmove<cr>
+let g:which_key_map.g.m = 'move'
+
 nnoremap <silent> <leader>g. :Gcd<cr>:pwd<cr>
+let g:which_key_map.g['.'] = 'cd'
+
 nnoremap <silent> <leader>gu :Gpull<cr>
+let g:which_key_map.g.u = 'pull'
+
 nnoremap <silent> <leader>gn :Gmerge<cr>
+let g:which_key_map.g.n = 'merge'
+
 nnoremap <silent> <leader>gf :Gfetch<cr>
+let g:which_key_map.g.f = 'fetch'
+
 nnoremap <silent> <leader>gv :Gitv<cr>
+let g:which_key_map.g.v = 'browse'
+
 nnoremap <silent> <leader>gV :Gitv!<cr>
+let g:which_key_map.g.V = 'browse (file mode)'
+
+nmap <leader>gm <plug>(git-messenger)
+let g:which_key_map.g.m = 'git message for line'
 
 " - if completion popup is showing:
 "   - if nothing is selected and the text is expandable, expand it
@@ -202,12 +299,11 @@ nnoremap <silent> <leader>gV :Gitv!<cr>
 " - else if the text is expandable, expand it
 " - else if endwise exists, use it to complete (includes <cr>)
 " - else <cr>
-imap <silent> <expr> <cr>
+inoremap <silent> <expr> <cr>
   \ pumvisible() && len(v:completed_item) == 0 && neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
   \ pumvisible() ? "\<c-y>" :
   \ neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
-  \ exists('*EndwiseDiscretionary') ? "\<cr>\<plug>DiscretionaryEnd" :
-  \ "\<cr>"
+  \ "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<cr>\<c-r>=EndwiseDiscretionary()<cr>"
 
 " - if completion popup is showing:
 "   - if nothing is selected and the text is jumpable, jump next (for coc and neosnippet)
@@ -340,26 +436,18 @@ nnoremap <silent> <c-s><c-f> :BLines<cr>
 " netrw
 noremap <silent> <c-n> :Defx<cr>
 
-" abbreviations
-iabbrev TODO TODO(jawa)
-iabbrev meml me@jawa.dev
-iabbrev weml joshua@ngrok.com
-
 " coc mappings
 
 nmap <silent> gd <plug>(coc-definition)
 nmap <silent> gy <plug>(coc-type-definition)
 nmap <silent> gi <plug>(coc-implementation)
 nmap <silent> gr <plug>(coc-references)
-nmap <leader>rn <plug>(coc-rename)
-nmap <leader>ff <plug>(coc-fix-current)
-nmap <leader>ac <plug>(coc-codeaction)
 
 nnoremap <silent> K :call <sid>show_documentation()<cr>
 
 function! s:show_documentation() abort
   if &filetype ==# 'vim'
-    execute 'h '.expand('<cword>')
+    execute 'help '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
@@ -367,24 +455,94 @@ endfunction
 
 command! -nargs=0 Format :call CocAction('format')
 
-nnoremap <silent> <leader>ca :<c-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>ce :<c-u>CocList extensions<cr>
-nnoremap <silent> <leader>cc :<c-u>CocList commands<cr>
-nnoremap <silent> <leader>co :<c-u>CocList outline<cr>
-nnoremap <silent> <leader>cs :<c-u>CocList -I symbols<cr>
-nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
-nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
-nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>
+nnoremap <silent> <leader>cl :<c-u>CocList diagnostics<cr>
+let g:which_key_map.c.l = 'list workspace diagnostics'
 
-nmap <leader>1 <plug>lightline#bufferline#go(1)
-nmap <leader>2 <plug>lightline#bufferline#go(2)
-nmap <leader>3 <plug>lightline#bufferline#go(3)
-nmap <leader>4 <plug>lightline#bufferline#go(4)
-nmap <leader>5 <plug>lightline#bufferline#go(5)
-nmap <leader>6 <plug>lightline#bufferline#go(6)
-nmap <leader>7 <plug>lightline#bufferline#go(7)
-nmap <leader>8 <plug>lightline#bufferline#go(8)
-nmap <leader>9 <plug>lightline#bufferline#go(9)
-nmap <leader>0 <plug>lightline#bufferline#go(10)
+nnoremap <silent> <leader>ce :<c-u>CocList extensions<cr>
+let g:which_key_map.c.e = 'manage coc extensions'
+
+nnoremap <silent> <leader>cc :<c-u>CocList commands<cr>
+let g:which_key_map.c.c = 'list workspace commands'
+
+nnoremap <silent> <leader>co :<c-u>CocList outline<cr>
+let g:which_key_map.c.o = 'list document symbols'
+
+nnoremap <silent> <leader>cs :<c-u>CocList -I symbols<cr>
+let g:which_key_map.c.s = 'search workspace symbols'
+
+nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
+let g:which_key_map.c.j = 'invoke default action for next list item'
+
+nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
+let g:which_key_map.c.k = 'invoke default action for prev list item'
+
+nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>
+let g:which_key_map.c.p = 'reopen last opened list'
+
+nmap <leader>ca <plug>(coc-codeaction)
+let g:which_key_map.c.a = 'run code action(s) for current line'
+
+nmap <leader>cf <plug>(coc-fix-current)
+let g:which_key_map.c.f = 'run quickfix action for current line'
+
+nmap <leader>cr <plug>(coc-rename)
+let g:which_key_map.c.r = 'rename symbol under cursor'
+
+nmap <leader>? <plug>(fzf-maps-n)
+let g:which_key_map['?'] = ['Maps', 'show keybindings']
+
+xmap <leader>? <plug>(fzf-maps-x)
+omap <leader>? <plug>(fzf-maps-o)
+
+nnoremap <silent> <leader> :<c-u>WhichKey ','<cr>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<cr>
+
+let g:which_key_map.b = { 'name': '+buffer' }
+
+for s:i in range(1, 9)
+  " <leader>[1-9] move to window [1-9]
+  execute 'nnoremap <silent> <leader>'.s:i ' :'.s:i.'wincmd w<cr>'
+  let g:which_key_map[s:i] = 'window-'.s:i
+
+  " <leader>b[1-9] move to buffer [1-9]
+  execute 'nnoremap <silent> <leader>b'.s:i ':b'.s:i.'<cr>'
+  let g:which_key_map.b[s:i] = 'buffer-'.s:i
+endfor
+unlet s:i
+
+nnoremap <silent> <leader>t :call rubix#terminal#new()<cr>
+let g:which_key_map.t = 'terminal'
+
+nnoremap <silent> <leader>bh :Startify<cr>
+let g:which_key_map.b.h = 'startify'
+
+nmap <leader>w <plug>(choosewin)
+let g:which_key_map.w = 'choose window'
+
+map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
+map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
+
+" resize window
+nnoremap <silent> <c-a>H <c-w><
+nnoremap <silent> <c-a>L <c-w>>
+nnoremap <silent> <c-a>J <c-w>+
+nnoremap <silent> <c-a>K <c-w>-
+vnoremap <silent> <c-a>H <c-w><
+vnoremap <silent> <c-a>L <c-w>>
+vnoremap <silent> <c-a>J <c-w>+
+vnoremap <silent> <c-a>K <c-w>-
+inoremap <silent> <c-a>H <esc><c-w><
+inoremap <silent> <c-a>L <esc><c-w>>
+inoremap <silent> <c-a>J <esc><c-w>+
+inoremap <silent> <c-a>K <esc><c-w>-
+tnoremap <silent> <c-a>H <c-\><c-n><c-w><
+tnoremap <silent> <c-a>L <c-\><c-n><c-w>>
+tnoremap <silent> <c-a>J <c-\><c-n><c-w>+
+tnoremap <silent> <c-a>K <c-\><c-n><c-w>-
+
+" abbreviations
+iabbrev TODO TODO(jawa)
+iabbrev meml me@jawa.dev
+iabbrev weml joshua@ngrok.com
 
 command! -nargs=0 TerminalToggle :call rubix#terminal#toggle(<q-mods>)

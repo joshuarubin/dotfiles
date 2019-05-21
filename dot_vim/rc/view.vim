@@ -47,6 +47,7 @@ set completeopt=noinsert,menuone,noselect
 set nospell
 set splitright
 set splitbelow
+set diffopt+=vertical
 set winheight=10
 set winminheight=1
 set ttyfast " assume fast terminal connection
@@ -82,4 +83,5 @@ elseif has('terminal')
 endif
 
 autocmd MyAutoCmd CursorHold * silent call CocActionAsync('highlight')
+autocmd MyAutoCmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 autocmd MyAutoCmd BufReadPost fugitive://* let b:ale_enabled=0

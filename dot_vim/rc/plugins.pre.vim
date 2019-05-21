@@ -79,13 +79,9 @@ let g:tagbar_type_go = {
   \ 'ctagsargs' : '-sort -silent'
   \ }
 let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
+let g:tagbar_sort = 0
 
-" ultisnips
-let g:UltiSnipsExpandTrigger = '<plug>UltiSnipsExpandTrigger'
-let g:UltiSnipsListSnippets = '<plug>UltiSnipsListSnippets'
-let g:UltiSnipsJumpForwardTrigger = '<plug>UltiSnipsJumpForwardTrigger'
-let g:UltiSnipsJumpBackwardTrigger = '<plug>UltiSnipsJumpBackwardTrigger'
+let g:neosnippet#conceal_char = 'Δ'
 
 let g:coc_global_extensions = [
   \   'coc-css',
@@ -93,7 +89,9 @@ let g:coc_global_extensions = [
   \   'coc-highlight',
   \   'coc-html',
   \   'coc-json',
+  \   'coc-lists',
   \   'coc-neosnippet',
+  \   'coc-pairs',
   \   'coc-python',
   \   'coc-rls',
   \   'coc-syntax',
@@ -151,9 +149,26 @@ let g:nremap = {
 " prototool
 let g:prototool_format_enable = 1
 
-" echodoc
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
+" gitgutter
+let g:gitgutter_map_keys = 0
+let g:gitgutter_sign_added = '▎'
+let g:gitgutter_sign_modified = '▎'
+let g:gitgutter_sign_removed = '▏'
+let g:gitgutter_sign_removed_first_line = '▔'
+let g:gitgutter_sign_modified_removed = '▋'
+highlight link GitGutterAdd          Question
+highlight link GitGutterChange       CursorLineNr
+highlight link GitGutterDelete       ErrorMsg
+highlight link GitGutterChangeDelete Type
+autocmd MyAutoCmd TextChangedI * GitGutter
+
+autocmd  MyAutoCmd FileType which_key set laststatus=0 noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 ruler
+
+let g:EasyMotion_do_mapping = 0
+
+let g:which_key_map = {'name': '+leader'}
+let g:git_messenger_no_default_mappings = 1
 
 " load larger plugin specific configuration
 execute 'runtime!' 'rc/plugins/*.vim'
