@@ -60,7 +60,10 @@ function is-callable {
 
 if (( ${terminfo[colors]} >= 8 )); then
   # ls Colors
-  if is-callable 'dircolors'; then
+  if is-callable 'lsd'; then
+    alias ls='lsd'
+    alias tree='ls --tree'
+  elif is-callable 'dircolors'; then
     # GNU
     if [[ -s ${HOME}/.dir_colors ]]; then
       eval "$(dircolors --sh ${HOME}/.dir_colors)"
