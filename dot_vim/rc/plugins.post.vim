@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " settings after plugins are loaded
 
 " install missing plugins on start
