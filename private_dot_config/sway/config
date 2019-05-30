@@ -287,12 +287,13 @@ for_window [class="Signal"]  move window to workspace 1
 include /etc/sway/config.d/*
 
 # start background apps
-exec mako --default-timeout 10000 --format '<b>%a:</b> <i>%s</i>\n%b'
+exec mako --background-color '#303030' --text-color '#c5c8c6' --border-size 3 --border-color '#6c7a80' --border-radius 5 --max-visible 10 --format '<b>%a:</b> <i>%s</i>\n%b' --sort +time --sort -priority
 exec sway-focused
 exec lxpolkit
 exec QT_QPA_PLATFORM=xcb albert
 exec KEYBASE_AUTOSTART=1 run_keybase
 exec nm-applet --indicator
+exec wl-clipboard-history -t
 
 # start foreground apps
 exec $term
