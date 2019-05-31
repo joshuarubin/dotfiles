@@ -233,8 +233,8 @@ let g:which_key_map.u = 'undotree toggle'
 nnoremap <silent> Z :BufSurfBack<cr>
 nnoremap <silent> X :BufSurfForward<cr>
 
-" tagbar
-nnoremap <silent> <c-g> :TagbarToggle<cr>
+" vista
+nnoremap <silent> <c-g> :Vista!!<cr>
 
 " easy align
 xmap ga <plug>(EasyAlign)
@@ -268,9 +268,6 @@ let g:which_key_map.g.w = 'write'
 
 nnoremap <silent> <leader>ge :Gedit<cr>
 let g:which_key_map.g.e = 'edit'
-
-nnoremap <silent> <leader>gm :Gmove<cr>
-let g:which_key_map.g.m = 'move'
 
 nnoremap <silent> <leader>g. :Gcd<cr>:pwd<cr>
 let g:which_key_map.g['.'] = 'cd'

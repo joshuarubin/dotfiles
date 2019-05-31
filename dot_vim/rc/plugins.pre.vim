@@ -63,29 +63,12 @@ autocmd MyAutoCmd User fugitive
   \ endif
 let g:fugitive_git_executable = "env GIT_SSH_COMMAND='ssh -o ControlPersist=no' git"
 
-" tagbar
-" if using go please install the gotags program using the following
-" go install github.com/jstemmer/gotags
-" and make sure gotags is in your path
-let g:tagbar_type_go = {
-  \ 'ctagstype' : 'go',
-  \ 'kinds'     : [  'p:package', 'i:imports', 'c:constants', 'v:variables',
-    \ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-    \ 'r:constructor', 'f:functions' ],
-  \ 'sro' : '.',
-  \ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-  \ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-  \ 'ctagsbin'  : 'gotags',
-  \ 'ctagsargs' : '-sort -silent'
-  \ }
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
-
 let g:neosnippet#conceal_char = 'Δ'
 
 let g:coc_global_extensions = [
   \   'coc-css',
   \   'coc-emoji',
+  \   'coc-git',
   \   'coc-highlight',
   \   'coc-html',
   \   'coc-json',
@@ -149,18 +132,11 @@ let g:nremap = {
 " prototool
 let g:prototool_format_enable = 1
 
-" gitgutter
-let g:gitgutter_map_keys = 0
-let g:gitgutter_sign_added = '▎'
-let g:gitgutter_sign_modified = '▎'
-let g:gitgutter_sign_removed = '▏'
-let g:gitgutter_sign_removed_first_line = '▔'
-let g:gitgutter_sign_modified_removed = '▋'
+" gitgutter / coc-git
 highlight link GitGutterAdd          Question
 highlight link GitGutterChange       CursorLineNr
 highlight link GitGutterDelete       ErrorMsg
 highlight link GitGutterChangeDelete Type
-autocmd MyAutoCmd TextChangedI * GitGutter
 
 autocmd  MyAutoCmd FileType which_key set laststatus=0 noruler
   \| autocmd BufLeave <buffer> set laststatus=2 ruler
@@ -169,6 +145,16 @@ let g:EasyMotion_do_mapping = 0
 
 let g:which_key_map = {'name': '+leader'}
 let g:git_messenger_no_default_mappings = 1
+
+let g:vista_default_executive = 'ctags'
+let g:vista_fzf_preview = ['right:50%']
+
+let g:vista_executive_for = {
+  \ 'go': 'coc',
+  \ 'javascript': 'coc',
+  \ 'javascript.jsx': 'coc',
+  \ 'python': 'coc',
+\ }
 
 " load larger plugin specific configuration
 execute 'runtime!' 'rc/plugins/*.vim'

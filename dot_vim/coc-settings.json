@@ -7,6 +7,17 @@
   "suggest.noselect": true,
   "suggest.snippetIndicator": "🌟",
   "suggest.triggerAfterInsertEnter": true,
+  "git.addGlameToBufferVar": true,
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "git.addedSign.text": "▎",
+  "git.changedSign.text": "▎",
+  "git.removedSign.text": "▏",
+  "git.topRemovedSign.text": "▔",
+  "git.changeRemovedSign.text": "▋",
   "languageserver": {
     "golang": {
       "command": "gopls",

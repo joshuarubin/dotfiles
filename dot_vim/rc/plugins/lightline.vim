@@ -6,12 +6,11 @@ let g:lightline#bufferline#unicode_symbols=1
 let g:lightline#bufferline#filename_modifier=':t'
 let g:lightline#bufferline#unnamed = '[No Name]'
 
-let g:lightline_tagbar_disabled=1
-let g:lightline_readonly_filetypes = ['help', 'tagbar', 'man', 'qf', 'taskreport', 'taskinfo']
-let g:lightline_filetype_mode_filetypes = ['help', 'man', 'fzf', 'tagbar', 'qf', 'defx']
-let g:lightline_no_lineinfo_filetypes = ['fzf', 'tagbar', 'taskreport', 'taskinfo', 'defx']
-let g:lightline_no_fileformat_filetypes = ['fzf', 'man', 'help', 'tagbar', 'qf', 'taskreport', 'taskinfo', 'defx']
-let g:lightline_no_filename_filetypes = ['fzf', 'tagbar', 'qf', 'taskreport', 'taskinfo', 'defx']
+let g:lightline_readonly_filetypes = ['help', 'vista_kind', 'man', 'qf', 'taskreport', 'taskinfo']
+let g:lightline_filetype_mode_filetypes = ['help', 'man', 'fzf', 'vista_kind', 'qf', 'defx']
+let g:lightline_no_lineinfo_filetypes = ['fzf', 'vista_kind', 'taskreport', 'taskinfo', 'defx']
+let g:lightline_no_fileformat_filetypes = ['fzf', 'man', 'help', 'vista_kind', 'qf', 'taskreport', 'taskinfo', 'defx']
+let g:lightline_no_filename_filetypes = ['fzf', 'vista_kind', 'qf', 'taskreport', 'taskinfo', 'defx']
 let g:lightline_no_termtitle_filetypes = ['fzf', 'defx']
 
 let g:lightline = {
@@ -19,13 +18,13 @@ let g:lightline = {
       \ 'active': {
       \   'left': [
       \     [ 'mode', 'crypt', 'paste', 'spell' ],
-      \     [ 'fugitive' ],
-      \     [ 'filename', 'termtitle' ],
+      \     [ 'git' ],
+      \     [ 'filename', 'blame', 'termtitle' ],
       \   ],
       \   'right': [
       \     [ 'aleerror', 'alewarn', 'lineinfo' ],
       \     [ 'fileformat' ],
-      \     [ 'go', 'tagbar', 'filetype' ]
+      \     [ 'go', 'vista', 'filetype' ]
       \   ],
       \ },
       \ 'inactive': {
@@ -52,7 +51,8 @@ let g:lightline = {
       \   'lambda': 'λ',
       \ },
       \ 'component_function': {
-      \   'fugitive':     'rubix#lightline#fugitive',
+      \   'blame':        'rubix#lightline#blame',
+      \   'git':          'rubix#lightline#git',
       \   'filename':     'rubix#lightline#filename',
       \   'fullfilename': 'rubix#lightline#full_filename',
       \   'fileformat':   'rubix#lightline#fileformat',
@@ -61,7 +61,7 @@ let g:lightline = {
       \   'crypt':        'rubix#lightline#crypt',
       \   'spell':        'rubix#lightline#spell',
       \   'paste':        'rubix#lightline#paste',
-      \   'tagbar':       'rubix#lightline#tagbar',
+      \   'vista':        'rubix#lightline#vista',
       \   'go':           'go#statusline#Show',
       \   'termtitle':    'rubix#lightline#term_title',
       \ },
@@ -77,12 +77,9 @@ let g:lightline = {
       \   'alewarn':  'warning',
       \   'buffers':  'tabsel',
       \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' },
       \ 'enable': { 'statusline': 1, 'tabline': 1 },
       \ }
 
-let g:tagbar_status_func = 'rubix#lightline#tagbar_status'
-
-autocmd MyAutoCmd User ALELint             call lightline#update()
+autocmd MyAutoCmd User ALELintPost         call lightline#update()
 autocmd MyAutoCmd User CocDiagnosticChange call lightline#update()
+autocmd MyAutoCmd VimEnter * call vista#RunForNearestMethodOrFunction()

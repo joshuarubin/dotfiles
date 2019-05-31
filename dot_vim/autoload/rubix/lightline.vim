@@ -10,12 +10,6 @@ function! rubix#lightline#mode() abort
     return l:twname
   endif
 
-  let l:fname = expand('%:t')
-
-  if l:fname ==# 'ControlP'
-    return 'CTRLP'
-  endif
-
   return lightline#mode()
 endfunction
 
@@ -27,29 +21,14 @@ function! rubix#lightline#crypt() abort
   return ''
 endfunction
 
-function! rubix#lightline#fugitive() abort
-  try
-    if expand('%:t') =~# 'Tagbar'
-      return ''
-    endif
+function! rubix#lightline#blame() abort
+  let l:blame = get(b:, 'coc_git_blame', '')
+  return winwidth(0) >= 110 ? l:blame : ''
+endfunction
 
-    if s:is_readonly_filetype()
-      return ''
-    endif
-
-    if exists('*fugitive#head')
-      let l:mark = ''
-      let l:branch = fugitive#head()
-
-      if l:branch !=# ''
-        return l:mark . ' ' . l:branch
-      endif
-    endif
-
-  catch
-  endtry
-
-  return ''
+function! rubix#lightline#git() abort
+  let l:status = get(g:, 'coc_git_status')
+  return winwidth(0) >= 70 ? l:status : ''
 endfunction
 
 function! rubix#lightline#filename() abort
@@ -61,7 +40,7 @@ function! rubix#lightline#full_filename() abort
 endfunction
 
 function! rubix#lightline#fileformat() abort
-  if winwidth(0) < 70
+  if winwidth(0) < 120
     return ''
   endif
 
@@ -80,11 +59,11 @@ function! rubix#lightline#fileformat() abort
     let l:status_enc = &fileencoding
   endif
 
-  return l:status_enc . '[' . &fileformat . ' ' . WebDevIconsGetFileFormatSymbol() . ']'
+  return ' ' . l:status_enc . '[' . &fileformat . WebDevIconsGetFileFormatSymbol() . ']'
 endfunction
 
 function! rubix#lightline#filetype() abort
-  if winwidth(0) < 70
+  if winwidth(0) < 80
     return ''
   endif
 
@@ -93,7 +72,7 @@ function! rubix#lightline#filetype() abort
   endif
 
   if &filetype !=# ''
-    return &filetype . ' ' . WebDevIconsGetFileTypeSymbol()
+    return &filetype . WebDevIconsGetFileTypeSymbol()
   endif
 
   return ''
@@ -115,23 +94,9 @@ function! rubix#lightline#paste() abort
   return ''
 endfunction
 
-let s:lightline_tagbar_last_lookup_time = 0
-let s:lightline_tagbar_last_lookup_val = ''
-function! rubix#lightline#tagbar() abort
-  if exists('g:lightline_tagbar_disabled') && g:lightline_tagbar_disabled
-    return ''
-  endif
-
-  if &filetype =~# 'tagbar'
-    return ''
-  endif
-
-  if s:lightline_tagbar_last_lookup_time != localtime()
-    let s:lightline_tagbar_last_lookup_val = tagbar#currenttag('%s', '')
-    let s:lightline_tagbar_last_lookup_time = localtime()
-  endif
-
-  return s:lightline_tagbar_last_lookup_val
+function! rubix#lightline#vista() abort
+  let l:vista = get(b:, 'vista_nearest_method_or_function', '')
+  return winwidth(0) >= 90 ? ' ' . l:vista : ''
 endfunction
 
 function! rubix#lightline#term_title() abort
@@ -141,18 +106,10 @@ function! rubix#lightline#term_title() abort
     return ''
   endif
 
-  if exists('b:term_title')
-    return b:term_title
-  endif
-
-  return ''
+  return get(b:, 'term_title', '')
 endfunction
 
 function! rubix#lightline#status_line_info() abort
-  if winwidth(0) < 70
-    return ''
-  endif
-
   if s:is_no_lineinfo_filetype()
     return ''
   endif
@@ -163,9 +120,8 @@ function! rubix#lightline#status_line_info() abort
     return ''
   endif
 
-  let l:lnumicon = '☰ '
-
-  return printf('%3.0f%%  %d/%d' . l:lnumicon . ':%2d',
+  return printf('%s%.0f%% %d/%d☰ :%d',
+    \   winwidth(0) < 120 ? ' ' : '',
     \   round((line('.') * 1.0) / line('$') * 100),
     \   line('.'),
     \   line('$'),
@@ -193,10 +149,6 @@ function! rubix#lightline#go_type() abort
   endif
 
   return ''
-endfunction
-
-function! rubix#lightline#tagbar_status(current, sort, fname, ...) abort
-  return lightline#statusline(0)
 endfunction
 
 function! s:is_filetype_mode_filetype() abort
@@ -251,10 +203,6 @@ function! s:filename(fmt) abort
     return s:filename('%:t')
   endif
 
-  if l:fname ==# 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-    return g:lightline.ctrlp_item
-  endif
-
   if l:fname !=# ''
     return l:fname
   endif
@@ -283,35 +231,21 @@ function! rubix#lightline#neomakeerror() abort
 
   let l:e_w = split(l:res)
   if len(l:e_w) == 2 || match(l:e_w, 'E') > -1
-    return '🔥' . matchstr(l:e_w[0], '\d\+')
+    return matchstr(l:e_w[0], '\d\+')
   endif
 
   return ''
 endfunction
 
 function! rubix#lightline#aleerror() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-
-    if l:all_errors > 0
-      return '🔥' . l:all_errors
-    endif
-
-    return ''
+  let l:counts = ale#statusline#Count(bufnr(''))
+  return l:counts.error ? l:counts.error : ''
 endfunction
 
 function! rubix#lightline#alewarn() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    if l:all_non_errors > 0
-      return '🚧' . l:all_non_errors
-    endif
-
-    return ''
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:warnings = l:counts.warning + l:counts.style_error
+  return l:warnings ? l:warnings : ''
 endfunction
 
 function! rubix#lightline#neomakewarn() abort
@@ -319,11 +253,11 @@ function! rubix#lightline#neomakewarn() abort
 
   let l:e_w = split(l:res)
   if len(l:e_w) == 2
-    return '🚧' . matchstr(l:e_w[1], '\d\+')
+    return matchstr(l:e_w[1], '\d\+')
   endif
 
   if match(l:e_w, 'W') > -1
-    return '🚧' . matchstr(l:e_w[0], '\d\+')
+    return matchstr(l:e_w[0], '\d\+')
   endif
 
   return ''

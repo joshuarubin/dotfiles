@@ -6,3 +6,7 @@ cmdargs:
   # Enable Neovim syntax
   env:
     neovim: true
+
+policies:
+  ProhibitImplicitScopeVariable:
+    enabled: true

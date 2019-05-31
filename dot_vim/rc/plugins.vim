@@ -17,7 +17,7 @@ Plug 'roxma/nvim-yarp', rubix#plug#cond(!has('nvim'))
 
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': { -> coc#util#install()} }
 Plug 'neoclide/coc-neco'
 
 Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
@@ -61,8 +61,8 @@ Plug 'uber/prototool', { 'rtp': 'vim/prototool', 'tag': '*' }
 
 Plug 'junegunn/vim-easy-align'
 
-" displays tags in a window, ordered by scope http://majutsushi.github.com/tagbar/
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+" displays tags in a window, ordered by scope
+Plug 'liuchengxu/vista.vim'
 
 " textobj
 Plug 'kana/vim-textobj-user', { 'tag': '*' }
@@ -95,7 +95,6 @@ Plug 'tpope/vim-rsi'
 Plug 'gregsexton/gitv', { 'on': 'Gitv', 'tag': '*' }
 Plug 'lambdalisue/suda.vim'
 
-Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/git-messenger.vim'
 
 " full featured go development environment support for vim
