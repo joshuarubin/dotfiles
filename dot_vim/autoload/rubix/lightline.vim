@@ -96,7 +96,7 @@ endfunction
 
 function! rubix#lightline#vista() abort
   let l:vista = get(b:, 'vista_nearest_method_or_function', '')
-  return winwidth(0) >= 90 ? ' ' . l:vista : ''
+  return winwidth(0) >= 90 && l:vista ? ' ' . l:vista : ''
 endfunction
 
 function! rubix#lightline#term_title() abort
