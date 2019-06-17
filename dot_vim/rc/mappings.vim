@@ -516,8 +516,8 @@ let g:which_key_map.b.h = 'startify'
 nmap <leader>w <plug>(choosewin)
 let g:which_key_map.w = 'choose window'
 
-map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
-map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
+map n <plug>(anzu-n-with-echo)
+map N <plug>(anzu-N-with-echo)
 
 " resize window
 nnoremap <silent> <c-a>H <c-w><

@@ -138,7 +138,7 @@ highlight link GitGutterChange       CursorLineNr
 highlight link GitGutterDelete       ErrorMsg
 highlight link GitGutterChangeDelete Type
 
-autocmd  MyAutoCmd FileType which_key set laststatus=0 noruler
+autocmd MyAutoCmd FileType which_key set laststatus=0 noruler
   \| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 let g:EasyMotion_do_mapping = 0

@@ -122,7 +122,6 @@ Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 " search for selection with '*' in visual mode
 Plug 'thinca/vim-visualstar', { 'tag': '*' }
 
-Plug 'haya14busa/is.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'kshenoy/vim-signature'
 
