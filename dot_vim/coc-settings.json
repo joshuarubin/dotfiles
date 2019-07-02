@@ -21,6 +21,7 @@
   "languageserver": {
     "golang": {
       "command": "gopls",
+      "args": ["serve"],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     }

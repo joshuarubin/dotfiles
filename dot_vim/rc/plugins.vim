@@ -17,7 +17,7 @@ Plug 'roxma/nvim-yarp', rubix#plug#cond(!has('nvim'))
 
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 
-Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': { -> coc#util#install()} }
+Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install()} }
 Plug 'neoclide/coc-neco'
 
 Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
