@@ -19,7 +19,7 @@ let g:lightline = {
       \   'left': [
       \     [ 'mode', 'crypt', 'paste', 'spell' ],
       \     [ 'git' ],
-      \     [ 'filename', 'blame', 'termtitle' ],
+      \     [ 'filename', 'termtitle' ],
       \   ],
       \   'right': [
       \     [ 'aleerror', 'alewarn', 'lineinfo' ],
@@ -51,7 +51,6 @@ let g:lightline = {
       \   'lambda': 'λ',
       \ },
       \ 'component_function': {
-      \   'blame':        'rubix#lightline#blame',
       \   'git':          'rubix#lightline#git',
       \   'filename':     'rubix#lightline#filename',
       \   'fullfilename': 'rubix#lightline#full_filename',

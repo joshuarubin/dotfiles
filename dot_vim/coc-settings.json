@@ -3,27 +3,29 @@
   "codeLens.enable": true,
   "diagnostic.displayByAle": true,
   "diagnostic.refreshOnInsertMode": true,
+  "git.addGlameToBufferVar": true,
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.addedSign.text": "▎",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "git.changeRemovedSign.text": "▋",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.changedSign.text": "▎",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.removedSign.text": "▏",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.text": "▔",
+  "signature.preferShownAbove": false,
   "suggest.detailField": "abbr",
+  "suggest.enablePreselect": false,
   "suggest.noselect": true,
   "suggest.snippetIndicator": "🌟",
   "suggest.triggerAfterInsertEnter": true,
-  "git.addGlameToBufferVar": true,
-  "git.addedSign.hlGroup": "GitGutterAdd",
-  "git.changedSign.hlGroup": "GitGutterChange",
-  "git.removedSign.hlGroup": "GitGutterDelete",
-  "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "git.addedSign.text": "▎",
-  "git.changedSign.text": "▎",
-  "git.removedSign.text": "▏",
-  "git.topRemovedSign.text": "▔",
-  "git.changeRemovedSign.text": "▋",
   "languageserver": {
     "golang": {
-      "command": "gopls",
       "args": ["serve"],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
+      "command": "gopls",
+      "filetypes": ["go"],
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"]
     }
   }
 }

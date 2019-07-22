@@ -72,7 +72,7 @@ function! rubix#lightline#filetype() abort
   endif
 
   if &filetype !=# ''
-    return &filetype . WebDevIconsGetFileTypeSymbol()
+    return &filetype . WebDevIconsGetFileTypeSymbol() . ' '
   endif
 
   return ''

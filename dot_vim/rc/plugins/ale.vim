@@ -11,7 +11,7 @@ let g:ale_sign_info       = '💬'
 let g:ale_fix_on_save     = 1
 let g:ale_sign_column_always = 1
 let g:ale_echo_msg_format = '%code: %%s [%linter%]'
-let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_cursor = 0
 
 highlight link ALEError   ErrorMsg
 highlight link ALEWarning CursorLineNr

@@ -269,7 +269,12 @@ bar {
     }
 }
 
-for_window [class="Firefox"] {
+for_window [class="firefox"] {
+  border pixel 2
+  move window to workspace 3
+}
+
+for_window [app_id="firefox"] {
   border pixel 2
   move window to workspace 3
 }
@@ -287,7 +292,7 @@ for_window [class="Signal"]  move window to workspace 1
 include /etc/sway/config.d/*
 
 # start background apps
-exec mako --background-color '#303030' --text-color '#c5c8c6' --border-size 3 --border-color '#6c7a80' --border-radius 5 --max-visible 10 --format '<b>%a:</b> <i>%s</i>\n%b' --sort +time --sort -priority
+exec mako --output DP-1 --background-color '#303030' --text-color '#c5c8c6' --border-size 3 --border-color '#6c7a80' --border-radius 5 --max-visible 10 --format '<b>%a:</b> <i>%s</i>\n%b' --sort +time --sort -priority
 exec sway-focused
 exec lxpolkit
 exec QT_QPA_PLATFORM=xcb albert

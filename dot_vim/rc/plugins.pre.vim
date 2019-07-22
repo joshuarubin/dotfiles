@@ -74,7 +74,6 @@ let g:coc_global_extensions = [
   \   'coc-json',
   \   'coc-lists',
   \   'coc-neosnippet',
-  \   'coc-pairs',
   \   'coc-python',
   \   'coc-rls',
   \   'coc-syntax',
