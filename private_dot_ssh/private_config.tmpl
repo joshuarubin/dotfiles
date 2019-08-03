@@ -7,7 +7,7 @@ Host *
   IdentityFile ~/.ssh/id_krypton
   IdentityFile ~/.ssh/id_ed25519
 
-Host syrax pi3 balerion
+Host syrax pi3 balerion rockpi4 pi4
   # forward local port 2489 for lemonade copy/paste server
   RemoteForward 2489 127.0.0.1:2489
 
@@ -17,6 +17,13 @@ Host syrax
 Host pub1
   HostName pub1.rubixconsulting.com
   IdentityFile ~/.ssh/id_rsa_legacy
+
+Host rockpi4
+  HostName rockpi4.local
+
+Host pi4
+  HostName pi4.local
+  User pi
 
 Host pi3
   HostName 10.0.5.14

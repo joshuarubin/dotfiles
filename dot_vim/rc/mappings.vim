@@ -308,8 +308,6 @@ inoremap <silent> <expr> <cr>
 " - else if the text is jumpable, jump next (for coc and neosnippet)
 " - else <tab>
 inoremap <expr> <tab>
-  \ pumvisible() && len(v:completed_item) == 0 && neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
-  \ pumvisible() && len(v:completed_item) == 0 && coc#jumpable() ? coc#rpc#request('snippetNext', []) :
   \ pumvisible() ? "\<c-n>" :
   \ neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
   \ coc#jumpable() ? coc#rpc#request('snippetNext', []) :

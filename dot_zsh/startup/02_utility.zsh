@@ -60,7 +60,10 @@ function is-callable {
 
 if (( ${terminfo[colors]} >= 8 )); then
   # ls Colors
-  if is-callable 'lsd'; then
+  if is-callable 'exa'; then
+    alias ls='exa --git -g --group-directories-first --icons'
+    alias tree='ls --tree'
+  elif is-callable 'lsd'; then
     alias ls='lsd'
     alias tree='ls --tree'
   elif is-callable 'dircolors'; then
@@ -112,9 +115,9 @@ if (( ${terminfo[colors]} >= 8 )); then
   fi
 fi
 
-alias l='ls -lAh'         # all files, human-readable sizes
+alias l='ls -lA'         # all files, human-readable sizes
 [[ -n ${PAGER} ]] && alias lm="l | ${PAGER}" # all files, human-readable sizes, use pager
-alias ll='ls -lh'         # human-readable sizes
+alias ll='ls -l'         # human-readable sizes
 alias lr='ll -R'          # human-readable sizes, recursive
 alias lx='ll -XB'         # human-readable sizes, sort by extension (GNU only)
 alias lk='ll -Sr'         # human-readable sizes, largest last

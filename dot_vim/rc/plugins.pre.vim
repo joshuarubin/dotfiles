@@ -64,6 +64,7 @@ autocmd MyAutoCmd User fugitive
 let g:fugitive_git_executable = "env GIT_SSH_COMMAND='ssh -o ControlPersist=no' git"
 
 let g:neosnippet#conceal_char = 'Δ'
+let g:neosnippet#enable_completed_snippet = 1
 
 let g:coc_global_extensions = [
   \   'coc-css',
