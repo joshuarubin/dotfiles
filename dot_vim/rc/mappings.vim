@@ -1,5 +1,3 @@
-call which_key#register(',', 'g:which_key_map')
-
 let g:which_key_map.c = {'name': '+code'}
 let g:which_key_map.f = {'name': '+format'}
 

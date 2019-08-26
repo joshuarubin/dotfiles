@@ -82,6 +82,4 @@ elseif has('terminal')
   autocmd MyAutoCmd TerminalOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight signcolumn=no
 endif
 
-autocmd MyAutoCmd CursorHold * silent call CocActionAsync('highlight')
-autocmd MyAutoCmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 autocmd MyAutoCmd BufReadPost fugitive://* let b:ale_enabled=0

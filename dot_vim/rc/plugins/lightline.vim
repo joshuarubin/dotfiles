@@ -81,4 +81,3 @@ let g:lightline = {
 
 autocmd MyAutoCmd User ALELintPost         call lightline#update()
 autocmd MyAutoCmd User CocDiagnosticChange call lightline#update()
-autocmd MyAutoCmd VimEnter * call vista#RunForNearestMethodOrFunction()
