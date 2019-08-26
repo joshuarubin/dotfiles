@@ -1,3 +1,6 @@
+[profile ngrok]
+region = us-west-2
+
 [profile ngrok-dev]
 role_arn = arn:aws:iam::121193077874:role/OrganizationAccountAccessRole
 source_profile = ngrok
@@ -8,10 +11,12 @@ role_arn = arn:aws:iam::598650118518:role/OrganizationAccountAccessRole
 source_profile = ngrok
 region = us-west-2
 
-[profile ngrok-prod]
-role_arn = arn:aws:iam::179275156621:role/OrganizationAccountAccessRole
+[profile ngrok-infra]
+role_arn = arn:aws:iam::728914598599:role/OrganizationAccountAccessRole
 source_profile = ngrok
 region = us-west-2
 
-[profile ngrok]
+[profile ngrok-prod]
+role_arn = arn:aws:iam::179275156621:role/OrganizationAccountAccessRole
+source_profile = ngrok
 region = us-west-2
