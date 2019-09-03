@@ -129,6 +129,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'tomtom/tcomment_vim'
 
 Plug 'easymotion/vim-easymotion'
+Plug 'editorconfig/editorconfig-vim'
 
 " Add plugins to &runtimepath, and:
 " filetype plugin indent on
