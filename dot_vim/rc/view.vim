@@ -77,9 +77,9 @@ autocmd MyAutoCmd InsertEnter * setlocal nohlsearch
 autocmd MyAutoCmd InsertLeave * setlocal hlsearch
 
 if has('nvim')
-  autocmd MyAutoCmd TermOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight signcolumn=no
+  autocmd MyAutoCmd TermOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 scrolloff=0 winfixheight signcolumn=no
 elseif has('terminal')
-  autocmd MyAutoCmd TerminalOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 winfixheight signcolumn=no
+  autocmd MyAutoCmd TerminalOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 scrolloff=0 winfixheight signcolumn=no
 endif
 
 autocmd MyAutoCmd BufReadPost fugitive://* let b:ale_enabled=0
