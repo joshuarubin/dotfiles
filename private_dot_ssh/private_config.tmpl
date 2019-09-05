@@ -2,9 +2,6 @@ Host *
   ControlMaster auto
   ControlPersist 300
   ControlPath ~/.ssh/connections/%r_%h_%p
-  IdentityAgent ~/.kr/krd-agent.sock
-  ProxyCommand krssh %h %p
-  IdentityFile ~/.ssh/id_krypton
   IdentityFile ~/.ssh/id_ed25519
 
 Host syrax pi3 balerion rockpi4 pi4
