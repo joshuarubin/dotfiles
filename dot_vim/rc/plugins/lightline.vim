@@ -22,7 +22,7 @@ let g:lightline = {
       \     [ 'filename', 'termtitle' ],
       \   ],
       \   'right': [
-      \     [ 'aleerror', 'alewarn', 'lineinfo' ],
+      \     [ 'errors', 'warnings', 'lineinfo' ],
       \     [ 'fileformat' ],
       \     [ 'go', 'vista', 'filetype' ]
       \   ],
@@ -67,13 +67,13 @@ let g:lightline = {
       \ 'component_expand': {
       \   'gotype':       'rubix#lightline#go_type',
       \   'lineinfo':     'rubix#lightline#line_info',
-      \   'aleerror':     'rubix#lightline#aleerror',
-      \   'alewarn':      'rubix#lightline#alewarn',
+      \   'errors':       'rubix#lightline#errors',
+      \   'warnings':     'rubix#lightline#warnings',
       \   'buffers':      'lightline#bufferline#buffers',
       \ },
       \ 'component_type': {
-      \   'aleerror': 'error',
-      \   'alewarn':  'warning',
+      \   'errors':   'error',
+      \   'warnings': 'warning',
       \   'buffers':  'tabsel',
       \ },
       \ 'enable': { 'statusline': 1, 'tabline': 1 },

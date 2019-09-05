@@ -1,8 +1,11 @@
 {
   "coc.preferences.formatOnType": true,
   "codeLens.enable": true,
-  "diagnostic.displayByAle": true,
   "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.errorSign": "🔥",
+  "diagnostic.warningSign": "🚧",
+  "diagnostic.infoSign": "💬",
+  "diagnostic.hintSign": "💬",
   "git.addGlameToBufferVar": true,
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.addedSign.text": "▎",
@@ -14,12 +17,15 @@
   "git.removedSign.text": "▏",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.text": "▔",
+  "javascript.preferences.noSemicolons": true,
   "signature.preferShownAbove": false,
   "suggest.detailField": "abbr",
   "suggest.enablePreselect": false,
   "suggest.noselect": true,
   "suggest.snippetIndicator": "🌟",
   "suggest.triggerAfterInsertEnter": true,
+  "tslint.autoFixOnSave": true,
+  "typescript.preferences.noSemicolons": true,
   "languageserver": {
     "golang": {
       "args": ["serve"],

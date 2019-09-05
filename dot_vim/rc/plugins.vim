@@ -20,8 +20,6 @@ Plug 'Shougo/neco-vim', { 'for': 'vim' }
 Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install()} }
 Plug 'neoclide/coc-neco'
 
-Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
-
 " file browser
 Plug 'Shougo/defx.nvim', { 'do': function('rubix#UpdateRemotePlugins') }
 Plug 'kristijanhusak/defx-icons', { 'do': function('rubix#UpdateRemotePlugins') }

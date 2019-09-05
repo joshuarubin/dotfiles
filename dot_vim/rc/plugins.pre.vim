@@ -80,6 +80,7 @@ let g:coc_global_extensions = [
   \   'coc-syntax',
   \   'coc-tag',
   \   'coc-tsserver',
+  \   'coc-tslint-plugin',
   \   'coc-yaml',
   \ ]
 

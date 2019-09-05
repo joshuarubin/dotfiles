@@ -30,6 +30,8 @@ for file in ${ZSH}/{completion,startup}/^(*.zwc|*.zwc.old)(-.N); do
 done
 unset file
 
+autoload -U zcalc
+
 # remove non-existent directories
 path=($^path(N))
 cdpath=($^cdpath(N))

@@ -237,14 +237,22 @@ function! rubix#lightline#neomakeerror() abort
   return ''
 endfunction
 
-function! rubix#lightline#aleerror() abort
+function! rubix#lightline#errors() abort
   let l:counts = ale#statusline#Count(bufnr(''))
+  if exists('b:coc_diagnostic_info')
+    let l:counts.error += b:coc_diagnostic_info.error
+  endif
   return l:counts.error ? l:counts.error : ''
 endfunction
 
-function! rubix#lightline#alewarn() abort
+function! rubix#lightline#warnings() abort
   let l:counts = ale#statusline#Count(bufnr(''))
   let l:warnings = l:counts.warning + l:counts.style_error
+  if exists('b:coc_diagnostic_info')
+    let l:warnings += b:coc_diagnostic_info.warning
+    let l:warnings += b:coc_diagnostic_info.information
+    let l:warnings += b:coc_diagnostic_info.hint
+  endif
   return l:warnings ? l:warnings : ''
 endfunction
 

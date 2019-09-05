@@ -20,8 +20,6 @@ highlight link ALEInfo    Conceal
 let g:ale_fixers = {
 \   'go':         [ 'goimports', 'gofmt' ],
 \   'gomod':      [ 'gomod' ],
-\   'javascript': [ 'prettier_standard' ],
-\   'typescript': [ 'prettier', 'tslint' ],
 \   'css':        [ 'prettier' ],
 \   'scss':       [ 'prettier' ],
 \   'less':       [ 'prettier' ],
@@ -31,7 +29,7 @@ let g:ale_fixers = {
 
 let g:ale_linters = {
 \   'javascript': [ 'standard' ],
-\   'typescript': [ 'tslint', 'tsserver' ],
+\   'typescript': [],
 \   'jsx':        [ 'standard' ],
 \   'vimwiki':    [ 'alex', 'mdl', 'prettier', 'proselint', 'redpen', 'remark-lint', 'vale' ],
 \   'text':       [ 'alex', 'proselint', 'vale', 'write-good', 'redpen' ],
