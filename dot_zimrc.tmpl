@@ -11,7 +11,7 @@
 # line. These dependencies are noted on the respective module's README.md.
 zmodules=(archive directory environment git history input \
           syntax-highlighting history-substring-search completion pacman git-info \
-          prompt autosuggestions ssh)
+          prompt autosuggestions {{- if eq .chezmoi.hostname "vhagar" }} ssh{{- end }})
 
 
 ###################
