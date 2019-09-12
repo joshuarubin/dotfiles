@@ -299,6 +299,7 @@ exec QT_QPA_PLATFORM=xcb albert
 exec KEYBASE_AUTOSTART=1 run_keybase
 exec nm-applet --indicator
 exec wl-clipboard-history -t
+exec udiskie
 
 # start foreground apps
 exec $term

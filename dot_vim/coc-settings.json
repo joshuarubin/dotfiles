@@ -31,7 +31,15 @@
       "args": ["serve"],
       "command": "gopls",
       "filetypes": ["go"],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"]
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "settings": {
+        "gopls": {
+          "deepCompletion": true,
+          "usePlaceholders": true,
+          "fuzzyMatching": true,
+          "completeUnimported": true
+        }
+      }
     }
   }
 }
