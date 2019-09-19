@@ -7,7 +7,7 @@ if (( $#commands[rg] )); then
   export FZF_CTRL_T_COMMAND=${FZF_DEFAULT_COMMAND}
 fi
 
-export FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --inline-info --ansi --color fg:-1,bg:-1,hl:67,fg+:110,bg+:-1,hl+:67,info:229,prompt:242,pointer:73,marker:131,spinner:240"
+export FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --inline-info --ansi --color fg:-1,bg:-1,hl:67,fg+:110,bg+:-1,hl+:67,info:229,prompt:242,pointer:73,marker:131,spinner:240"
 export FZF_CTRL_R_OPTS='--exact'
 
 # Key bindings
