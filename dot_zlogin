@@ -12,7 +12,7 @@
 
   zrecompile -pq ${HOME}/.secrets
 
-  for file in ${ZSH}/{completion,functions,startup}/^(*.zwc)(.); do
+  for file in ${ZSH}/{before,completion,functions,startup}/^(*.zwc)(.); do
     zrecompile -pq ${file}
   done
 ) &!
