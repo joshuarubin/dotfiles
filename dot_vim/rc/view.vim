@@ -26,7 +26,7 @@ set t_vb=
 set novisualbell " no sounds
 
 set wildmenu " show list for autocomplete
-set wildmode=list:longest,full
+set wildmode=full
 
 if v:version > 703 || v:version == 703 && has('patch072')
   set wildignorecase

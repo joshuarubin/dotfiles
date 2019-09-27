@@ -284,6 +284,7 @@ for_window [title="Volume Control"] floating enable
 for_window [title="Syncthing-GTK"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
 for_window [class="Keybase"] floating enable
+for_window [app_id="blueman-*"] floating enable
 
 for_window [class="Slack"]   move window to workspace 1
 for_window [class="Spotify"] move window to workspace 1
@@ -300,6 +301,7 @@ exec KEYBASE_AUTOSTART=1 run_keybase
 exec nm-applet --indicator
 exec wl-clipboard-history -t
 exec udiskie
+exec blueman-tray
 
 # start foreground apps
 exec $term
