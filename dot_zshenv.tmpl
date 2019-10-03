@@ -81,9 +81,7 @@ fi
 # Treat these characters as part of a word.
 WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
-PROMPT_LEAN_LEFT="kube_ps1"
 PROMPT_LEAN_VIMODE="1"
-KUBE_PS1_SYMBOL_ENABLE="false"
 
 {{ if eq .chezmoi.hostname "balerion" -}}
 if [ -n "$DESKTOP_SESSION" ];then
