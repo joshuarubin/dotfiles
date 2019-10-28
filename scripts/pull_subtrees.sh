@@ -2,6 +2,17 @@
 set -eu
 set -o pipefail
 
+git stash push -m 'pull_subtrees.sh' > /dev/null
+
+function finish {
+  stash_idx=$(git stash list | grep "pull_subtrees\.sh" | cut -d: -f1)
+  if [ -n "$stash_idx" ]; then
+    git stash apply "$stash_idx" > /dev/null
+    git stash drop "$stash_idx" > /dev/null
+  fi
+}
+trap finish EXIT
+
 git subtree pull --prefix dot_zim                                             https://github.com/Eriner/zim                             master --squash
 git subtree pull --prefix dot_zim/modules/history-substring-search/external   https://github.com/zsh-users/zsh-history-substring-search master --squash
 git subtree pull --prefix dot_zim/modules/completion/external                 https://github.com/zsh-users/zsh-completions              master --squash
