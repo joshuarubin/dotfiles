@@ -11,7 +11,6 @@ let g:lightline_filetype_mode_filetypes = ['help', 'man', 'fzf', 'vista_kind', '
 let g:lightline_no_lineinfo_filetypes = ['fzf', 'vista_kind', 'taskreport', 'taskinfo', 'defx']
 let g:lightline_no_fileformat_filetypes = ['fzf', 'man', 'help', 'vista_kind', 'qf', 'taskreport', 'taskinfo', 'defx']
 let g:lightline_no_filename_filetypes = ['fzf', 'vista_kind', 'qf', 'taskreport', 'taskinfo', 'defx']
-let g:lightline_no_termtitle_filetypes = ['fzf', 'defx']
 
 let g:lightline = {
       \ 'colorscheme': 'hybrid',
@@ -19,7 +18,7 @@ let g:lightline = {
       \   'left': [
       \     [ 'mode', 'crypt', 'paste', 'spell' ],
       \     [ 'git' ],
-      \     [ 'filename', 'termtitle' ],
+      \     [ 'filename' ],
       \   ],
       \   'right': [
       \     [ 'errors', 'warnings', 'lineinfo' ],
@@ -31,7 +30,7 @@ let g:lightline = {
       \   'left': [
       \     [ ],
       \     [ ],
-      \     [ 'fullfilename', 'termtitle' ]
+      \     [ 'fullfilename' ]
       \   ],
       \   'right': [
       \     [ 'lineinfo' ],
@@ -62,7 +61,6 @@ let g:lightline = {
       \   'paste':        'rubix#lightline#paste',
       \   'vista':        'rubix#lightline#vista',
       \   'go':           'go#statusline#Show',
-      \   'termtitle':    'rubix#lightline#term_title',
       \ },
       \ 'component_expand': {
       \   'gotype':       'rubix#lightline#go_type',

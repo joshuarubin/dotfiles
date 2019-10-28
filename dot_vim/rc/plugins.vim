@@ -77,7 +77,6 @@ Plug 'tmux-plugins/vim-tmux-focus-events', rubix#plug#cond(exists('$TMUX'))
 " display your undo history in a graph
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
-
 Plug 'liuchengxu/vim-which-key'
 
 " tpope
@@ -108,6 +107,7 @@ Plug 'zchee/vim-flatbuffers'
 Plug 'jparise/vim-graphql'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'leafgarland/typescript-vim'
 
 " distraction-free writing in vim
 Plug 'junegunn/goyo.vim'

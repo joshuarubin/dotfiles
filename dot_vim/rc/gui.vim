@@ -4,7 +4,7 @@ if has#colorscheme('hybrid')
   colorscheme hybrid
 endif
 
-set mouse=a " enable mouse usage (all modes)
+set mouse=nv
 set mousehide
 
 if !has('nvim') && has('mouse_sgr')

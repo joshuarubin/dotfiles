@@ -91,8 +91,8 @@ compctl -U -K _fasd_zsh_cmd_complete -V fasd -x 'C[-1,-*e],s[-]n[1,e]' -c - \
 
 alias z='fasd_cd -di'
 alias j="fasd_cd -di"
-alias e="fasd -ftie ${EDITOR} -B nviminfo" # quick opening files with vim
-alias nv="fasd -ftiB nviminfo"
+alias e="fasd -ftie ${EDITOR} -b nviminfo" # quick opening files with vim
+alias nv="fasd -ftib nviminfo"
 
 if (( $+commands[$(__fzfcmd)] )); then
   fasd_i() {
@@ -106,18 +106,18 @@ if (( $+commands[$(__fzfcmd)] )); then
       cd "$_fasd_all"
       return
     fi
-    local _fasd_ret="$(fasd -ld "$@" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --no-sort $FZF_DEFAULT_OPTS --tiebreak=index +m" $(__fzfcmd))"
+    local _fasd_ret="$(echo "$_fasd_all" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --no-sort $FZF_DEFAULT_OPTS --tiebreak=index +m" $(__fzfcmd))"
     [ -d "$_fasd_ret" ] && cd "$_fasd_ret" || printf %s\n "$_fasd_ret"
   }
 
   fasd_i_e() {
-    local _fasd_all=$(fasd -lfB nviminfo "$@")
+    local _fasd_all=$(fasd -lfb nviminfo "$@")
     [ -z "$_fasd_all" ] && return
     if [ "$(echo "$_fasd_all" | wc -l)" -eq 1 ]; then
       ${EDITOR} "$_fasd_all"
       return
     fi
-    local _fasd_ret="$(fasd -ltfB nviminfo "$@" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --no-sort $FZF_DEFAULT_OPTS --tiebreak=index +m" $(__fzfcmd))"
+    local _fasd_ret="$(echo "$_fasd_all" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tac --no-sort $FZF_DEFAULT_OPTS --tiebreak=index +m" $(__fzfcmd))"
     [ -f "$_fasd_ret" ] && ${EDITOR} "$_fasd_ret" || printf %s\n "$_fasd_ret"
   }
 
@@ -129,7 +129,7 @@ if (( $+commands[$(__fzfcmd)] )); then
   alias z="fasd_i_cd"
   alias j="fasd_i_cd"
   alias e="fasd_i_e"
-  alias nv="fasd_i -ftB nviminfo"
+  alias nv="fasd_i -ftb nviminfo"
 fi
 
 fi

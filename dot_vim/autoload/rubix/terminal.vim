@@ -43,36 +43,34 @@ let s:term = {
   \   'last_topleft':  0,
   \ }
 
+function! s:terminal_save() abort
+  let l:win = winnr()
+
+  let l:maxheight  = &lines - &cmdheight
+  let l:maxheight -= &laststatus == 2  || &laststatus  == 1 &&     winnr('$') > 1 ? 1 : 0
+  let l:maxheight -= &showtabline == 2 || &showtabline == 1 && tabpagenr('$') > 1 ? 1 : 0
+
+  let s:term.last_topleft = winnr() == 1 ? 1 : 0
+  let s:term.last_vertical = 0
+
+  if winwidth(l:win) == &columns
+    " term was horizontal
+    let s:term.last_height = winheight(l:win)
+  elseif winheight(l:win) == l:maxheight
+    " term was vertical
+    let s:term.last_vertical = 1
+    let s:term.last_width = winwidth(l:win)
+  else
+    " unknown, reset
+    let s:term.last_height = 0
+    let s:term.last_width  = 0
+  endif
+endfunction
+
 function! rubix#terminal#toggle(mods) abort
-  " user is in the terminal, close it and return to the previous location
+  " user is in the terminal, return to the previous location
   if s:term.buf == bufnr('')
-    let l:win = winnr()
-    if l:win == 1 && winnr('$') == 1
-      return
-    endif
-
-    let l:maxheight  = &lines - &cmdheight
-    let l:maxheight -= &laststatus == 2  || &laststatus  == 1 &&     winnr('$') > 1 ? 1 : 0
-    let l:maxheight -= &showtabline == 2 || &showtabline == 1 && tabpagenr('$') > 1 ? 1 : 0
-
-    let s:term.last_topleft = winnr() == 1 ? 1 : 0
-    let s:term.last_vertical = 0
-
-    if winwidth(l:win) == &columns
-      " term was horizontal
-      let s:term.last_height = winheight(l:win)
-    elseif winheight(l:win) == l:maxheight
-      " term was vertical
-      let s:term.last_vertical = 1
-      let s:term.last_width = winwidth(l:win)
-    else
-      " unknown, reset
-      let s:term.last_height = 0
-      let s:term.last_width  = 0
-    endif
-
     wincmd p
-    execute l:win.'close'
     return
   endif
 
@@ -132,7 +130,15 @@ function! rubix#terminal#toggle(mods) abort
 
   setlocal bufhidden=hide nobuflisted
   let s:term.buf = bufnr('')
+
+  autocmd MyAutoCmd BufLeave <buffer> call s:terminal_save()
+
   call s:start_insert_term()
+endfunction
+
+function! rubix#terminal#setup() abort
+  call s:start_insert_term()
+  autocmd MyAutoCmd BufEnter <buffer> call rubix#terminal#restore_mode()
 endfunction
 
 function! s:remove_last_mode(win) abort
@@ -166,7 +172,6 @@ function! rubix#terminal#new() abort
   if has('nvim')
     enew
     call termopen(&shell)
-    startinsert
     return
   endif
 

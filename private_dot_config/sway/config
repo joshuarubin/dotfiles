@@ -302,9 +302,9 @@ for_window [app_id="nm-connection-editor"] floating enable
 for_window [class="Keybase"] floating enable
 for_window [app_id="blueman-*"] floating enable
 
-for_window [class="Slack"]   move window to workspace 1
-for_window [class="Spotify"] move window to workspace 1
-for_window [class="Signal"]  move window to workspace 1
+for_window [class="Slack"]   move window to workspace 3
+for_window [class="Spotify"] move window to workspace 3
+for_window [class="Signal"]  move window to workspace 3
 
 include /etc/sway/config.d/*
 
@@ -318,9 +318,9 @@ exec nm-applet --indicator
 exec wl-clipboard-history -t
 exec udiskie
 exec blueman-tray
+exec firewall-applet
 
 # start foreground apps
 exec $term
-exec google-chrome-stable
+exec gtk-launch firefox
 exec flatpak run com.slack.Slack
-exec flatpak run org.signal.Signal

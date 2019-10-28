@@ -18,7 +18,7 @@ let g:haskellmode_completion_ghc = 0
 
 " vim-polyglot
 let g:jsx_ext_required = 0
-let g:polyglot_disabled = ['go', 'scss', 'gmpl', 'markdown', 'liquid']
+let g:polyglot_disabled = ['go', 'scss', 'gmpl', 'markdown', 'liquid', 'typescript']
 let g:vim_json_syntax_conceal = 1
 
 " vim-markdown
@@ -61,7 +61,8 @@ autocmd MyAutoCmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <silent> <buffer> .. :edit %:h<cr> |
   \ endif
-let g:fugitive_git_executable = "env GIT_SSH_COMMAND='ssh -o ControlPersist=no' git"
+
+let $GIT_SSH_COMMAND='ssh -o ControlPersist=no'
 
 let g:neosnippet#conceal_char = 'Δ'
 let g:neosnippet#enable_completed_snippet = 1
@@ -75,6 +76,7 @@ let g:coc_global_extensions = [
   \   'coc-json',
   \   'coc-lists',
   \   'coc-neosnippet',
+  \   'coc-prettier',
   \   'coc-python',
   \   'coc-rls',
   \   'coc-syntax',

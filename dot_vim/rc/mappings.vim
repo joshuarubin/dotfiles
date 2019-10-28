@@ -367,10 +367,6 @@ if !exists('$TMUX')
   inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<esc>\<c-w>j"
   inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<esc>\<c-w>k"
 
-  " save the buffer mode when leaving, restore (insert) mode if necessary
-  autocmd MyAutoCmd BufEnter,WinEnter * :call rubix#terminal#restore_mode()
-  autocmd MyAutoCmd BufLeave,WinLeave * :call rubix#terminal#save_mode()
-
   if has('nvim')
     tnoremap <expr> <c-h> rubix#terminal#save_mode() . "\<c-w>h"
     tnoremap <expr> <c-j> rubix#terminal#save_mode() . "\<c-w>j"
@@ -389,6 +385,8 @@ if !exists('$TMUX')
 
     " disable macros in terminal windows
     autocmd MyAutoCmd TermOpen * nnoremap <buffer> q <nop>
+
+    autocmd MyAutoCmd TermOpen * :call rubix#terminal#setup()
   endif
 
   if has('terminal')
@@ -409,6 +407,8 @@ if !exists('$TMUX')
 
     " disable macros in terminal windows
     autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> q <nop>
+
+    autocmd MyAutoCmd TerminalOpen * :call rubix#terminal#setup()
   endif
 endif
 

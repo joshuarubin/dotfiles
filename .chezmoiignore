@@ -1,7 +1,6 @@
 /LICENSE
 /README.md
 /scripts/
-/terminfo
 
 {{- if ne .chezmoi.os "darwin" }}
 /.config/karabiner/

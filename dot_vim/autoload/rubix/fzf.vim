@@ -10,26 +10,14 @@ function! rubix#fzf#rg(query, path, ...) abort
   if type(a:query) != s:TYPE.string
     return s:warn('Invalid query argument')
   endif
-  let l:query = empty(a:query) ? '^(?=.)' : a:query
+  if empty(a:query)
+    return
+  endif
   let l:path = fnamemodify(a:path, ':p:.')
   let l:args = copy(a:000)
   let l:rg_opts = len(l:args) > 1 && type(l:args[0]) == s:TYPE.string ? remove(l:args, 0) : ''
-  let l:command = l:rg_opts . ' ' . s:q1(l:query) . (empty(l:path) ? '' : ' ' . s:q1(l:path))
+  let l:command = l:rg_opts . ' ' . s:q1(a:query) . (empty(l:path) ? '' : ' ' . s:q1(l:path))
   return call('rubix#fzf#rg_raw', insert(l:args, l:command, 0))
-endfunction
-
-" query, path, [[ag options], options]
-function! rubix#fzf#ag(query, path, ...) abort
-  let s:last = [a:query, a:path]
-  if type(a:query) != s:TYPE.string
-    return s:warn('Invalid query argument')
-  endif
-  let l:query = empty(a:query) ? '^(?=.)' : a:query
-  let l:path = fnamemodify(a:path, ':p:.')
-  let l:args = copy(a:000)
-  let l:ag_opts = len(l:args) > 1 && type(l:args[0]) == s:TYPE.string ? remove(l:args, 0) : ''
-  let l:command = l:ag_opts . ' ' . s:q1(l:query) . (empty(l:path) ? '' : ' ' . s:q1(l:path))
-  return call('fzf#vim#ag_raw', insert(l:args, l:command, 0))
 endfunction
 
 " rg command suffix, [options]
@@ -39,10 +27,6 @@ endfunction
 
 function! rubix#fzf#rg_repeat(...) abort
   return call('rubix#fzf#rg', extend(copy(s:last), copy(a:000)))
-endfunction
-
-function! rubix#fzf#ag_repeat(...) abort
-  return call('rubix#fzf#ag', extend(copy(s:last), copy(a:000)))
 endfunction
 
 function! rubix#fzf#history(...) abort

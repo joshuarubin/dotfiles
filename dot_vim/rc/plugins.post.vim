@@ -37,8 +37,9 @@ autocmd MyAutoCmd User GoyoEnter nested call rubix#goyo#enter()
 autocmd MyAutoCmd User GoyoLeave nested call rubix#goyo#leave()
 
 function! s:cocInit() abort
-  autocmd MyAutoCmd CursorHold * silent call CocActionAsync('highlight')
   autocmd MyAutoCmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 endfunction
 
 autocmd MyAutoCmd User CocNvimInit call s:cocInit()
+
+call editorconfig#AddNewHook(function('rubix#editorconfig#filetype_hook'))
