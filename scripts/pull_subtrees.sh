@@ -30,3 +30,5 @@ while IFS= read -r -d '' file; do
     git mv "$f" executable_"$f";
   )
 done < <(find dot_zim dot_tmux -type f -executable ! -name 'executable_*' -print0)
+
+sed -i 's|%#|%(!.#.λ)|g' dot_zim/modules/prompt/external-themes/lean/prompt_lean_setup
