@@ -42,4 +42,9 @@ endfunction
 
 autocmd MyAutoCmd User CocNvimInit call s:cocInit()
 
-call editorconfig#AddNewHook(function('rubix#editorconfig#filetype_hook'))
+" has to be run before VimEnter or else `vim <file>` won't be set properly,
+" though subsequent files will (if put in VimEnter)
+try
+  call editorconfig#AddNewHook(function('rubix#editorconfig#filetype_hook'))
+catch /.*/
+endtry
