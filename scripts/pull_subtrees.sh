@@ -42,4 +42,12 @@ while IFS= read -r -d '' file; do
   )
 done < <(find dot_zim dot_tmux -type f -executable ! -name 'executable_*' -print0)
 
+while IFS= read -r -d '' file; do
+  (
+    cd "$(dirname "$file")";
+    f="$(basename "$file")";
+    git mv "$f" dot_"$(echo "$f" | cut -d. -f2)";
+  )
+done < <(find dot_zim dot_tmux -name '.*' -print0)
+
 sed -i 's|%#|%(!.#.λ)|g' dot_zim/modules/prompt/external-themes/lean/prompt_lean_setup
