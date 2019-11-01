@@ -68,19 +68,6 @@ let g:ale_linter_aliases = {
 \   'vimwiki': 'markdown',
 \ }
 
-let s:npm_root = systemlist('npm root --global')
-
-if len(s:npm_root) > 0
-  let g:ale_css_stylelint_options = ''
-  \   . ' --config-basedir '.s:npm_root[0]
-
-  let g:ale_scss_stylelint_options = ''
-  \   . ' --config-basedir '.s:npm_root[0]
-
-  let g:ale_stylus_stylelint_options = ''
-  \   . ' --config-basedir '.s:npm_root[0]
-endif
-
 let g:ale_javascript_standard_options = ''
 \   . ' --plugin react'
 \   . ' --plugin flowtype'

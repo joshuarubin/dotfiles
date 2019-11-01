@@ -13,7 +13,10 @@ set regexpengine=1
 " persistent undo
 if has('persistent_undo')
   set undofile
-  let &undodir=rubix#cache#dir('undo')
+
+  if !has('nvim')
+    let &undodir=rubix#cache#dir('undo')
+  endif
 endif
 
 " backups
@@ -34,7 +37,9 @@ if has('eval')
   endif
 
   " swap files
-  let &directory=rubix#cache#dir('swap')
+  if !has('nvim')
+    let &directory=rubix#cache#dir('swap')
+  endif
 endif
 
 if has('termguicolors')

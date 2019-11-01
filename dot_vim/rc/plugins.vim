@@ -2,7 +2,7 @@ scriptencoding utf-8
 
 runtime rc/plugins.pre.vim
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(rubix#config#dir('plugged'))
 
 " enables surfing through buffers based on viewing history per window
 Plug 'ton/vim-bufsurf'
