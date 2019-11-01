@@ -18,11 +18,14 @@
 /.config/sway/
 /.config/systemd/
 /.config/waybar/
-/bin/lock
-/bin/wallpaper
 /bin/pinentry-auto
 /bin/pbcopy
 /bin/pbpaste
+{{- end }}
+
+{{- if or (ne .chezmoi.hostname "balerion") (eq .chezmoi.username "root") }}
+/bin/lock
+/bin/wallpaper
 {{- end }}
 
 {{- if not .secrets }}
@@ -30,7 +33,6 @@
 {{- end }}
 
 {{- if not .usenvim }}
-/bin/vi
 /bin/vim
 {{- end }}
 
