@@ -9,9 +9,9 @@
 # Select what modules you would like enabled.
 # The second line of modules may depend on options set by modules in the first
 # line. These dependencies are noted on the respective module's README.md.
-zmodules=(archive directory environment git input \
-          syntax-highlighting history-substring-search completion pacman git-info \
-          prompt autosuggestions {{- if eq .chezmoi.hostname "vhagar" }} ssh{{- end }})
+zmodules=(directory environment git input \
+          {{ if not .slow }}syntax-highlighting {{ end }}history-substring-search completion pacman \
+          prompt{{ if not .slow }} autosuggestions{{ end }}{{ if eq .chezmoi.hostname "vhagar" }} ssh{{ end }})
 
 
 ###################
