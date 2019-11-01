@@ -5,7 +5,7 @@ if has('nvim')
 endif
 
 function! rubix#cache#dir(suffix) abort
-  let l:dir = resolve(expand(s:dir . '/' . a:suffix))
+  let l:dir = expand(s:dir . '/' . a:suffix)
 
   if !isdirectory(expand(l:dir))
     call mkdir(expand(l:dir), 'p')

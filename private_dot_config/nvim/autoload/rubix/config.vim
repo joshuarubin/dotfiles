@@ -5,5 +5,5 @@ if has('nvim')
 endif
 
 function! rubix#config#dir(suffix) abort
-  return resolve(expand(s:dir . '/' . a:suffix))
+  return expand(s:dir . '/' . a:suffix)
 endfunction
