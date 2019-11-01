@@ -15,9 +15,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-endwise'
 
-" a collection of language packs for vim
-Plug 'sheerun/vim-polyglot'
-
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'leafgarland/typescript-vim'
 
@@ -82,6 +79,10 @@ Plug 'fatih/vim-go', { 'for': ['go', 'gomod'] }
 
 Plug 'easymotion/vim-easymotion'
 {{- end }}
+
+" a collection of language packs for vim
+" must come after vim-go
+Plug 'sheerun/vim-polyglot'
 
 " Add plugins to &runtimepath, and:
 " filetype plugin indent on
