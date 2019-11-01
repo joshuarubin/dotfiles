@@ -67,7 +67,9 @@ if has('conceal')
   set listchars+=conceal:Δ
 endif
 
+{{ if not .slow -}}
 set noshowmode
+{{- end }}
 
 set ruler
 set noshowcmd                   " prevent flicker, lightline shows info anyway
