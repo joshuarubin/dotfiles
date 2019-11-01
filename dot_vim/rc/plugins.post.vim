@@ -26,7 +26,6 @@ autocmd MyAutoCmd VimEnter *
         \ 'opened_icon': '',
         \ 'root_icon': ' ',
         \ })
-  \| call which_key#register(',', 'g:which_key_map')
   \| call vista#RunForNearestMethodOrFunction()
 
 let g:startify_skiplist = add(

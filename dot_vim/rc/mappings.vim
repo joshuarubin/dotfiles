@@ -1,120 +1,38 @@
-if !exists('g:which_key_map')
-  let g:which_key_map = {
-    \ 'c': {}
-    \ }
+" leader mappings
+if has('eval')
+  nnoremap <silent> <leader>n :silent :nohlsearch<cr>
+
+  " find merge conflict markers
+  noremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<cr>
+
+  nnoremap <silent> <leader>q :qa<cr>
+  nnoremap <silent> <leader>Q :qa!<cr>
+
+  " <leader>cd: Switch to the directory of the open buffer
+  nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
+
+  " <leader>,: Switch to previous window
+  nnoremap <leader>p <c-w>p
+
+  " <leader>m: Toggle Maximize current window
+  nnoremap <leader>m :call rubix#maximize_toggle()<cr>
+
+  " adjust viewports to the same size
+  noremap <leader>= <c-w>=
+
+  nnoremap <leader>fR :source $MYVIMRC<cr>
+
+  vnoremap <leader>s :sort<cr>
+
+  for s:i in range(1, 9)
+    " <leader>[1-9] move to window [1-9]
+    execute 'nnoremap <silent> <leader>'.s:i ' :'.s:i.'wincmd w<cr>'
+
+    " <leader>b[1-9] move to buffer [1-9]
+    execute 'nnoremap <silent> <leader>b'.s:i ':b'.s:i.'<cr>'
+  endfor
+  unlet s:i
 endif
-
-let g:which_key_map.c = {'name': '+code'}
-let g:which_key_map.f = {'name': '+format'}
-
-let g:which_key_map['_'] = {
-      \ 'name': '+comment',
-      \ '_':    'comment',
-      \ 'p':    'comment the current inner paragraph',
-      \ ' ':    ':TComment <query comment-begin ?comment-end>',
-      \ 'i':    'comment inline',
-      \ 'r':    'comment right',
-      \ 'b':    'comment block',
-      \ 'a':    ':TcommentAs <query comment type>',
-      \ 'n':    ':TcommentAs &filetype <query count>',
-      \ 's':    ':TcommentAs &filetype_<query comment subtype>',
-      \ }
-
-nnoremap <silent> <leader>n :silent :nohlsearch<cr>
-let g:which_key_map.n = 'stop highlighting search'
-
-" find merge conflict markers
-noremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<cr>
-let g:which_key_map.f.c = 'find merge conflict markers'
-
-nnoremap <silent> <leader>q :qa<cr>
-let g:which_key_map.q = 'quit'
-
-nnoremap <silent> <leader>Q :qa!<cr>
-let g:which_key_map.Q = 'quit without saving'
-
-" <leader>cd: Switch to the directory of the open buffer
-nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
-let g:which_key_map.c.d = 'lcd to buffer dir'
-
-" <leader>m: Toggle Maximize current window
-nnoremap <leader>m :call rubix#maximize_toggle()<cr>
-let g:which_key_map.m = 'maximize toggle'
-
-" <leader>,: Switch to previous window
-nnoremap <leader>p <c-w>p
-let g:which_key_map['p'] = 'previous window'
-
-let g:which_key_map[','] = {'name': '+easymotion'}
-
-map <silent> <leader><leader>f <plug>(easymotion-f)
-let g:which_key_map[','].f = 'char to the right'
-
-map <silent> <leader><leader>F <plug>(easymotion-F)
-let g:which_key_map[','].F = 'char to the left'
-
-map <silent> <leader><leader>t <plug>(easymotion-t)
-let g:which_key_map[','].t = 'till before char to the right'
-
-map <silent> <leader><leader>T <plug>(easymotion-T)
-let g:which_key_map[','].T = 'till after char to the left'
-
-map <silent> <leader><leader>w <plug>(easymotion-w)
-let g:which_key_map[','].w = 'beginning of word forward'
-
-map <silent> <leader><leader>W <plug>(easymotion-W)
-let g:which_key_map[','].W = 'beginning of WORD forward'
-
-map <silent> <leader><leader>b <plug>(easymotion-b)
-let g:which_key_map[','].b = 'beginning of word backward'
-
-map <silent> <leader><leader>B <plug>(easymotion-B)
-let g:which_key_map[','].B = 'beginning of WORD backward'
-
-map <silent> <leader><leader>e <plug>(easymotion-e)
-let g:which_key_map[','].e = 'end of word forward'
-
-map <silent> <leader><leader>E <plug>(easymotion-E)
-let g:which_key_map[','].E = 'end of WORD forward'
-
-let g:which_key_map[','].g = {'name': '+end-of-word'}
-
-map <silent> <leader><leader>ge <plug>(easymotion-ge)
-let g:which_key_map[','].g.e = 'end of word backward'
-
-map <silent> <leader><leader>gE <plug>(easymotion-gE)
-let g:which_key_map[','].g.E = 'end of WORD backward'
-
-map <silent> <leader><leader>j <plug>(easymotion-j)
-let g:which_key_map[','].j = 'line downward'
-
-map <silent> <leader><leader>k <plug>(easymotion-k)
-let g:which_key_map[','].k = 'line upward'
-
-map <silent> <leader><leader>n <plug>(easymotion-n)
-let g:which_key_map[','].n = 'jump to search forward'
-
-map <silent> <leader><leader>N <plug>(easymotion-N)
-let g:which_key_map[','].N = 'jump to search backward'
-
-map <silent> <leader><leader>s <plug>(easymotion-s)
-let g:which_key_map[','].s = 'search char forward and backward'
-
-" adjust viewports to the same size
-noremap <leader>= <c-w>=
-let g:which_key_map['='] = 'make windows equal size'
-
-" formatting shortcuts
-nnoremap <leader>fa :call rubix#preserve('normal gg=G')<cr>
-let g:which_key_map.f.a = 'indent whole file'
-
-nnoremap <leader>f$ :call rubix#trim()<cr>
-let g:which_key_map.f['$'] = 'trim trailing whitespace'
-
-nnoremap <leader>fR :source $MYVIMRC<cr>
-let g:which_key_map.f.R = 'reload .vimrc'
-
-vnoremap <leader>s :sort<cr>
 
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
@@ -129,13 +47,6 @@ nnoremap <silent> Q :q<cr>
 
 " W: Save
 nnoremap <silent> W :w<cr>
-
-" J: join without the cursor jumping around
-" nnoremap J mzJ`z
-
-" j, k: move up and down by row (of a wrapped line), not line
-" nnoremap j gj
-" nnoremap k gk
 
 " Y: yank from the cursor to the end of the line (like D and C)
 nnoremap Y y$
@@ -224,302 +135,238 @@ noremap <silent> <c-a>r :redraw!<cr>
 nnoremap <silent> <c-w><c-w> :confirm :Kwbd<cr>
 
 " plugin specific mappings
+if has('eval')
+  " easymotion
+  map <silent> <leader><leader>f <plug>(easymotion-f)
+  map <silent> <leader><leader>F <plug>(easymotion-F)
+  map <silent> <leader><leader>t <plug>(easymotion-t)
+  map <silent> <leader><leader>T <plug>(easymotion-T)
+  map <silent> <leader><leader>w <plug>(easymotion-w)
+  map <silent> <leader><leader>W <plug>(easymotion-W)
+  map <silent> <leader><leader>b <plug>(easymotion-b)
+  map <silent> <leader><leader>B <plug>(easymotion-B)
+  map <silent> <leader><leader>e <plug>(easymotion-e)
+  map <silent> <leader><leader>E <plug>(easymotion-E)
+  map <silent> <leader><leader>ge <plug>(easymotion-ge)
+  map <silent> <leader><leader>gE <plug>(easymotion-gE)
+  map <silent> <leader><leader>j <plug>(easymotion-j)
+  map <silent> <leader><leader>k <plug>(easymotion-k)
+  map <silent> <leader><leader>n <plug>(easymotion-n)
+  map <silent> <leader><leader>N <plug>(easymotion-N)
+  map <silent> <leader><leader>s <plug>(easymotion-s)
 
-" surround
-" ctrl-sw: Quickly surround word (must be recursive)
-nmap <c-s><c-w> ysiw
+  " formatting shortcuts
+  nnoremap <leader>fa :call rubix#preserve('normal gg=G')<cr>
+  nnoremap <leader>f$ :call rubix#trim()<cr>
 
-" undotree
-nnoremap <leader>u :UndotreeToggle<cr>
-let g:which_key_map.u = 'undotree toggle'
+  " surround
+  " ctrl-sw: Quickly surround word (must be recursive)
+  nmap <c-s><c-w> ysiw
 
-" bufsurf
-nnoremap <silent> Z :BufSurfBack<cr>
-nnoremap <silent> X :BufSurfForward<cr>
+  " undotree
+  nnoremap <leader>u :UndotreeToggle<cr>
 
-" vista
-nnoremap <silent> <c-g> :Vista!!<cr>
+  " bufsurf
+  nnoremap <silent> Z :BufSurfBack<cr>
+  nnoremap <silent> X :BufSurfForward<cr>
 
-" easy align
-xmap ga <plug>(EasyAlign)
-nmap ga <plug>(EasyAlign)
+  " vista
+  nnoremap <silent> <c-g> :Vista!!<cr>
 
-" fugitive/gitv
-let g:which_key_map.g = {'name': '+git'}
-nnoremap <silent> <leader>gs :Gstatus<cr>
-let g:which_key_map.g.s = 'status'
+  " fugitive/gitv
+  nnoremap <silent> <leader>gs :Gstatus<cr>
+  nnoremap <silent> <leader>gd :Gvdiff<cr>
+  nnoremap <silent> <leader>gc :Gcommit<cr>
+  nnoremap <silent> <leader>gb :Gblame<cr>
+  nnoremap <silent> <leader>gl :Glog<cr>
+  nnoremap <silent> <leader>gp :Gpush<cr>
+  nnoremap <silent> <leader>gr :Gremove<cr>
+  nnoremap <silent> <leader>gw :Gwrite<cr>
+  nnoremap <silent> <leader>ge :Gedit<cr>
+  nnoremap <silent> <leader>g. :Gcd<cr>:pwd<cr>
+  nnoremap <silent> <leader>gu :Gpull<cr>
+  nnoremap <silent> <leader>gn :Gmerge<cr>
+  nnoremap <silent> <leader>gf :Gfetch<cr>
+  nnoremap <silent> <leader>gv :Gitv<cr>
+  nnoremap <silent> <leader>gV :Gitv!<cr>
 
-nnoremap <silent> <leader>gd :Gvdiff<cr>
-let g:which_key_map.g.d = 'diff'
+  nmap <leader>gm <plug>(git-messenger)
 
-nnoremap <silent> <leader>gc :Gcommit<cr>
-let g:which_key_map.g.c = 'commit'
+  " - if completion popup is showing:
+  "   - if nothing is selected and the text is expandable, expand it
+  "   - else accept the completion entry
+  " - else if the text is expandable, expand it
+  " - else if endwise exists, use it to complete (includes <cr>)
+  " - else <cr>
+  inoremap <silent> <expr> <cr>
+    \ pumvisible() && len(v:completed_item) == 0 && neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
+    \ pumvisible() ? "\<c-y>" :
+    \ neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
+    \ "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<cr>\<c-r>=EndwiseDiscretionary()<cr>"
 
-nnoremap <silent> <leader>gb :Gblame<cr>
-let g:which_key_map.g.b = 'blame'
+  " - if completion popup is showing:
+  "   - if nothing is selected and the text is jumpable, jump next (for coc and neosnippet)
+  "   - else select next completion
+  " - else if the text is jumpable, jump next (for coc and neosnippet)
+  " - else <tab>
+  inoremap <expr> <tab>
+    \ pumvisible() ? "\<c-n>" :
+    \ neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
+    \ coc#jumpable() ? coc#rpc#request('snippetNext', []) :
+    \ "\<tab>"
 
-nnoremap <silent> <leader>gl :Glog<cr>
-let g:which_key_map.g.l = 'log'
+  " - if completion popup is showing:
+  "   - if nothing is selected and the text is jumpable, jump prev (for coc)
+  "   - else select previous completion
+  " - else if the text is jumpable, jump prev (for coc)
+  " - else <backspace>
+  inoremap <expr> <s-tab>
+    \ pumvisible() && len(v:completed_item) == 0 && coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
+    \ pumvisible() ? "\<c-p>" :
+    \ coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
+    \ "\<c-h>"
 
-nnoremap <silent> <leader>gp :Gpush<cr>
-let g:which_key_map.g.p = 'push'
+  " when filling out expanded snippet, jump prev (for coc)
+  snoremap <expr> <s-tab>
+    \ coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
+    \ ""
 
-nnoremap <silent> <leader>gr :Gremove<cr>
-let g:which_key_map.g.r = 'remove'
+  " when filling out expanded snippet, jump next (for coc and neosnippet)
+  snoremap <expr> <tab>
+    \ neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
+    \ coc#jumpable() ? coc#rpc#request('snippetNext', []) :
+    \ "\<tab>"
 
-nnoremap <silent> <leader>gw :Gwrite<cr>
-let g:which_key_map.g.w = 'write'
+  " show the completion popup
+  inoremap <silent> <expr> <c-space> coc#refresh()
 
-nnoremap <silent> <leader>ge :Gedit<cr>
-let g:which_key_map.g.e = 'edit'
+  " - if completion popup is showing:
+  "   - select completed value and switch to normal mode (note that this will not
+  "     do snippet completion because it is async and the switch to normal mode
+  "     happens first
+  " - else <esc>
+  imap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
 
-nnoremap <silent> <leader>g. :Gcd<cr>:pwd<cr>
-let g:which_key_map.g['.'] = 'cd'
+  tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
+  nnoremap <silent> <c-x> :TerminalToggle<cr>
+  inoremap <silent> <c-x> <c-\><c-n>:TerminalToggle<cr>
 
-nnoremap <silent> <leader>gu :Gpull<cr>
-let g:which_key_map.g.u = 'pull'
+  " fzf
+  nnoremap <silent> <c-p> :FilesProjectDir<cr>
+  nnoremap <silent> <c-b> :Buffers<cr>
+  nnoremap <silent> <c-f> :RubixHistory<cr>
+  nnoremap <silent> <c-s><c-a> :RgRepeat<cr>
+  nnoremap <silent> <c-s><c-s> :RgProjectDirCursor<cr>
+  nnoremap <silent> <c-s><c-d> :RgProjectDirPrompt<cr>
+  nnoremap <silent> <c-s><c-f> :BLines<cr>
 
-nnoremap <silent> <leader>gn :Gmerge<cr>
-let g:which_key_map.g.n = 'merge'
+  nmap <leader>? <plug>(fzf-maps-n)
+  xmap <leader>? <plug>(fzf-maps-x)
+  omap <leader>? <plug>(fzf-maps-o)
 
-nnoremap <silent> <leader>gf :Gfetch<cr>
-let g:which_key_map.g.f = 'fetch'
+  " netrw
+  noremap <silent> <c-n> :Defx<cr>
 
-nnoremap <silent> <leader>gv :Gitv<cr>
-let g:which_key_map.g.v = 'browse'
+  " coc mappings
+  nmap <silent> gd <plug>(coc-definition)
+  nmap <silent> gy <plug>(coc-type-definition)
+  nmap <silent> gi <plug>(coc-implementation)
+  nmap <silent> gr <plug>(coc-references)
 
-nnoremap <silent> <leader>gV :Gitv!<cr>
-let g:which_key_map.g.V = 'browse (file mode)'
+  nnoremap <silent> K :call <sid>show_documentation()<cr>
 
-nmap <leader>gm <plug>(git-messenger)
-let g:which_key_map.g.m = 'git message for line'
+  function! s:show_documentation() abort
+    if &filetype ==# 'vim'
+      execute 'help '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
 
-" - if completion popup is showing:
-"   - if nothing is selected and the text is expandable, expand it
-"   - else accept the completion entry
-" - else if the text is expandable, expand it
-" - else if endwise exists, use it to complete (includes <cr>)
-" - else <cr>
-inoremap <silent> <expr> <cr>
-  \ pumvisible() && len(v:completed_item) == 0 && neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
-  \ pumvisible() ? "\<c-y>" :
-  \ neosnippet#expandable() ? neosnippet#mappings#expand_impl() :
-  \ "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<cr>\<c-r>=EndwiseDiscretionary()<cr>"
+  command! -nargs=0 Format :call CocAction('format')
 
-" - if completion popup is showing:
-"   - if nothing is selected and the text is jumpable, jump next (for coc and neosnippet)
-"   - else select next completion
-" - else if the text is jumpable, jump next (for coc and neosnippet)
-" - else <tab>
-inoremap <expr> <tab>
-  \ pumvisible() ? "\<c-n>" :
-  \ neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
-  \ coc#jumpable() ? coc#rpc#request('snippetNext', []) :
-  \ "\<tab>"
+  nnoremap <silent> <leader>cl :<c-u>CocList diagnostics<cr>
+  nnoremap <silent> <leader>ce :<c-u>CocList extensions<cr>
+  nnoremap <silent> <leader>cc :<c-u>CocList commands<cr>
+  nnoremap <silent> <leader>co :<c-u>CocList outline<cr>
+  nnoremap <silent> <leader>cs :<c-u>CocList -I symbols<cr>
+  nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
+  nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
+  nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>
+  nmap <leader>ca <plug>(coc-codeaction)
+  nmap <leader>cf <plug>(coc-fix-current)
+  nmap <leader>cr <plug>(coc-rename)
 
-" - if completion popup is showing:
-"   - if nothing is selected and the text is jumpable, jump prev (for coc)
-"   - else select previous completion
-" - else if the text is jumpable, jump prev (for coc)
-" - else <backspace>
-inoremap <expr> <s-tab>
-  \ pumvisible() && len(v:completed_item) == 0 && coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
-  \ pumvisible() ? "\<c-p>" :
-  \ coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
-  \ "\<c-h>"
+  nnoremap <silent> <leader>t :call rubix#terminal#new()<cr>
 
-" when filling out expanded snippet, jump prev (for coc)
-snoremap <expr> <s-tab>
-  \ coc#jumpable() ? coc#rpc#request('snippetPrev', []) :
-  \ ""
+  nnoremap <silent> <leader>bh :Startify<cr>
 
-" when filling out expanded snippet, jump next (for coc and neosnippet)
-snoremap <expr> <tab>
-  \ neosnippet#jumpable() ? neosnippet#mappings#jump_impl() :
-  \ coc#jumpable() ? coc#rpc#request('snippetNext', []) :
-  \ "\<tab>"
+  nmap <leader>w <plug>(choosewin)
 
-" show the completion popup
-inoremap <silent> <expr> <c-space> coc#refresh()
+  map n <plug>(anzu-n-with-echo)
+  map N <plug>(anzu-N-with-echo)
 
-" - if completion popup is showing:
-"   - select completed value and switch to normal mode (note that this will not
-"     do snippet completion because it is async and the switch to normal mode
-"     happens first
-" - else <esc>
-inoremap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
-
-" tmux style navigation
-if !exists('$TMUX')
-  nnoremap <c-h> <c-w>h
-  nnoremap <c-j> <c-w>j
-  nnoremap <c-k> <c-w>k
-  nnoremap <c-l> <c-w>l
-
-  vnoremap <c-h> <c-w>h
-  vnoremap <c-j> <c-w>j
-  vnoremap <c-l> <c-w>l
-  vnoremap <c-k> <c-w>k
-
-  inoremap <c-h> <esc><c-w>h
-  inoremap <c-l> <esc><c-w>l
-
-  inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<esc>\<c-w>j"
-  inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<esc>\<c-w>k"
-
-  if has('nvim')
-    tnoremap <expr> <c-h> rubix#terminal#save_mode() . "\<c-w>h"
-    tnoremap <expr> <c-j> rubix#terminal#save_mode() . "\<c-w>j"
-    tnoremap <expr> <c-k> rubix#terminal#save_mode() . "\<c-w>k"
-    tnoremap <expr> <c-l> rubix#terminal#save_mode() . "\<c-w>l"
-
-    tnoremap <c-y> <c-\><c-n><c-y>
-    tnoremap <c-u> <c-\><c-n><c-u>
-
-    tnoremap <silent> <expr> <c-p> rubix#terminal#save_mode() . ":FilesProjectDir\<cr>"
-    tnoremap <silent> <expr> <c-b> rubix#terminal#save_mode() . ":Buffers\<cr>"
-
-    " switch to insert mode and press <up> for shell history when in normal mode
-    autocmd MyAutoCmd TermOpen * nnoremap <buffer> <up> i<up>
-    autocmd MyAutoCmd TermOpen * nnoremap <buffer> <c-r> i<c-r>
-
-    " disable macros in terminal windows
-    autocmd MyAutoCmd TermOpen * nnoremap <buffer> q <nop>
-
-    autocmd MyAutoCmd TermOpen * :call rubix#terminal#setup()
-  endif
-
-  if has('terminal')
-    tnoremap <c-h> <c-w>h
-    tnoremap <c-j> <c-w>j
-    tnoremap <c-k> <c-w>k
-    tnoremap <c-l> <c-w>l
-    tnoremap <c-y> <c-\><c-n><c-y>
-    tnoremap <c-u> <c-\><c-n><c-u>
-    tnoremap <c-w> <c-w>.
-
-    tnoremap <silent> <c-p> <c-\><c-n>:FilesProjectDir<cr>
-    tnoremap <silent> <c-b> <c-\><c-n>:Buffers<cr>
-
-    " switch to insert mode and press <up> for shell history when in normal mode
-    autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> <up> i<up>
-    autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> <c-r> i<c-r>
-
-    " disable macros in terminal windows
-    autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> q <nop>
-
-    autocmd MyAutoCmd TerminalOpen * :call rubix#terminal#setup()
-  endif
+  command! -nargs=0 TerminalToggle :call rubix#terminal#toggle(<q-mods>)
 endif
 
-tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
-nnoremap <silent> <c-x> :TerminalToggle<cr>
-inoremap <silent> <c-x> <c-\><c-n>:TerminalToggle<cr>
+" tmux style navigation
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
 
-" fzf
-" nmap <leader><tab> <plug>(fzf-maps-n)
-" xmap <leader><tab> <plug>(fzf-maps-x)
-" omap <leader><tab> <plug>(fzf-maps-o)
-" imap <c-x><c-k> <plug>(fzf-complete-word)
-" imap <c-x><c-f> <plug>(fzf-complete-path)
-" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-" imap <c-x><c-l> <plug>(fzf-complete-line)
-nnoremap <silent> <c-p> :FilesProjectDir<cr>
-nnoremap <silent> <c-b> :Buffers<cr>
-nnoremap <silent> <c-f> :RubixHistory<cr>
-nnoremap <silent> <c-s><c-a> :RgRepeat<cr>
-nnoremap <silent> <c-s><c-s> :RgProjectDirCursor<cr>
-nnoremap <silent> <c-s><c-d> :RgProjectDirPrompt<cr>
-nnoremap <silent> <c-s><c-f> :BLines<cr>
+vnoremap <c-h> <c-w>h
+vnoremap <c-j> <c-w>j
+vnoremap <c-l> <c-w>l
+vnoremap <c-k> <c-w>k
 
-" netrw
-noremap <silent> <c-n> :Defx<cr>
+inoremap <c-h> <esc><c-w>h
+inoremap <c-l> <esc><c-w>l
 
-" coc mappings
+inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<esc>\<c-w>j"
+inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<esc>\<c-w>k"
 
-nmap <silent> gd <plug>(coc-definition)
-nmap <silent> gy <plug>(coc-type-definition)
-nmap <silent> gi <plug>(coc-implementation)
-nmap <silent> gr <plug>(coc-references)
+if has('nvim')
+  tnoremap <expr> <c-h> rubix#terminal#save_mode() . "\<c-w>h"
+  tnoremap <expr> <c-j> rubix#terminal#save_mode() . "\<c-w>j"
+  tnoremap <expr> <c-k> rubix#terminal#save_mode() . "\<c-w>k"
+  tnoremap <expr> <c-l> rubix#terminal#save_mode() . "\<c-w>l"
 
-nnoremap <silent> K :call <sid>show_documentation()<cr>
+  tnoremap <c-y> <c-\><c-n><c-y>
+  tnoremap <c-u> <c-\><c-n><c-u>
 
-function! s:show_documentation() abort
-  if &filetype ==# 'vim'
-    execute 'help '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+  tnoremap <silent> <expr> <c-p> rubix#terminal#save_mode() . ":FilesProjectDir\<cr>"
+  tnoremap <silent> <expr> <c-b> rubix#terminal#save_mode() . ":Buffers\<cr>"
 
-command! -nargs=0 Format :call CocAction('format')
+  " switch to insert mode and press <up> for shell history when in normal mode
+  autocmd MyAutoCmd TermOpen * nnoremap <buffer> <up> i<up>
+  autocmd MyAutoCmd TermOpen * nnoremap <buffer> <c-r> i<c-r>
 
-nnoremap <silent> <leader>cl :<c-u>CocList diagnostics<cr>
-let g:which_key_map.c.l = 'list workspace diagnostics'
+  " disable macros in terminal windows
+  autocmd MyAutoCmd TermOpen * nnoremap <buffer> q <nop>
 
-nnoremap <silent> <leader>ce :<c-u>CocList extensions<cr>
-let g:which_key_map.c.e = 'manage coc extensions'
+  autocmd MyAutoCmd TermOpen * :call rubix#terminal#setup()
+elseif has('terminal')
+  tnoremap <c-h> <c-w>h
+  tnoremap <c-j> <c-w>j
+  tnoremap <c-k> <c-w>k
+  tnoremap <c-l> <c-w>l
+  tnoremap <c-y> <c-\><c-n><c-y>
+  tnoremap <c-u> <c-\><c-n><c-u>
+  tnoremap <c-w> <c-w>.
 
-nnoremap <silent> <leader>cc :<c-u>CocList commands<cr>
-let g:which_key_map.c.c = 'list workspace commands'
+  tnoremap <silent> <c-p> <c-\><c-n>:FilesProjectDir<cr>
+  tnoremap <silent> <c-b> <c-\><c-n>:Buffers<cr>
 
-nnoremap <silent> <leader>co :<c-u>CocList outline<cr>
-let g:which_key_map.c.o = 'list document symbols'
+  " switch to insert mode and press <up> for shell history when in normal mode
+  autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> <up> i<up>
+  autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> <c-r> i<c-r>
 
-nnoremap <silent> <leader>cs :<c-u>CocList -I symbols<cr>
-let g:which_key_map.c.s = 'search workspace symbols'
+  " disable macros in terminal windows
+  autocmd MyAutoCmd TerminalOpen * nnoremap <buffer> q <nop>
 
-nnoremap <silent> <leader>cj :<c-u>CocNext<cr>
-let g:which_key_map.c.j = 'invoke default action for next list item'
-
-nnoremap <silent> <leader>ck :<c-u>CocPrev<cr>
-let g:which_key_map.c.k = 'invoke default action for prev list item'
-
-nnoremap <silent> <leader>cp :<c-u>CocListResume<cr>
-let g:which_key_map.c.p = 'reopen last opened list'
-
-nmap <leader>ca <plug>(coc-codeaction)
-let g:which_key_map.c.a = 'run code action(s) for current line'
-
-nmap <leader>cf <plug>(coc-fix-current)
-let g:which_key_map.c.f = 'run quickfix action for current line'
-
-nmap <leader>cr <plug>(coc-rename)
-let g:which_key_map.c.r = 'rename symbol under cursor'
-
-nmap <leader>? <plug>(fzf-maps-n)
-let g:which_key_map['?'] = ['Maps', 'show keybindings']
-
-xmap <leader>? <plug>(fzf-maps-x)
-omap <leader>? <plug>(fzf-maps-o)
-
-nnoremap <silent> <leader> :<c-u>WhichKey ','<cr>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<cr>
-
-let g:which_key_map.b = { 'name': '+buffer' }
-
-for s:i in range(1, 9)
-  " <leader>[1-9] move to window [1-9]
-  execute 'nnoremap <silent> <leader>'.s:i ' :'.s:i.'wincmd w<cr>'
-  let g:which_key_map[s:i] = 'window-'.s:i
-
-  " <leader>b[1-9] move to buffer [1-9]
-  execute 'nnoremap <silent> <leader>b'.s:i ':b'.s:i.'<cr>'
-  let g:which_key_map.b[s:i] = 'buffer-'.s:i
-endfor
-unlet s:i
-
-nnoremap <silent> <leader>t :call rubix#terminal#new()<cr>
-let g:which_key_map.t = 'terminal'
-
-nnoremap <silent> <leader>bh :Startify<cr>
-let g:which_key_map.b.h = 'startify'
-
-nmap <leader>w <plug>(choosewin)
-let g:which_key_map.w = 'choose window'
-
-map n <plug>(anzu-n-with-echo)
-map N <plug>(anzu-N-with-echo)
+  autocmd MyAutoCmd TerminalOpen * :call rubix#terminal#setup()
+endif
 
 " resize window
 nnoremap <silent> <c-a>H <c-w><
@@ -543,5 +390,3 @@ tnoremap <silent> <c-a>K <c-\><c-n><c-w>-
 iabbrev TODO TODO(jawa)
 iabbrev meml me@jawa.dev
 iabbrev weml joshua@ngrok.com
-
-command! -nargs=0 TerminalToggle :call rubix#terminal#toggle(<q-mods>)

@@ -1,9 +1,16 @@
-execute 'runtime' 'rc/init.vim'
-execute 'runtime' 'rc/view.vim'
-execute 'runtime' 'rc/plugins.vim'
-execute 'runtime' 'rc/edit.vim'
-execute 'runtime' 'rc/mappings.vim'
-execute 'runtime' 'rc/gui.vim'
+" vint: next-line -ProhibitSetNoCompatible
+set nocompatible
+
+runtime rc/init.vim
+runtime rc/view.vim
+
+if has('eval')
+  runtime rc/plugins.vim
+endif
+
+runtime rc/edit.vim
+runtime rc/mappings.vim
+runtime rc/gui.vim
 
 set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files

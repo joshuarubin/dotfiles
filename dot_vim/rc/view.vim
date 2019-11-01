@@ -1,7 +1,10 @@
 scriptencoding utf-8
 
 set synmaxcol=512
-syntax sync minlines=256
+
+if has('syntax')
+  syntax sync minlines=256
+endif
 
 set list
 
@@ -11,7 +14,11 @@ set fillchars=vert:│,fold:-
 set laststatus=2 " always show the statusline
 set title
 set linebreak " wrap lines at convenient points
-let &showbreak='=>'
+
+if has('eval')
+  let &showbreak='=>'
+endif
+
 set whichwrap+=<,>,[,]
 
 if exists('+breakindent')
@@ -64,7 +71,12 @@ set noshowmode
 
 set ruler
 set noshowcmd                   " prevent flicker, lightline shows info anyway
-set number                      " line numbers are good
+
+if has('eval')
+  " numberwidth doesn't work in vim.tiny, so line numbers look awful
+  set number " line numbers are good
+endif
+
 set scrolloff=8                 " start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
@@ -72,7 +84,10 @@ set scrolljump=3
 set numberwidth=1
 set signcolumn=yes
 
-autocmd MyAutoCmd BufEnter * call rubix#update_title()
+if has('eval')
+  autocmd MyAutoCmd BufEnter * call rubix#update_title()
+endif
+
 autocmd MyAutoCmd InsertEnter * setlocal nohlsearch
 autocmd MyAutoCmd InsertLeave * setlocal hlsearch
 
@@ -81,5 +96,3 @@ if has('nvim')
 elseif has('terminal')
   autocmd MyAutoCmd TerminalOpen * setlocal nolist nonumber norelativenumber sidescrolloff=0 scrolloff=0 winfixheight signcolumn=no
 endif
-
-autocmd MyAutoCmd BufReadPost fugitive://* let b:ale_enabled=0

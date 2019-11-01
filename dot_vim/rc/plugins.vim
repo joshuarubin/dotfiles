@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-execute 'runtime' 'rc/plugins.pre.vim'
+runtime rc/plugins.pre.vim
 
 call plug#begin('~/.vim/plugged')
 
@@ -58,14 +58,14 @@ Plug 'reedes/vim-textobj-sentence'
 " display your undo history in a graph
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
-Plug 'liuchengxu/vim-which-key'
-
 " tpope
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-endwise'
+
+Plug 'rhysd/git-messenger.vim'
 
 " full featured go development environment support for vim
 Plug 'fatih/vim-go', { 'for': ['go', 'gomod'] }
@@ -97,4 +97,4 @@ Plug 'editorconfig/editorconfig-vim'
 " syntax enable
 call plug#end()
 
-execute 'runtime' 'rc/plugins.post.vim'
+runtime rc/plugins.post.vim

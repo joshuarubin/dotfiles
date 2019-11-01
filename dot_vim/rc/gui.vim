@@ -4,8 +4,10 @@ if has#colorscheme('hybrid')
   colorscheme hybrid
 endif
 
-set mouse=nv
-set mousehide
+if has('mouse')
+  set mouse=nv
+  set mousehide
+endif
 
 if !has('nvim') && has('mouse_sgr')
   set ttymouse=sgr

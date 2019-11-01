@@ -72,17 +72,19 @@ set wrapscan
 
 set tags=./tags;/,~/.vimtags
 
-" make tags placed in .git/tags file available in all levels of a repository
-let s:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-if s:gitroot !=# ''
-  let &tags = &tags . ',' . s:gitroot . '/.git/tags'
-endif
-
 " go back to previous position of cursor if any
 autocmd MyAutoCmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \  execute 'normal! g`"zvzz' |
   \ endif
 
-command! -nargs=* Only call rubix#only()
-command! Kwbd call rubix#kwbd()
+if has('eval')
+  " make tags placed in .git/tags file available in all levels of a repository
+  let s:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+  if s:gitroot !=# ''
+    let &tags = &tags . ',' . s:gitroot . '/.git/tags'
+  endif
+
+  command! -nargs=* Only call rubix#only()
+  command! Kwbd call rubix#kwbd()
+endif

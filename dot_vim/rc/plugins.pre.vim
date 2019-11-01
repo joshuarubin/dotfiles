@@ -160,4 +160,4 @@ let g:vista_executive_for = {
 \ }
 
 " load larger plugin specific configuration
-execute 'runtime!' 'rc/plugins/*.vim'
+runtime! rc/plugins/*.vim
