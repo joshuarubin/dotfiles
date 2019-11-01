@@ -37,3 +37,8 @@
 {{- if not .gpg }}
 /.gnupg/
 {{- end }}
+
+{{- if .slow }}
+/.config/nvim/rc/plugins/lightline.vim
+/.config/nvim/autoload/rubix/lightline.vim
+{{- end }}

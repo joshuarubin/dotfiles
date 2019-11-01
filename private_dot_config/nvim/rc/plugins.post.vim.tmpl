@@ -7,6 +7,7 @@ autocmd MyAutoCmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \|   PlugInstall --sync | quit
   \| endif
+{{- if not .slow }}
   \| call defx#custom#option('_', {
         \ 'winwidth': 30,
         \ 'split': 'vertical',
@@ -28,18 +29,16 @@ autocmd MyAutoCmd VimEnter *
         \ })
   \| call vista#RunForNearestMethodOrFunction()
 
-let g:startify_skiplist = add(
-      \ map(split(&runtimepath, ','), 'escape(resolve(v:val . ''/doc''), ''\'')'),
-      \ 'COMMIT_EDITMSG')
-
-autocmd MyAutoCmd User GoyoEnter nested call rubix#goyo#enter()
-autocmd MyAutoCmd User GoyoLeave nested call rubix#goyo#leave()
-
 function! s:cocInit() abort
   autocmd MyAutoCmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 endfunction
 
 autocmd MyAutoCmd User CocNvimInit call s:cocInit()
+{{- end }}
+
+let g:startify_skiplist = add(
+      \ map(split(&runtimepath, ','), 'escape(resolve(v:val . ''/doc''), ''\'')'),
+      \ 'COMMIT_EDITMSG')
 
 " has to be run before VimEnter or else `vim <file>` won't be set properly,
 " though subsequent files will (if put in VimEnter)

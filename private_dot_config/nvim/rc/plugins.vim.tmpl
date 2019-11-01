@@ -7,6 +7,29 @@ call plug#begin(rubix#config#dir('plugged'))
 " enables surfing through buffers based on viewing history per window
 Plug 'ton/vim-bufsurf'
 
+" shows recently used files, bookmarks and sessions
+Plug 'mhinz/vim-startify'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-endwise'
+
+" a collection of language packs for vim
+Plug 'sheerun/vim-polyglot'
+
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'leafgarland/typescript-vim'
+
+" easy to use, file-type sensible comments
+Plug 'tomtom/tcomment_vim'
+
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'osyo-manga/vim-anzu'
+Plug 't9md/vim-choosewin'
+
+{{ if not .slow -}}
 Plug 'roxma/vim-hug-neovim-rpc', rubix#plug#cond(!has('nvim'))
 Plug 'roxma/nvim-yarp', rubix#plug#cond(!has('nvim'))
 
@@ -38,10 +61,7 @@ Plug 'joshuarubin/lightline-hybrid.vim'
 " a light and configurable statusline/tabline
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 't9md/vim-choosewin'
 
-" shows recently used files, bookmarks and sessions
-Plug 'mhinz/vim-startify'
 Plug 'ryanoasis/vim-devicons'
 
 " syntax checking
@@ -50,47 +70,18 @@ Plug 'w0rp/ale'
 " displays tags in a window, ordered by scope
 Plug 'liuchengxu/vista.vim'
 
-" textobj
-Plug 'kana/vim-textobj-user', { 'tag': '*' }
-Plug 'reedes/vim-textobj-quote'
-Plug 'reedes/vim-textobj-sentence'
-
 " display your undo history in a graph
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
-" tpope
+" git
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-endwise'
-
 Plug 'rhysd/git-messenger.vim'
 
 " full featured go development environment support for vim
 Plug 'fatih/vim-go', { 'for': ['go', 'gomod'] }
 
-" a collection of language packs for vim
-Plug 'sheerun/vim-polyglot'
-
-" other language packs
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'leafgarland/typescript-vim'
-
-" distraction-free writing in vim
-
-" haskell
-
-" search for selection with '*' in visual mode
-Plug 'thinca/vim-visualstar'
-
-Plug 'osyo-manga/vim-anzu'
-
-" easy to use, file-type sensible comments
-Plug 'tomtom/tcomment_vim'
-
 Plug 'easymotion/vim-easymotion'
-Plug 'editorconfig/editorconfig-vim'
+{{- end }}
 
 " Add plugins to &runtimepath, and:
 " filetype plugin indent on

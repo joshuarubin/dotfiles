@@ -136,6 +136,7 @@ nnoremap <silent> <c-w><c-w> :confirm :Kwbd<cr>
 
 " plugin specific mappings
 if has('eval')
+{{- if not .slow }}
   " easymotion
   map <silent> <leader><leader>f <plug>(easymotion-f)
   map <silent> <leader><leader>F <plug>(easymotion-F)
@@ -155,20 +156,8 @@ if has('eval')
   map <silent> <leader><leader>N <plug>(easymotion-N)
   map <silent> <leader><leader>s <plug>(easymotion-s)
 
-  " formatting shortcuts
-  nnoremap <leader>fa :call rubix#preserve('normal gg=G')<cr>
-  nnoremap <leader>f$ :call rubix#trim()<cr>
-
-  " surround
-  " ctrl-sw: Quickly surround word (must be recursive)
-  nmap <c-s><c-w> ysiw
-
   " undotree
   nnoremap <leader>u :UndotreeToggle<cr>
-
-  " bufsurf
-  nnoremap <silent> Z :BufSurfBack<cr>
-  nnoremap <silent> X :BufSurfForward<cr>
 
   " vista
   nnoremap <silent> <c-g> :Vista!!<cr>
@@ -248,10 +237,6 @@ if has('eval')
   " must be imap or else <esc> after iabbr doesn't expand
   imap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
 
-  tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
-  nnoremap <silent> <c-x> :TerminalToggle<cr>
-  inoremap <silent> <c-x> <c-\><c-n>:TerminalToggle<cr>
-
   " fzf
   nnoremap <silent> <c-p> :FilesProjectDir<cr>
   nnoremap <silent> <c-b> :Buffers<cr>
@@ -297,6 +282,23 @@ if has('eval')
   nmap <leader>ca <plug>(coc-codeaction)
   nmap <leader>cf <plug>(coc-fix-current)
   nmap <leader>cr <plug>(coc-rename)
+{{- end }}
+
+  " formatting shortcuts
+  nnoremap <leader>fa :call rubix#preserve('normal gg=G')<cr>
+  nnoremap <leader>f$ :call rubix#trim()<cr>
+
+  " surround
+  " ctrl-sw: Quickly surround word (must be recursive)
+  nmap <c-s><c-w> ysiw
+
+  " bufsurf
+  nnoremap <silent> Z :BufSurfBack<cr>
+  nnoremap <silent> X :BufSurfForward<cr>
+
+  tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
+  nnoremap <silent> <c-x> :TerminalToggle<cr>
+  inoremap <silent> <c-x> <c-\><c-n>:TerminalToggle<cr>
 
   nnoremap <silent> <leader>t :call rubix#terminal#new()<cr>
 

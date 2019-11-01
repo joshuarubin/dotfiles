@@ -79,12 +79,6 @@ autocmd MyAutoCmd BufReadPost *
   \ endif
 
 if has('eval')
-  " make tags placed in .git/tags file available in all levels of a repository
-  let s:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-  if s:gitroot !=# ''
-    let &tags = &tags . ',' . s:gitroot . '/.git/tags'
-  endif
-
   command! -nargs=* Only call rubix#only()
   command! Kwbd call rubix#kwbd()
 endif
