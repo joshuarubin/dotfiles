@@ -245,6 +245,7 @@ if has('eval')
   "     do snippet completion because it is async and the switch to normal mode
   "     happens first
   " - else <esc>
+  " must be imap or else <esc> after iabbr doesn't expand
   imap <expr> <silent> <esc> pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
 
   tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
