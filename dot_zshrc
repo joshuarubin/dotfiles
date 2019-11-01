@@ -17,11 +17,6 @@ for func in ${ZSH}/functions/*(-.N:t); do
 done
 unset func
 
-for file in ${ZSH}/before/^(*.zwc|*.zwc.old)(-.N); do
-  source ${file}
-done
-unset func
-
 # Define zim location
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
@@ -34,8 +29,6 @@ for file in ${ZSH}/{completion,startup}/^(*.zwc|*.zwc.old)(-.N); do
   source ${file}
 done
 unset file
-
-autoload -U zcalc
 
 # remove non-existent directories
 path=($^path(N))

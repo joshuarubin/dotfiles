@@ -9,8 +9,8 @@ fi
 _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)'
 _git_log_brief_format='%C(green)%h%C(reset) %s %C(blue)(%ar by %an)%C(red)%d%C(reset)'
 
-unalias gb
-unalias grc
+unalias gb 2>/dev/null
+unalias grc 2>/dev/null
 alias gbr='git branch'
 alias gcam='git commit --signoff --verbose --all --message'
 

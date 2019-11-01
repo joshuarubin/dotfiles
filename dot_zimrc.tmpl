@@ -10,7 +10,7 @@
 # The second line of modules may depend on options set by modules in the first
 # line. These dependencies are noted on the respective module's README.md.
 zmodules=(directory environment git input \
-          {{ if not .slow }}syntax-highlighting {{ end }}history-substring-search completion pacman \
+          {{ if not .slow }}syntax-highlighting {{ end }}completion pacman \
           prompt{{ if not .slow }} autosuggestions{{ end }}{{ if eq .chezmoi.hostname "vhagar" }} ssh{{ end }})
 
 
