@@ -22,7 +22,7 @@ endfunction
 
 " rg command suffix, [options]
 function! rubix#fzf#rg_raw(command_suffix, ...) abort
-  return call('fzf#vim#grep', extend(['rg --with-filename --no-heading --line-number --column --hidden --smart-case --follow --color always '.a:command_suffix, 1], a:000))
+  return call('fzf#vim#grep', extend(['rg --sort path --with-filename --no-heading --line-number --column --hidden --smart-case --follow --color always '.a:command_suffix, 1], a:000))
 endfunction
 
 function! rubix#fzf#rg_repeat(...) abort
@@ -66,7 +66,7 @@ function! s:all_files() abort
 endfunction
 
 function! s:buflisted() abort
-  return filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, ''&filetype'') !=# ''qf''')
+  return filter(range(1, bufnr('$')), 'buflisted(v:val) && index([''qf'', ''man''], getbufvar(v:val, ''&filetype'')) ==# -1')
 endfunction
 
 " ---- the rest copied verbatim from fzf.vim/autoload/fzf/vim.vim ----
