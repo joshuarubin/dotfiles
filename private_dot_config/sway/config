@@ -318,7 +318,7 @@ exec nm-applet --indicator
 exec wl-clipboard-history -t
 exec udiskie
 exec blueman-tray
-exec firewall-applet
+exec 'sleep 5 && firewall-applet'
 
 # start foreground apps
 exec $term
