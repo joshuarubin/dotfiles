@@ -46,7 +46,15 @@ while IFS= read -r -d '' file; do
   (
     cd "$(dirname "$file")";
     f="$(basename "$file")";
-    git mv "$f" dot_"$(echo "$f" | cut -d. -f2)";
+    if [ "$f" == ".gitmodules" ]; then
+      git rm -f "$f"
+    elif [ "$f" == ".gitignore" ]; then
+      true # noop
+    elif [ "$f" == ".gitattributes" ]; then
+      true # noop
+    else
+      git mv "$f" dot_"$(echo "$f" | cut -d. -f2)";
+    fi
   )
 done < <(find exact_dot_zim exact_dot_tmux -name '.*' -print0)
 
