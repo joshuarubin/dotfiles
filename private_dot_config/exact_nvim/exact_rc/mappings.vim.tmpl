@@ -299,7 +299,9 @@ if has('eval')
   tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
   tnoremap <silent> <expr> <c-a>X rubix#terminal#save_mode() . ":TerminalToggle!\<cr>"
   nnoremap <silent> <c-x> :TerminalToggle<cr>
+  nnoremap <silent> <c-a>X :TerminalToggle!<cr>
   inoremap <silent> <c-x> <c-\><c-n>:TerminalToggle<cr>
+  inoremap <silent> <c-a>X <c-\><c-n>:TerminalToggle!<cr>
 
   nnoremap <silent> <leader>t :call rubix#terminal#new()<cr>
 
