@@ -50,4 +50,11 @@ while IFS= read -r -d '' file; do
   )
 done < <(find exact_dot_zim exact_dot_tmux -name '.*' -print0)
 
+while IFS= read -r -d '' file; do
+  (
+    exact=$(dirname "$file")/exact_$(basename "$file")
+    git mv "$file" "$exact"
+  )
+done < <(find exact_dot_zim exact_dot_tmux -type d ! -name 'exact_*' -print0 | sort -rz)
+
 sed -i 's|%#|%(!.#.λ)|g' exact_dot_zim/exact_modules/exact_prompt/exact_external-themes/exact_lean/prompt_lean_setup
