@@ -5,7 +5,7 @@ set -o pipefail
 git stash push -m 'pull_subtrees.sh' > /dev/null
 
 function finish {
-  stash_idx=$(git stash list | grep "pull_subtrees\.sh" | cut -d: -f1)
+  stash_idx=$(git stash list | grep "pull_subtrees\.sh" | cut -d: -f1 || true)
   if [ -n "$stash_idx" ]; then
     git stash apply "$stash_idx" > /dev/null
     git stash drop "$stash_idx" > /dev/null
