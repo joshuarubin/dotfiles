@@ -67,10 +67,16 @@ function! s:terminal_save() abort
   endif
 endfunction
 
-function! rubix#terminal#toggle(mods) abort
+function! rubix#terminal#toggle(mods, bang) abort
   " user is in the terminal, return to the previous location
   if s:term.buf == bufnr('')
+    let l:win = winnr()
     wincmd p
+
+    if a:bang
+      execute l:win.'close'
+    endif
+
     return
   endif
 

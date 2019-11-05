@@ -297,6 +297,7 @@ if has('eval')
   nnoremap <silent> X :BufSurfForward<cr>
 
   tnoremap <silent> <expr> <c-x> rubix#terminal#save_mode() . ":TerminalToggle\<cr>"
+  tnoremap <silent> <expr> <c-a>X rubix#terminal#save_mode() . ":TerminalToggle!\<cr>"
   nnoremap <silent> <c-x> :TerminalToggle<cr>
   inoremap <silent> <c-x> <c-\><c-n>:TerminalToggle<cr>
 
@@ -308,8 +309,6 @@ if has('eval')
 
   map n <plug>(anzu-n-with-echo)
   map N <plug>(anzu-N-with-echo)
-
-  command! -nargs=0 TerminalToggle :call rubix#terminal#toggle(<q-mods>)
 endif
 
 " tmux style navigation
@@ -393,3 +392,5 @@ tnoremap <silent> <c-a>K <c-\><c-n><c-w>-
 iabbrev TODO TODO(jawa)
 iabbrev meml me@jawa.dev
 iabbrev weml joshua@ngrok.com
+
+" vim: ft=vim

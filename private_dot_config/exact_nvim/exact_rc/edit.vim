@@ -83,4 +83,5 @@ if has('eval')
   command! Kwbd call rubix#kwbd()
   command! -complete=file -nargs=? ChezmoiDiff :call chezmoi#diff(<q-args>, <q-mods>)
   command! -complete=file -nargs=? ChezmoiEdit :call chezmoi#edit(<q-args>, <q-mods>)
+  command! -bang -nargs=0 TerminalToggle :call rubix#terminal#toggle(<q-mods>, <bang>0)
 endif
