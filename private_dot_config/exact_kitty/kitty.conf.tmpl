@@ -6,7 +6,11 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
+{{ if eq .chezmoi.os "linux" -}}
 font_family      SFMono
+{{- else if eq .chezmoi.os "darwin" -}}
+font_family      SF Mono
+{{- end }}
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
@@ -664,7 +668,7 @@ macos_traditional_fullscreen no
 #: Use the traditional full-screen transition, that is faster, but
 #: less pretty.
 
-macos_show_window_title_in_menubar yes
+macos_show_window_title_in menubar
 
 #: Show the title of the currently active window in the macOS menu-
 #: bar, making use of otherwise wasted space.
@@ -970,6 +974,7 @@ map ctrl+shift+h send_text all \x01\x48
 map ctrl+shift+j send_text all \x01\x4a
 map ctrl+shift+k send_text all \x01\x4b
 map ctrl+shift+l send_text all \x01\x4c
+map ctrl+shift+x send_text all \x01\x58
 
 #: This will send "Special text" when you press the ctrl+alt+a key
 #: combination.  The text to be sent is a python string literal so you
