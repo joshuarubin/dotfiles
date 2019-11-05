@@ -49,6 +49,7 @@
 /.aws/cli/
 /.config/nvim/.cache/
 /.config/nvim/plugged/
+/.config/nvim/sessions/
 /.config/systemd/user/*.wants
 /.ssh/authorized_keys
 /.ssh/connections/*

@@ -81,4 +81,6 @@ autocmd MyAutoCmd BufReadPost *
 if has('eval')
   command! -nargs=* Only call rubix#only()
   command! Kwbd call rubix#kwbd()
+  command! -complete=file -nargs=? ChezmoiDiff :call chezmoi#diff(<q-args>, <q-mods>)
+  command! -complete=file -nargs=? ChezmoiEdit :call chezmoi#edit(<q-args>, <q-mods>)
 endif

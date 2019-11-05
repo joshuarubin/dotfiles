@@ -30,6 +30,11 @@ Plug 't9md/vim-choosewin'
 Plug 'roxma/vim-hug-neovim-rpc', rubix#plug#cond(!has('nvim'))
 Plug 'roxma/nvim-yarp', rubix#plug#cond(!has('nvim'))
 
+Plug 'Shougo/neco-vim', { 'for': 'vim' }
+
+Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install()} }
+Plug 'neoclide/coc-neco'
+
 " file browser
 Plug 'Shougo/defx.nvim', { 'do': function('rubix#UpdateRemotePlugins') }
 Plug 'kristijanhusak/defx-icons', { 'do': function('rubix#UpdateRemotePlugins') }
@@ -83,3 +88,5 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 runtime rc/plugins.post.vim
+
+" vim: ft=vim
