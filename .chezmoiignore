@@ -44,3 +44,20 @@
 /.config/nvim/rc/plugins/lightline.vim
 /.config/nvim/autoload/rubix/lightline.vim
 {{- end }}
+
+# prevent these files from being removed due to exact directories
+/.aws/cli/
+/.config/nvim/.cache/
+/.config/nvim/plugged/
+/.config/systemd/user/*.wants
+/.ssh/authorized_keys
+/.ssh/connections/*
+/.ssh/id_*
+/.ssh/known_hosts
+/.tmux/sidebar/
+/.zim/modules/*/*.zwc
+/.zim/modules/*/*/*.zwc
+/.zim/modules/*/*/*.zwc
+/.zim/modules/*/*/*/*.zwc
+/.zim/modules/*/*/*/*/*.zwc
+/.zsh/*/*.zwc

@@ -1,6 +1,2 @@
 /bin/vi
-/.vim/README.md
 /.vimrc
-/.config/nvim/after/ftplugin/text.vim
-/.config/nvim/after/ftplugin/textile.vim
-/.config/nvim/autoload/rubix/goyo.vim

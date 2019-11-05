@@ -1,0 +1,20 @@
+#
+# Highlights make output.
+#
+
+function make {
+  if [ -t 1 ]; then
+    if (( $+commands[colormake] )); then
+      colormake "$@"
+    elif [ -n "$GRC" ]; then
+      $GRC -es --colour=auto make "$@"
+    else
+      command make "$@"
+    fi
+  else
+    # output is being piped, just use standard make
+    command make "$@"
+  fi
+}
+
+make "$@"

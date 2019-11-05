@@ -1,0 +1,9 @@
+[Unit]
+Description=Shairport Sync - AirPlay Audio Receiver
+
+[Service]
+ExecStart=/usr/bin/shairport-sync
+Restart=always
+
+[Install]
+WantedBy=default.target
