@@ -1,7 +1,7 @@
 {
   "coc.preferences.formatOnType": true,
   "coc.preferences.hoverTarget": "float",
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "rust"],
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "rust", "python"],
   "codeLens.enable": false,
   "diagnostic.messageTarget": "echo",
   "diagnostic.refreshOnInsertMode": true,
@@ -21,6 +21,9 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.text": "▔",
   "javascript.preferences.noSemicolons": true,
+  "python.linting.pylintUseMinimalCheckers": false,
+  "python.linting.flake8Enabled": true,
+  "python.formatting.provider": "black",
   "signature.preferShownAbove": false,
   "signature.target": "float",
   "suggest.detailField": "abbr",

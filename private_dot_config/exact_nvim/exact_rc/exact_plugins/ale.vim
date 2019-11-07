@@ -19,24 +19,25 @@ highlight link ALEWarning CursorLineNr
 highlight link ALEInfo    Conceal
 
 let g:ale_fixers = {
-\   'go':         [ 'goimports', 'gofmt' ],
-\   'gomod':      [ 'gomod' ],
-\   'css':        [ 'prettier' ],
-\   'scss':       [ 'prettier' ],
-\   'less':       [ 'prettier' ],
-\   'json':       [ 'prettier' ],
-\   'terraform':  [ 'terraform' ],
+\   'css':       [ 'prettier' ],
+\   'go':        [ 'goimports', 'gofmt' ],
+\   'gomod':     [ 'gomod' ],
+\   'json':      [ 'prettier' ],
+\   'less':      [ 'prettier' ],
+\   'scss':      [ 'prettier' ],
+\   'terraform': [ 'terraform' ],
 \}
 
 let g:ale_linters = {
-\   'javascript': [ 'standard' ],
-\   'typescript': [],
-\   'jsx':        [ 'standard' ],
-\   'vimwiki':    [ 'alex', 'mdl', 'prettier', 'proselint', 'redpen', 'remark-lint', 'vale' ],
-\   'text':       [ 'alex', 'proselint', 'vale', 'write-good', 'redpen' ],
 \   'go':         [ 'golangci-lint' ],
-\   'proto':      [ 'prototool' ],
+\   'javascript': [ 'standard' ],
+\   'jsx':        [ 'standard' ],
 \   'markdown':   [ 'markdownlint', 'mdl', 'redpen', 'remark_lint', 'textlint', 'vale' ],
+\   'proto':      [ 'prototool' ],
+\   'python':     [],
+\   'text':       [ 'alex', 'proselint', 'vale', 'write-good', 'redpen' ],
+\   'typescript': [],
+\   'vimwiki':    [ 'alex', 'mdl', 'prettier', 'proselint', 'redpen', 'remark-lint', 'vale' ],
 \}
 
 let g:ale_go_goimports_executable = 'gofumports'
