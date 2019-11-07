@@ -30,6 +30,8 @@
 
 {{- if not .secrets }}
 /.aws/
+/.secrets
+/.ssh/authorized_keys
 {{- end }}
 
 {{- if not .usenvim }}

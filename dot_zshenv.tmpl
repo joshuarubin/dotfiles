@@ -119,4 +119,14 @@ export AWS_SDK_LOAD_CONFIG='1'
 export _FASD_BACKENDS='native nviminfo'
 export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
 
+{{ if eq .chezmoi.hostname "balerion" -}}
+export NGROK_HOME="${HOME}/ngrok"
+export NGROK_JOBS="{{ .numcpu }}"
+export NGROK_DEVENV_TAG="jawa"
+
+alias ngrok.dev="${NGROK_HOME}/devenv/enter.sh"
+alias nd='ngrok.dev'
+
+{{ end -}}
+
 # vim: ft=zsh
