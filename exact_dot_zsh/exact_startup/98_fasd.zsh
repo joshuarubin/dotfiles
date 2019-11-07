@@ -111,7 +111,7 @@ if (( $+commands[$(__fzfcmd)] )); then
   }
 
   fasd_i_e() {
-    local _fasd_all=$(fasd -lfb nviminfo "$@")
+    local _fasd_all=$(fasd -lftb nviminfo "$@")
     [ -z "$_fasd_all" ] && return
     if [ "$(echo "$_fasd_all" | wc -l)" -eq 1 ]; then
       ${EDITOR} "$_fasd_all"
