@@ -21,6 +21,7 @@ endif
 
 " backups
 set backup
+set backupcopy=yes
 
 if has('eval')
   let &backupdir=rubix#cache#dir('backup')
