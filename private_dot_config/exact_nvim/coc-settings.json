@@ -2,6 +2,8 @@
   "coc.preferences.formatOnType": true,
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.formatOnSaveFiletypes": ["typescript", "rust", "python"],
+  "coc.preferences.jumpCommand": "edit",
+  "coc.preferences.useQuickfixForLocations": false,
   "codeLens.enable": false,
   "diagnostic.messageTarget": "echo",
   "diagnostic.refreshOnInsertMode": true,
@@ -24,6 +26,7 @@
   "python.linting.pylintUseMinimalCheckers": false,
   "python.linting.flake8Enabled": true,
   "python.formatting.provider": "black",
+  "rust-analyzer.enableCargoWatchOnStartup": true,
   "signature.preferShownAbove": false,
   "signature.target": "float",
   "suggest.detailField": "abbr",
@@ -48,10 +51,11 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "settings": {
         "gopls": {
+          "completeUnimported": true,
           "deepCompletion": true,
-          "usePlaceholders": true,
           "fuzzyMatching": true,
-          "completeUnimported": true
+          "staticcheck": false,
+          "usePlaceholders": true
         }
       }
     }

@@ -78,7 +78,7 @@ let g:coc_global_extensions = [
   \   'coc-neosnippet',
   \   'coc-prettier',
   \   'coc-python',
-  \   'coc-rls',
+  \   'coc-rust-analyzer',
   \   'coc-syntax',
   \   'coc-tag',
   \   'coc-tsserver',

@@ -117,6 +117,9 @@ input * {
     bindsym $mod+$right focus right
     bindsym $mod+Control+$left  focus output left
     bindsym $mod+Control+$right focus output right
+    bindsym $mod+Shift+Control+$left  move output left
+    bindsym $mod+Shift+Control+$right move output right
+
     # or use $mod+[up|down|left|right]
     # bindsym $mod+Left focus left
     # bindsym $mod+Down focus down
@@ -136,13 +139,13 @@ input * {
 #
 # Workspaces:
 #
-    workspace 1      output DP-3
-    workspace 2:term output DP-1
-    workspace 3      output DP-2
+    workspace 1 output DP-1
+    workspace 2 output DP-2
+    workspace 3 output DP-3
 
     # switch to workspace
     bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2:term
+    bindsym $mod+2 workspace 2
     bindsym $mod+3 workspace 3
     bindsym $mod+4 workspace 4
     bindsym $mod+5 workspace 5
@@ -153,7 +156,7 @@ input * {
     bindsym $mod+0 workspace 10
     # move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2:term
+    bindsym $mod+Shift+2 move container to workspace 2
     bindsym $mod+Shift+3 move container to workspace 3
     bindsym $mod+Shift+4 move container to workspace 4
     bindsym $mod+Shift+5 move container to workspace 5
@@ -272,27 +275,27 @@ bar {
 
 for_window [class="firefox"] {
   border pixel 2
-  move window to workspace 3
+  # move window to workspace 2
 }
 
 for_window [app_id="firefox"] {
   border pixel 2
-  move window to workspace 3
+  # move window to workspace 2
 }
 
 for_window [class="Brave-browser"] {
   border pixel 2
-  move window to workspace 3
+  # move window to workspace 2
 }
 
 for_window [class="Opera"] {
   border pixel 2
-  move window to workspace 3
+  # move window to workspace 2
 }
 
 for_window [class="Google-chrome"] {
   border pixel 2
-  move window to workspace 3
+  # move window to workspace 2
 }
 
 for_window [class="XEyes"] floating enable
@@ -301,10 +304,12 @@ for_window [title="Syncthing-GTK"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
 for_window [class="Keybase"] floating enable
 for_window [app_id="blueman-*"] floating enable
+for_window [class="VirtualBox Manager"] floating enable
+for_window [class="VirtualBox"] floating enable
 
-for_window [class="Slack"]   move window to workspace 3
-for_window [class="Spotify"] move window to workspace 3
-for_window [class="Signal"]  move window to workspace 3
+for_window [class="Slack"]   move window to workspace 2
+for_window [class="Spotify"] move window to workspace 2
+for_window [class="Signal"]  move window to workspace 2
 
 include /etc/sway/config.d/*
 

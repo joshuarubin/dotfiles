@@ -80,10 +80,22 @@ function! rubix#terminal#toggle(mods, bang) abort
     return
   endif
 
-  " if the terminal window is already shown, switch to it
+  " if the terminal window is already shown...
   let l:win = bufwinnr(s:term.buf)
   if s:term.buf != 0 && l:win != -1
+    " close the window if bang was used
+    if a:bang
+      execute l:win.'close'
+      return
+    endif
+
+    " switch to it
     execute l:win.'wincmd w'
+    return
+  endif
+
+  " don't create term if bang was used
+  if a:bang
     return
   endif
 
