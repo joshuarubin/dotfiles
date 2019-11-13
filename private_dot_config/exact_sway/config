@@ -231,9 +231,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
+bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
+bindsym XF86AudioMute        exec pamixer -t
 bindsym Print                exec grim -g "$(slurp)" "${HOME}/screenshot.png"
 
 default_border normal 2
@@ -324,6 +324,7 @@ exec wl-clipboard-history -t
 exec udiskie
 exec blueman-tray
 exec 'sleep 5 && firewall-applet'
+exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
 # start foreground apps
 exec $term
