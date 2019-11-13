@@ -1,3 +1,17 @@
+# STARTUP ORDER
+#
+# 1. /etc/zshenv
+#    ~/.zshenv
+#
+# 2. /etc/zprofile (login)
+#    ~/.zprofile
+#
+# 3. /etc/zshrc    (interactive)
+#    ~/.zshrc
+#
+# 4. /etc/zlogin   (login)
+#    ~/.zlogin
+
 export ZSH=${HOME}/.zsh
 
 #
@@ -101,12 +115,10 @@ export RESTIC_PASSWORD_FILE="${HOME}/.config/restic/password"
 export RESTIC_REPOSITORY='sftp:balerion-backup:/NetBackup/balerion'
 # export RESTIC_REPOSITORY='b2:balerion:/'
 # NOTE: source ~/.config/restic/b2 for b2 credentials
-{{- end }}
 
-{{ if .gpg -}}
+{{ end }}{{ if .gpg -}}
 export GPG_TTY=$(tty)
 {{- end }}
-
 export MAKEFLAGS='-j {{ .numcpu }}'
 export MAGE_VERBOSE=1
 export XZ_DEFAULTS='--threads=0'
