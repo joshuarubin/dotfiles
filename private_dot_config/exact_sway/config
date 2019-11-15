@@ -283,6 +283,11 @@ for_window [app_id="firefox"] {
   # move window to workspace 2
 }
 
+for_window [app_id="firefox" title="Firefox - Sharing Indicator"] {
+  floating enable
+  border none
+}
+
 for_window [class="Brave-browser"] {
   border pixel 2
   # move window to workspace 2
