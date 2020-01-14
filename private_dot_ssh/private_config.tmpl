@@ -4,7 +4,7 @@ Host *
   ControlPath ~/.ssh/connections/%r_%h_%p
   IdentityFile ~/.ssh/id_ed25519
 
-Host syrax pi3 balerion rockpi4 pi4
+Host syrax pi3 balerion pi4
   # forward local port 2489 for lemonade copy/paste server
   RemoteForward 2489 127.0.0.1:2489
 
@@ -15,15 +15,8 @@ Host pub1
   HostName pub1.rubixconsulting.com
   IdentityFile ~/.ssh/id_rsa_legacy
 
-Host rockpi4
-  HostName rockpi4.local
-
 Host pi4
   HostName pi4.local
-  User pi
-
-Host pi3
-  HostName 10.0.5.14
   User pi
 
 Host github.com
@@ -40,22 +33,5 @@ Host balerion-backup
   HostName 10.0.5.10
   Port 2222
   User balerion-backup
-
-Host ngrok
-{{- if eq .chezmoi.hostname "balerion" }}
-  HostName 127.0.0.1
-  Port 2222
-  IdentityFile ~/ngrok/vm/.vagrant/machines/ngrok/docker/private_key
-{{- else if eq .chezmoi.hostname "vhagar" }}
-  HostName 10.211.55.11
-  Port 22
-  IdentityFile /Users/jrubin/ngrok/vm/.vagrant/machines/ngrok/parallels/private_key
-{{- end }}
-  User vagrant
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-  PasswordAuthentication no
-  IdentitiesOnly yes
-  LogLevel FATAL
 
 # vim: ft=sshconfig

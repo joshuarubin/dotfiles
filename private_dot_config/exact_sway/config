@@ -6,7 +6,7 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
+# Logo key. Use Mod1 for Alt, Mod4 for Super
 set $mod Mod1
 # Home row direction keys, like vim
 set $left h
@@ -43,7 +43,7 @@ output DP-1 pos 2560 0 res 3840x2160 scale 1.5
 output DP-2 pos 5120 0 res 2560x1440@143.856003Hz
 
 exec_always systemctl --user import-environment DESKTOP_SESSION DISPLAY GDMSESSION GDM_LANG I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_SESSION_TYPE
-exec_always systemctl --user set-environment QT_QPA_PLATFORM=wayland XDG_SESSION_CLASS=user XDG_SESSION_DESKTOP=sway
+exec_always systemctl --user set-environment QT_QPA_PLATFORM=wayland XDG_SESSION_CLASS=user XDG_SESSION_DESKTOP=sway GLFW_IM_MODULE=ibus
 
 ### Idle configuration
 #
@@ -91,7 +91,8 @@ input * {
     bindsym $mod+Shift+q kill
 
     # start your launcher
-    bindsym $mod+space exec $menu
+    bindsym Control+Space exec $menu
+    bindsym Mod4+Space    exec $menu
 
     # bindsym Mod4+l exec swaylock -c 000000
 
@@ -145,26 +146,48 @@ input * {
 
     # switch to workspace
     bindsym $mod+1 workspace 1
+    bindsym $mod+a workspace 1
+
     bindsym $mod+2 workspace 2
+    bindsym $mod+s workspace 2
+
     bindsym $mod+3 workspace 3
+    bindsym $mod+d workspace 3
+
     bindsym $mod+4 workspace 4
+    bindsym $mod+f workspace 4
+
     bindsym $mod+5 workspace 5
+    bindsym $mod+g workspace 5
+
     bindsym $mod+6 workspace 6
     bindsym $mod+7 workspace 7
     bindsym $mod+8 workspace 8
     bindsym $mod+9 workspace 9
     bindsym $mod+0 workspace 10
+
     # move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
+    bindsym $mod+Shift+a move container to workspace 1
+
     bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+s move container to workspace 2
+
     bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+d move container to workspace 3
+
     bindsym $mod+Shift+4 move container to workspace 4
+    bindsym $mod+Shift+f move container to workspace 4
+
     bindsym $mod+Shift+5 move container to workspace 5
+    bindsym $mod+Shift+g move container to workspace 5
+
     bindsym $mod+Shift+6 move container to workspace 6
     bindsym $mod+Shift+7 move container to workspace 7
     bindsym $mod+Shift+8 move container to workspace 8
     bindsym $mod+Shift+9 move container to workspace 9
     bindsym $mod+Shift+0 move container to workspace 10
+
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
     # bindsym $mod+tab workspace back_and_forth
@@ -178,12 +201,12 @@ input * {
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
+    bindsym $mod+q layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    bindsym $mod+space fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -192,8 +215,8 @@ input * {
     bindsym $mod+Control+space focus mode_toggle
 
     # move focus to the parent container
-    bindsym $mod+a focus parent
-    bindsym $mod+Shift+a focus child
+    bindsym $mod+x focus parent
+    bindsym $mod+Shift+x focus child
 #
 # Scratchpad:
 #
@@ -202,10 +225,12 @@ input * {
 
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
+    bindsym $mod+Shift+z     move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+    bindsym $mod+z scratchpad show
 #
 # Resizing containers:
 #
@@ -311,6 +336,8 @@ for_window [class="Keybase"] floating enable
 for_window [app_id="blueman-*"] floating enable
 for_window [class="VirtualBox Manager"] floating enable
 for_window [class="VirtualBox"] floating enable
+for_window [app_id="xdg-desktop-portal-gtk" title="Open With"] floating enable
+for_window [class="Yubico Authenticator"] floating enable
 
 for_window [class="Slack"]   move window to workspace 2
 for_window [class="Spotify"] move window to workspace 2
@@ -328,10 +355,11 @@ exec nm-applet --indicator
 exec wl-clipboard-history -t
 exec udiskie
 exec blueman-tray
-exec 'sleep 5 && firewall-applet'
+exec sleep 5 && firewall-applet
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
+exec ibus-daemon -drx --panel /usr/lib/ibus/ibus-ui-gtk3
 
 # start foreground apps
 exec $term
-exec gtk-launch firefox-wayland
+exec gtk-launch firefox
 exec flatpak run com.slack.Slack
