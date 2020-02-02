@@ -43,7 +43,7 @@ output DP-1 pos 2560 0 res 3840x2160 scale 1.5
 output DP-2 pos 5120 0 res 2560x1440@143.856003Hz
 
 exec_always systemctl --user import-environment DESKTOP_SESSION DISPLAY GDMSESSION GDM_LANG I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_SESSION_TYPE
-exec_always systemctl --user set-environment QT_QPA_PLATFORM=wayland XDG_SESSION_CLASS=user XDG_SESSION_DESKTOP=sway GLFW_IM_MODULE=ibus
+exec_always systemctl --user set-environment QT_QPA_PLATFORM=wayland XDG_SESSION_CLASS=user XDG_SESSION_DESKTOP=sway XDG_CURRENT_DESKTOP=sway GLFW_IM_MODULE=ibus
 
 ### Idle configuration
 #
@@ -313,6 +313,11 @@ for_window [app_id="firefox" title="Firefox - Sharing Indicator"] {
   border none
 }
 
+for_window [app_id="firefox" title="Picture-in-Picture"] {
+  floating enable
+  border none
+}
+
 for_window [class="Brave-browser"] {
   border pixel 2
   # move window to workspace 2
@@ -352,7 +357,6 @@ exec lxpolkit
 exec QT_QPA_PLATFORM=xcb albert
 exec KEYBASE_AUTOSTART=1 run_keybase
 exec nm-applet --indicator
-exec wl-clipboard-history -t
 exec udiskie
 exec blueman-tray
 exec sleep 5 && firewall-applet
@@ -363,3 +367,4 @@ exec ibus-daemon -drx --panel /usr/lib/ibus/ibus-ui-gtk3
 exec $term
 exec gtk-launch firefox
 exec flatpak run com.slack.Slack
+exec discord
