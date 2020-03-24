@@ -32,7 +32,7 @@
     },
     "clock": {
         "interval": 1,
-        "format": "{:%Y-%m-%d %-I:%M:%S %p}"
+        "format": "{:%Y-%m-%d %I:%M:%S %p}"
         // "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
@@ -80,7 +80,7 @@
     "custom/cputemp": {
       "format": "{}°C🌡",
       "interval": 1,
-      "exec": "bc -l <<< \"scale=1; $(cat /sys/bus/pci/drivers/k10temp/*/hwmon/hwmon1/temp1_input)/1000\""
+      "exec": "bc -l <<< \"scale=1; $(cat /sys/bus/pci/drivers/k10temp/*/hwmon/*/temp1_input | head -n 1)/1000\""
     },
     "custom/spotify": {
         "format": " {}",

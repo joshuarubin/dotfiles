@@ -51,10 +51,6 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "settings": {
         "gopls": {
-          "completeUnimported": true,
-          "deepCompletion": true,
-          "fuzzyMatching": true,
-          "staticcheck": false,
           "usePlaceholders": true
         }
       }

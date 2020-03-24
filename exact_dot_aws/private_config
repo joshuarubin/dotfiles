@@ -1,22 +1,37 @@
 [profile ngrok]
 region = us-west-2
 
+[profile ngrok-master]
+role_arn = arn:aws:iam::424122896246:role/ReadOnly
+source_profile = ngrok
+region = us-west-2
+
+[profile ngrok-infra]
+role_arn = arn:aws:iam::728914598599:role/ReadOnly
+source_profile = ngrok
+region = us-west-2
+
+[profile ngrok-ops]
+role_arn = arn:aws:iam::881680643410:role/ReadOnly
+source_profile = ngrok
+region = us-west-2
+
 [profile ngrok-dev]
 role_arn = arn:aws:iam::121193077874:role/OrganizationAccountAccessRole
 source_profile = ngrok
 region = us-west-2
 
 [profile ngrok-stage]
-role_arn = arn:aws:iam::598650118518:role/OrganizationAccountAccessRole
-source_profile = ngrok
-region = us-west-2
-
-[profile ngrok-infra]
-role_arn = arn:aws:iam::728914598599:role/OrganizationAccountAccessRole
+role_arn = arn:aws:iam::598650118518:role/ReadOnly
 source_profile = ngrok
 region = us-west-2
 
 [profile ngrok-prod]
 role_arn = arn:aws:iam::179275156621:role/OrganizationAccountAccessRole
+source_profile = ngrok
+region = us-west-2
+
+[profile ngrok-databricks]
+role_arn = arn:aws:iam::772756814352:role/OrganizationAccountAccessRole
 source_profile = ngrok
 region = us-west-2
