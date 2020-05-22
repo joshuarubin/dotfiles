@@ -1,0 +1,24 @@
+output=DP-2
+width=400
+background-color=#303030
+text-color=#c5c8c6
+border-size=3
+border-color=#6c7a80
+border-radius=5
+max-visible=10
+sort=-time
+sort=-priority
+default-timeout=3600000
+group-by=app-name,app-icon,urgency,summary
+
+[!grouped]
+format=<b>%a:</b> <i>%s</i>\n\n%b
+
+[group-index=0]
+format=<b>(%g) %a:</b> <i>%s</i>\n\n%b
+
+[app-name=Slack]
+default-timeout=60000
+
+[app-name=discord]
+default-timeout=60000

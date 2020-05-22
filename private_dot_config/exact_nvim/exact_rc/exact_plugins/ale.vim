@@ -19,6 +19,8 @@ highlight link ALEWarning CursorLineNr
 highlight link ALEInfo    Conceal
 
 let g:ale_fixers = {
+\   'c':         [ 'clang-format' ],
+\   'cpp':       [ 'clang-format' ],
 \   'css':       [ 'prettier' ],
 \   'go':        [ 'goimports', 'gofmt' ],
 \   'gomod':     [ 'gomod' ],
@@ -42,6 +44,7 @@ let g:ale_linters = {
 
 let g:ale_go_goimports_executable = 'gofumports'
 let g:ale_go_gofmt_executable = 'gofumpt'
+let g:ale_c_clangformat_options = '--style=file'
 let g:ale_go_gofmt_options = '-s'
 let g:ale_go_goimports_options = '-local go.ngrok.com'
 let g:ale_go_golangci_lint_package = 1

@@ -39,6 +39,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #custom-spotify,
+#custom-cpufreq,
 #custom-cputemp,
 #tray,
 #mode {

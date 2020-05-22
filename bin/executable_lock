@@ -1,4 +1,4 @@
 #!/bin/sh
 
-file=$(find ~/Pictures/Wallpaper | shuf -n 1)
+file=$(find ~/Pictures/Wallpaper -type f | shuf -n 1)
 swaymsg exec "swaylock -e -s fill -l -F -i ${file}"

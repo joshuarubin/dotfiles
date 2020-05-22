@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "cpu", "custom/cputemp", "memory", "clock", "tray"],
+    "modules-right": ["pulseaudio", "cpu", "custom/cpufreq", "custom/cputemp", "memory", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -32,8 +32,7 @@
     },
     "clock": {
         "interval": 1,
-        "format": "{:%Y-%m-%d %I:%M:%S %p}"
-        // "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%A %Y-%m-%d %I:%M:%S %p}"
     },
     "cpu": {
         "format": "{usage}% "
@@ -81,6 +80,11 @@
       "format": "{}°C🌡",
       "interval": 1,
       "exec": "bc -l <<< \"scale=1; $(cat /sys/bus/pci/drivers/k10temp/*/hwmon/*/temp1_input | head -n 1)/1000\""
+    },
+    "custom/cpufreq": {
+      "format": "{}GHz",
+      "interval": 1,
+      "exec": "cat /sys/devices/system/cpu/*/cpufreq/scaling_cur_freq | awk \"{ sum += \\$1; num++ } END { printf \\\"%.2f\\\", sum / num / 1000000 }\""
     },
     "custom/spotify": {
         "format": " {}",
