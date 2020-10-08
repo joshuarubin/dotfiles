@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+read -r file <<< "$(ls -1 /sys/bus/pci/drivers/k10temp/*/hwmon/*/temp2_input)"
+bc -l <<< "scale=1; $(cat ${file})/1000"

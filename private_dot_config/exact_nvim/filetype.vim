@@ -5,6 +5,7 @@ endif
 augroup filetypedetect
   " TypeScript
   autocmd BufNewFile,BufRead *.ts  set filetype=typescript
+  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
   " JavaScript
   autocmd BufNewFile,BufRead *.es6 set filetype=javascript

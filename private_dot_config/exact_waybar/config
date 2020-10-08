@@ -79,12 +79,12 @@
     "custom/cputemp": {
       "format": "{}°C🌡",
       "interval": 1,
-      "exec": "bc -l <<< \"scale=1; $(cat /sys/bus/pci/drivers/k10temp/*/hwmon/*/temp1_input | head -n 1)/1000\""
+      "exec": "/home/jrubin/bin/cputemp"
     },
     "custom/cpufreq": {
       "format": "{}GHz",
       "interval": 1,
-      "exec": "cat /sys/devices/system/cpu/*/cpufreq/scaling_cur_freq | awk \"{ sum += \\$1; num++ } END { printf \\\"%.2f\\\", sum / num / 1000000 }\""
+      "exec": "/home/jrubin/bin/cpufreq"
     },
     "custom/spotify": {
         "format": " {}",

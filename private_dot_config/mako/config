@@ -17,8 +17,5 @@ format=<b>%a:</b> <i>%s</i>\n\n%b
 [group-index=0]
 format=<b>(%g) %a:</b> <i>%s</i>\n\n%b
 
-[app-name=Slack]
-default-timeout=60000
-
 [app-name=discord]
 default-timeout=60000

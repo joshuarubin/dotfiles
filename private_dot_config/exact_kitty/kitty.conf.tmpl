@@ -494,7 +494,7 @@ color8 #425059
 
 #: black
 
-color1 #a54242
+color1 #952424
 color9 #cc6666
 
 #: red
@@ -504,27 +504,27 @@ color10 #b5bd67
 
 #: green
 
-color3  #de935f
+color3 #d5c75d
 color11 #f0c674
 
 #: yellow
 
-color4  #5f819d
+color4  #30648d
 color12 #81a2be
 
 #: blue
 
-color5  #85678f
+color5  #8c3ba8
 color13 #b294ba
 
 #: magenta
 
-color6  #5e8d87
+color6  #4aaa9e
 color14 #8abeb7
 
 #: cyan
 
-color7  #6c7a80
+color7  #738289
 color15 #c5c8c6
 
 #: white
@@ -679,7 +679,7 @@ macos_custom_beam_cursor no
 #: on both light and dark backgrounds. WARNING: this might make your
 #: mouse cursor invisible on dual GPU machines.
 
-linux_display_server auto
+linux_display_server wayland
 
 #: Choose between Wayland and X11 backends. By default, an appropriate
 #: backend based on the system state is chosen automatically. Set it
@@ -759,6 +759,9 @@ map kitty_mod+c copy_to_clipboard
 #: send an interrupt otherwise.
 
 map kitty_mod+v  paste_from_clipboard
+{{ if eq .chezmoi.os "linux" -}}
+map ctrl+v       paste_from_clipboard
+{{- end }}
 map kitty_mod+o  pass_selection_to_program
 
 #: You can also pass the contents of the current selection to any

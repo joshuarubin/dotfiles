@@ -40,25 +40,32 @@ set $menu albert toggle
 # output DP-2 pos 5440 160 res 2560x1440@143.856003Hz
 output DP-1 pos    0 0 res 2560x1440
 output DP-2 pos 2560 0 res 3840x2160 scale 1.5
-output DP-3 pos 5120 0 res 2560x1440@143.856003Hz
+output DP-3 pos 5120 0 res 2560x1440@143.856003Hz adaptive_sync on
 
-exec systemctl --user import-environment DESKTOP_SESSION DISPLAY GDMSESSION GDM_LANG I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_SESSION_TYPE
-exec systemctl --user set-environment QT_QPA_PLATFORM=wayland XDG_SESSION_CLASS=user XDG_SESSION_DESKTOP=sway XDG_CURRENT_DESKTOP=sway GLFW_IM_MODULE=ibus
+exec systemctl --user import-environment \
+  DESKTOP_SESSION \
+  DISPLAY \
+  GDMSESSION \
+  GDM_LANG \
+  I3SOCK \
+  SWAYSOCK \
+  WAYLAND_DISPLAY \
+  XDG_SESSION_TYPE
 
 ### Idle configuration
 #
 # Example configuration:
 
 exec swayidle \
-   timeout 300 '~/bin/lock' \
-   timeout 600 'swaymsg "output * dpms off"' \
-      resume 'swaymsg "output * dpms on"'
+  timeout 600 '~/bin/lock' \
+  timeout 1200 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"'
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-exec_always setrandom ~/Pictures/Wallpaper
+exec setrandom ~/Pictures/Wallpaper
 
 ### Input configuration
 #
@@ -72,8 +79,8 @@ exec_always setrandom ~/Pictures/Wallpaper
 #   }
 
 input * {
-    xkb_options altwin:ctrl_win
     natural_scroll enabled
+    xkb_numlock enabled
 }
 
 #
@@ -239,6 +246,14 @@ input * {
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
     bindsym $mod+z scratchpad show
+
+#
+# Mouse:
+#
+    # TODO(jawa) use the --release version once it works in sway
+    # bindsym --release button2 kill
+    bindsym button2 kill
+
 #
 # Resizing containers:
 #
@@ -311,70 +326,15 @@ bar {
     }
 }
 
-for_window [class="firefox"] {
-  border pixel 2
-}
-
-for_window [app_id="firefox"] {
-  border pixel 2
-}
-
-for_window [app_id="firefox" title="Firefox - Sharing Indicator"] {
-  floating enable
-  border none
-}
-
+for_window [app_id="firefox"] border none
+for_window [app_id="firefox" floating] border normal 2
 for_window [app_id="firefox" title="Picture-in-Picture"] {
   floating enable
   border none
 }
 
-for_window [app_id="Firefox Beta"] {
-  border pixel 2
-}
-
-for_window [app_id="Firefox Beta" title="Firefox - Sharing Indicator"] {
-  floating enable
-  border none
-}
-
-for_window [app_id="Firefox Beta" title="Picture-in-Picture"] {
-  floating enable
-  border none
-}
-
-for_window [app_id="Chromium"] {
-  border pixel 2
-}
-
-# Chromium
-for_window [title="Picture in picture"] {
-  floating enable
-  border none
-}
-
-for_window [title="Task Manager - Chromium"] {
-  floating enable
-  border none
-}
-
-for_window [class="Brave-browser"] {
-  border pixel 2
-}
-
-for_window [class="Opera"] {
-  border pixel 2
-}
-
-for_window [class="Google-chrome"] {
-  border pixel 2
-}
-
-for_window [class="XPlanet"] {
-  floating enable
-  border none
-}
-
+for_window [class="XPlanet"] floating enable
+for_window [class="zoom"] floating enable
 for_window [class="XEyes"] floating enable
 for_window [title="Volume Control"] floating enable
 for_window [title="Syncthing-GTK"] floating enable
@@ -385,30 +345,31 @@ for_window [class="VirtualBox Manager"] floating enable
 for_window [class="VirtualBox"] floating enable
 for_window [app_id="xdg-desktop-portal-gtk" title="Open With"] floating enable
 for_window [class="Yubico Authenticator"] floating enable
-
-for_window [class="Slack"]   move window to workspace 2
-for_window [class="Spotify"] move window to workspace 2
-for_window [class="Signal"]  move window to workspace 2
-for_window [class="discord"] move window to workspace 2
+for_window [class="Cadence"] floating enable
+for_window [app_id="python3" title="Cadence"] floating enable
+for_window [class="Catia"] floating enable
+for_window [app_id="python3" title="Catia"] floating enable
+for_window [app_id="/usr/share/applications/agordejo"] floating enable
+for_window [class="Non-Mixer"] floating enable
+for_window [class="RaySession"] floating enable
 
 include /etc/sway/config.d/*
+
+# kill processes that tend to stick around if the session crashes
+exec killall -u jrubin kitty tail wob zita-a2j zita-j2a
+exec killall -u jrubin -9 ray-daemon
 
 # start background apps
 exec autotiling
 exec mako
-exec sway-focused
 exec lxpolkit
 exec QT_QPA_PLATFORM=xcb albert
 exec KEYBASE_AUTOSTART=1 run_keybase
 exec nm-applet --indicator
-exec udiskie
+exec udiskie --smart-tray --appindicator
 exec blueman-tray
 exec sleep 5 && firewall-applet
-exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
+exec rm -f $SWAYSOCK.wob && mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 exec ibus-daemon -drx --panel /usr/lib/ibus/ibus-ui-gtk3
-
-# start foreground apps
-exec $term
-exec gtk-launch firefox
-exec flatpak run com.slack.Slack
-exec discord
+exec gtk-launch redshift-gtk
+exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh

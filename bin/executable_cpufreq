@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+freqs=$(cat /sys/devices/system/cpu/*/cpufreq/scaling_cur_freq)
+awk "{ sum += \$1; num++ } END { printf \"%.2f\", sum / num / 1000000 }" <<< "${freqs}"

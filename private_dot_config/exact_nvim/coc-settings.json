@@ -4,8 +4,9 @@
   "coc.preferences.formatOnSaveFiletypes": ["typescript", "rust", "python"],
   "coc.preferences.jumpCommand": "edit",
   "coc.preferences.useQuickfixForLocations": false,
-  "codeLens.enable": false,
+  "codeLens.enable": true,
   "diagnostic.messageTarget": "echo",
+  "diagnostic.displayByAle": true,
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic.errorSign": "🔥",
   "diagnostic.warningSign": "🚧",
@@ -51,7 +52,8 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "settings": {
         "gopls": {
-          "usePlaceholders": true
+          "usePlaceholders": true,
+          "codelens": { "test": true }
         }
       }
     }

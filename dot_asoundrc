@@ -1,0 +1,34 @@
+defaults.pcm.rate_converter "speexrate_best"
+
+pcm.!default {
+  type plug
+  slave.pcm "pulse"
+}
+
+pcm.pulse {
+  type pulse
+}
+
+ctl.mixer0 {
+  type hw
+  card 0
+}
+
+pcm.ARDOP {
+  type asym
+
+  capture.pcm "hw:Loopback,1,0"
+  playback.pcm "hw:Loopback,1,1"
+}
+
+pcm.ic7300 {
+  type asym
+
+  capture.pcm "hw:Loopback,1,0"
+  playback.pcm "hw:Loopback,1,1"
+
+  hint {
+    show on
+    description "Icom IC-7300"
+  }
+}

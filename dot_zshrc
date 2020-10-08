@@ -7,7 +7,57 @@ if [ -e /etc/zsh/zprofile ]; then
   source /etc/zsh/zprofile
 fi
 
-setopt EXTENDED_GLOB NO_NOMATCH
+zstyle ':zim:git' aliases-prefix 'g'
+
+# zinit
+source ~/.zinit/bin/zinit.zsh
+
+zinit light-mode for \
+  zinit-zsh/z-a-as-monitor \
+  zinit-zsh/z-a-patch-dl \
+  zinit-zsh/z-a-bin-gem-node \
+  zimfw/git \
+  zimfw/input \
+  zsh-users/zsh-history-substring-search \
+  miekg/lean
+
+zinit wait lucid light-mode for \
+  atload'_zsh_autosuggest_start' \
+  zsh-users/zsh-autosuggestions \
+  atinit'zicompinit; zicdreplay' \
+  zdharma/fast-syntax-highlighting \
+  atload'zicompinit; zicdreplay' blockf \
+  zsh-users/zsh-completions \
+  atload'autoload $PWD/functions/*' \
+  zimfw/pacman
+
+zinit as'program' make'!' atclone'./direnv hook zsh > zhook.zsh' \
+  atpull'%atclone' pick'direnv' src'zhook.zsh' for \
+    direnv/direnv
+
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+prompt_lean_precmd_patch() {
+  # use λ instead of % for prompt
+  PROMPT="${PROMPT:s/%#/%(\!.#.λ)/}"
+}
+
+function zle-keymap-select {
+  prompt_lean_precmd
+  prompt_lean_precmd_patch
+  zle reset-prompt
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd prompt_lean_precmd_patch
+
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+
+setopt extended_glob no_nomatch
 
 fpath[1,0]=${ZSH}/functions
 autoload -U compinit && compinit
@@ -16,12 +66,6 @@ for func in ${ZSH}/functions/*(-.N:t); do
   autoload -Uz ${func}
 done
 unset func
-
-# Define zim location
-export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-
-# Start zim
-[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
 
 autoload -Uz bashcompinit && bashcompinit
 

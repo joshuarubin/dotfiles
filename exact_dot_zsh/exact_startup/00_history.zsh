@@ -5,13 +5,33 @@
 HISTSIZE=50000
 SAVEHIST=10000
 
-## History command configuration
-setopt extended_history       # record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt inc_append_history     # add commands to HISTFILE in order of execution
-setopt share_history          # share command history data
+# Perform textual history expansion, csh-style, treating the character `!'
+# specially.
+setopt bang_hist
+
+# Save each command's beginning timestamp (in seconds since the epoch) and the
+# duration (in seconds) to the history file.
+setopt extended_history
+
+# If a new command line being added to the history list duplicates an older one,
+# the older command is removed from the list (even if it is not the previous
+# event).
+setopt hist_ignore_all_dups
+
+# When writing out the history file, older commands that duplicate newer ones
+# are omitted.
+setopt hist_save_no_dups
+
+# Do not enter command lines into the history list if they are duplicates of the
+# previous event.
+setopt hist_ignore_dups
+
+# Remove  command  lines from the history list when the first character on the
+# line is a space.
+setopt hist_ignore_space
+
+# This option both imports new commands from the history file, and also causes
+# your typed commands to be appended to the history file.
+setopt share_history
 
 alias history-stat="fc -ln 0 | awk '{print \$1}' | sort | uniq -c | sort -nr | head"

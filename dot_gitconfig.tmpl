@@ -26,13 +26,20 @@
 	whitespace = nowarn
 [mergetool]
 	keepBackup = false
+[diff]
+	tool = vimdiff
 [difftool]
 	prompt = false
+	trustExitCode = true
+[difftool "vimdiff"]
+	path = nvim
 [help]
 	autocorrect = 1
 [push]
 	default = upstream
 	followTags = true
+[pull]
+  ff = only
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

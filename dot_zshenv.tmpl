@@ -100,14 +100,13 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
 fi
 
 # Treat these characters as part of a word.
-WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
+WORDCHARS='*?_-.[]~&;!#$%^(){}<>|'
 
 PROMPT_LEAN_VIMODE="1"
 
 {{ if eq .chezmoi.hostname "balerion" -}}
 if [ -n "$DESKTOP_SESSION" ];then
-    eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-    export SSH_AUTH_SOCK
+  export SSH_AUTH_SOCK="/run/user/${UID}/keyring/ssh"
 fi
 
 export QT_QPA_PLATFORM=wayland
@@ -138,8 +137,11 @@ export NGROK_HOME="${HOME}/ngrok"
 export NGROK_JOBS="{{ .numcpu }}"
 export NGROK_DEVENV_TAG="jawa"
 
+alias open=xdg-open
 alias ngrok.dev="${NGROK_HOME}/devenv/enter.sh"
 alias nd='ngrok.dev'
+
+export WINEARCH=win32
 
 {{ end -}}
 

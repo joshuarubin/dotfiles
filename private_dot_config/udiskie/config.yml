@@ -1,0 +1,5 @@
+device_config:
+  - id_type: zfs_member
+    ignore: true
+  - device_id: ata-ST2000LM007-1R8174_WCC05255
+    ignore: true
