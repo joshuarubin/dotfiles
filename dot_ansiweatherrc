@@ -1,0 +1,10 @@
+location:denver
+units:imperial
+symbols:true
+ansi:false
+forecase:0
+show_uvi:false
+show_wind:false
+show_humidity:false
+show_pressure:false
+greeting_text: 

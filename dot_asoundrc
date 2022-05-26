@@ -2,33 +2,14 @@ defaults.pcm.rate_converter "speexrate_best"
 
 pcm.!default {
   type plug
-  slave.pcm "pulse"
+  slave.pcm "pipewire"
 }
 
-pcm.pulse {
-  type pulse
+pcm.pipewire {
+  type pipewire
 }
 
 ctl.mixer0 {
   type hw
   card 0
-}
-
-pcm.ARDOP {
-  type asym
-
-  capture.pcm "hw:Loopback,1,0"
-  playback.pcm "hw:Loopback,1,1"
-}
-
-pcm.ic7300 {
-  type asym
-
-  capture.pcm "hw:Loopback,1,0"
-  playback.pcm "hw:Loopback,1,1"
-
-  hint {
-    show on
-    description "Icom IC-7300"
-  }
 }

@@ -1,2 +1,0 @@
-# Changes to a directory and lists its contents.
-builtin cd "$argv[-1]" && ls "${(@)argv[1,-2]}"

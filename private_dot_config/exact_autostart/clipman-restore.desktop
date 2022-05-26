@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Mako
+Exec=clipman restore --notify
+Type=Application
+OnlyShowIn=sway;
+StartupNotify=false

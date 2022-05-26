@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+rm -f $SWAYSOCK.wob
+mkfifo $SWAYSOCK.wob
+tail -f $SWAYSOCK.wob | wob

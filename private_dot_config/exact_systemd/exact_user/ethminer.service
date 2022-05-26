@@ -1,0 +1,9 @@
+[Unit]
+Description=ethminer
+
+[Service]
+ExecStart=/usr/bin/ethminer --pool stratum1+ssl://0x6a220b4A27E8be7C3db10103c90539275e165F0A.balerion@eth-us-west.flexpool.io:5555 --report-hr --syslog --nocolor --HWMON 2 --api-bind 127.0.0.1:3333
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

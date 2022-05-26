@@ -1,0 +1,9 @@
+[Unit]
+Description=ts590
+
+[Service]
+ExecStart=/usr/bin/rigctld --model=2037 --rig-file=/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_056700455250-if00-port0 --listen-addr=::1 --port=4542 --serial-speed=115200
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

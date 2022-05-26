@@ -1,0 +1,9 @@
+[Unit]
+Description=ic7300
+
+[Service]
+ExecStart=/usr/bin/rigctld --model=3073 --rig-file=/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_IC-7300_02031521-if00-port0 --listen-addr=::1 --port=4532 --serial-speed=19200 --set-conf=rts_state=OFF,dtr_state=OFF
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

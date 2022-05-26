@@ -1,21 +1,50 @@
-output=DP-2
+output=DP-1
 width=400
-background-color=#303030
-text-color=#c5c8c6
 border-size=3
-border-color=#6c7a80
 border-radius=5
 max-visible=10
 sort=-time
 sort=-priority
 default-timeout=3600000
 group-by=app-name,app-icon,urgency,summary
+font=Segoe UI 12
+padding=0,10,30
+icon-path=/usr/share/icons/Yaru-dark:/usr/share/icons/Yaru:/usr/share/icons/Adwaita
+history=1
+on-button-left=exec makoselect --id "$id"
+
+# Start flavours
+## Base16 Gruvbox dark, hard
+# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+#
+# You can use these variables anywhere in the mako configuration file.
+
+background-color=#1d2021
+text-color=#d5c4a1
+border-color=#83a598
+
+[urgency=low]
+background-color=#1d2021
+text-color=#fabd2f
+border-color=#83a598
+
+[urgency=high]
+background-color=#1d2021
+text-color=#fb4934
+border-color=#83a598
+# End flavours
 
 [!grouped]
-format=<b>%a:</b> <i>%s</i>\n\n%b
+format=<b>%a:</b> <i>%s</i>\n%b
 
 [group-index=0]
-format=<b>(%g) %a:</b> <i>%s</i>\n\n%b
+format=<b>(%g) %a:</b> <i>%s</i>\n%b
 
 [app-name=discord]
 default-timeout=60000
+
+[app-name=journal-notify]
+default-timeout=0
+
+[mode=do-not-disturb]
+invisible=1

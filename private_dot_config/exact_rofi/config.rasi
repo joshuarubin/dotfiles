@@ -1,5 +1,5 @@
+@theme "Arc-Dark"
 configuration {
-  theme: "Arc-Dark";
   combi-modi: "drun,run,ssh";
   modi: "combi,calc:qalc";
   show-icons: true;

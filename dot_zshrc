@@ -12,33 +12,29 @@ zstyle ':zim:git' aliases-prefix 'g'
 # zinit
 source ~/.zinit/bin/zinit.zsh
 
+zinit ice blockf atpull'zinit creinstall -q .'
+
 zinit light-mode for \
-  zinit-zsh/z-a-as-monitor \
-  zinit-zsh/z-a-patch-dl \
-  zinit-zsh/z-a-bin-gem-node \
+  zdharma-continuum/zinit-annex-readurl \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-bin-gem-node \
   zimfw/git \
   zimfw/input \
   zsh-users/zsh-history-substring-search \
-  miekg/lean
+  miekg/lean \
+  joshuarubin/zsh-jawa
 
 zinit wait lucid light-mode for \
-  atload'_zsh_autosuggest_start' \
-  zsh-users/zsh-autosuggestions \
   atinit'zicompinit; zicdreplay' \
-  zdharma/fast-syntax-highlighting \
-  atload'zicompinit; zicdreplay' blockf \
-  zsh-users/zsh-completions \
-  atload'autoload $PWD/functions/*' \
+    zdharma-continuum/fast-syntax-highlighting \
+  atload'_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions \
+  blockf \
+    zsh-users/zsh-completions \
   zimfw/pacman
 
-zinit as'program' make'!' atclone'./direnv hook zsh > zhook.zsh' \
-  atpull'%atclone' pick'direnv' src'zhook.zsh' for \
-    direnv/direnv
-
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+# TODO(jawa)
+  # zimfw/completion
 
 prompt_lean_precmd_patch() {
   # use λ instead of % for prompt
@@ -59,28 +55,6 @@ zinit load junegunn/fzf-bin
 
 setopt extended_glob no_nomatch
 
-fpath[1,0]=${ZSH}/functions
-autoload -U compinit && compinit
-
-for func in ${ZSH}/functions/*(-.N:t); do
-  autoload -Uz ${func}
-done
-unset func
-
-autoload -Uz bashcompinit && bashcompinit
-
-for file in ${ZSH}/{completion,startup}/^(*.zwc|*.zwc.old)(-.N); do
-  source ${file}
-done
-unset file
-
 # remove non-existent directories
 path=($^path(N))
 cdpath=($^cdpath(N))
-
-# add relative directories to path
-path=(
-  bin
-  node_modules/.bin
-  $path
-)

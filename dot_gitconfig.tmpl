@@ -5,6 +5,7 @@
 	am = am -s
 	di = diff
 	dis = diff
+  dft = difftool
 	co = checkout
 	br = branch
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -21,18 +22,49 @@
 	oldNormal = red bold
 [core]
 	excludesfile = ~/.gitignore
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
+[pager]
+	difftool = true
+[delta]
+	side-by-side = true
+	commit-style                  = bold yellow
+	file-style                    = bright-yellow
+	hunk-header-style             = bold syntax
+	minus-style                   = syntax "#340001"
+	minus-non-emph-style          = bold red
+	minus-emph-style              = bold red 52
+	minus-empty-line-marker-style = normal "#3f0001"
+	zero-style                    = normal
+	plus-style                    = syntax "#012800"
+	plus-non-emph-style           = bold green
+	plus-emph-style               = bold green 22
+	plus-empty-line-marker-style  = normal "#002800"
+	whitespace-error-style        = reverse purple
+	line-numbers-minus-style      = 88
+	line-numbers-zero-style       = "#444444"
+	line-numbers-plus-style       = 28
+	line-numbers-left-style       = blue
+	line-numbers-right-style      = blue
+	syntax-theme = gruvbox-dark
+	navigate = true
+[interactive]
+	diffFilter = delta --color-only
 [apply]
 	whitespace = nowarn
 [mergetool]
 	keepBackup = false
 [diff]
-	tool = vimdiff
+	colorMoved = default
+	tool = difftastic
 [difftool]
 	prompt = false
 	trustExitCode = true
 [difftool "vimdiff"]
 	path = nvim
+[difftool "idiff"]
+	cmd = diff -i --unified --ignore-space-change --ignore-blank-lines --ignore-all-space $LOCAL $REMOTE
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
 [help]
 	autocorrect = 1
 [push]
@@ -56,8 +88,6 @@
 {{- end }}
 [http]
 	cookiefile = ~/.gitcookies
-[includeIf "gitdir:~/ngrok/"]
-	path = ~/.gitconfig.ngrok
 {{- if eq .chezmoi.os "darwin" }}
 [credential]
 	helper = osxkeychain
@@ -69,5 +99,7 @@
   enabled = true
 [protocol "keybase"]
   allow = always
+[init]
+	defaultBranch = main
 
 # vim: ft=gitconfig

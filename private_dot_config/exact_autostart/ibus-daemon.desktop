@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=IBus Daemon
+Exec=ibus-daemon -drx --panel /usr/lib/ibus/ibus-ui-gtk3
+Type=Application
+OnlyShowIn=sway;
+StartupNotify=false

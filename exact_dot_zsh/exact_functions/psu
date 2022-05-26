@@ -1,2 +1,0 @@
-# Displays user owned processes status.
-ps -U "${1:-$LOGNAME}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"

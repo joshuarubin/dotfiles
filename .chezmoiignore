@@ -34,35 +34,18 @@
 /.ssh/authorized_keys
 {{- end }}
 
-{{- if not .usenvim }}
-/bin/vim
-{{- end }}
-
 {{- if not .gpg }}
 /.gnupg/
 {{- end }}
 
-{{- if .slow }}
-/.config/nvim/rc/plugins/lightline.vim
-/.config/nvim/autoload/rubix/lightline.vim
-{{- end }}
-
 # prevent these files from being removed due to exact directories
 /.aws/cli/
-/.config/nvim/.cache/
-/.config/nvim/plugged/
-/.config/nvim/sessions/
+/.config/environment.d/10-home-manager.conf
+/.config/nvim/.git/
+/.config/nvim/.gitignore
+/.config/nvim/plugin/
+/.config/nvim/spell/*.spl
 /.config/systemd/user/*.wants
+/.config/systemd/user/lorri.service
+/.config/systemd/user/lorri.socket
 /.tmux/sidebar/
-/.zim/modules/*/*.zwc
-!/.zim/modules/*/*.old.zwc
-/.zim/modules/*/*/*.zwc
-!/.zim/modules/*/*/*.old.zwc
-/.zim/modules/*/*/*.zwc
-!/.zim/modules/*/*/*.old.zwc
-/.zim/modules/*/*/*/*.zwc
-!/.zim/modules/*/*/*/*.old.zwc
-/.zim/modules/*/*/*/*/*.zwc
-!/.zim/modules/*/*/*/*/*.old.zwc
-/.zsh/*/*.zwc
-!/.zsh/*/*.old.zwc

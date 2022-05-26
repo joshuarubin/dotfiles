@@ -3,3 +3,5 @@ device_config:
     ignore: true
   - device_id: ata-ST2000LM007-1R8174_WCC05255
     ignore: true
+  - device_file: /dev/loop0
+    ignore: true

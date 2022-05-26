@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+device="$(v4l2-ctl --list-devices | grep VirtualVideoDevice -A1 | tail -n 1 | awk '{print $1}')"
+geometry="$(slurp -o)"
+
+exec wf-recorder -g "${geometry}" --muxer=v4l2 --codec=rawvideo --file="${device}" -x yuv420p

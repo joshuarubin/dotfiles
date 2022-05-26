@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Mako
+Exec=wl-paste -t text --watch clipman store --no-persist --notify
+Type=Application
+OnlyShowIn=sway;
+StartupNotify=false

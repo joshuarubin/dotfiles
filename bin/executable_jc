@@ -1,0 +1,48 @@
+#!/bin/bash
+
+exec journalctl -n 1000 -f -o json | jq '{
+  Timestamp:  .__REALTIME_TIMESTAMP | tonumber | (. / 1000000) | strflocaltime("%Y-%m-%d %r %Z"),
+  Identifier: .SYSLOG_IDENTIFIER,
+  Unit:       ._SYSTEMD_UNIT,
+  Command:    ._COMM,
+  Message:    .MESSAGE,
+  Priority:   .PRIORITY | tonumber
+} | select(
+  (.Command == "1password"       and .Priority <= 3) or
+  (.Command == "Discord"         and .Priority <= 3) or
+  (.Command == "Isolated Web Co" and .Priority <= 3) or
+  (.Command == "autotiling"      and .Priority <= 3) or
+  (.Command == "dockerd"         and .Priority <= 5) or
+  (.Command == "electron"        and .Priority <= 3) or
+  (.Command == "firefox"         and .Priority <= 3) or
+  (.Command == "gnome-keyring-d" and .Priority <= 4) or
+  (.Command == "kitty"           and .Priority <= 3) or
+  (.Command == "pacman"          and .Priority <= 3) or
+  (.Command == "rtkit-daemon"    and .Priority <= 4) or
+  (.Command == "sway"            and .Priority <= 3) or
+  (.Command == "swaybg"          and .Priority <= 3) or
+  (.Command == "tailscaled"      and .Priority <= 4) or
+  (.Command == "waybar"          and .Priority <= 3) or
+  (.Command == "xkbcomp"         and .Priority <= 3) or
+  (.Command == "zrepl"           and .Priority <= 4) or
+  (
+    .Command != "1password"       and
+    .Command != "Discord"         and
+    .Command != "Isolated Web Co" and
+    .Command != "autotiling"      and
+    .Command != "dockerd"         and
+    .Command != "electron"        and
+    .Command != "firefox"         and
+    .Command != "gnome-keyring-d" and
+    .Command != "kitty"           and
+    .Command != "pacman"          and
+    .Command != "rtkit-daemon"    and
+    .Command != "sway"            and
+    .Command != "swaybg"          and
+    .Command != "tailscaled"      and
+    .Command != "waybar"          and
+    .Command != "xkbcomp"         and
+    .Command != "zrepl"           and
+    .Priority <= 5
+  )
+)'

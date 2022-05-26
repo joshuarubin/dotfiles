@@ -12,8 +12,6 @@
 # 4. /etc/zlogin   (login)
 #    ~/.zlogin
 
-export ZSH=${HOME}/.zsh
-
 #
 # Editors
 #
@@ -69,6 +67,7 @@ path=(
   ${HOME}/.gem/ruby/2.5.0/bin
   ${HOME}/.gem/ruby/2.6.0/bin
   ${HOME}/.gem/ruby/2.7.0/bin
+  ${HOME}/.gem/ruby/3.0.0/bin
   /opt/google-cloud-sdk/bin
   /snap/bin
   /usr/local/go/bin
@@ -80,7 +79,6 @@ path=(
 cdpath=(
   .
   ${HOME}
-  ${HOME}/ngrok
   ${HOME}/dev
 )
 
@@ -105,18 +103,6 @@ WORDCHARS='*?_-.[]~&;!#$%^(){}<>|'
 PROMPT_LEAN_VIMODE="1"
 
 {{ if eq .chezmoi.hostname "balerion" -}}
-if [ -n "$DESKTOP_SESSION" ];then
-  export SSH_AUTH_SOCK="/run/user/${UID}/keyring/ssh"
-fi
-
-export QT_QPA_PLATFORM=wayland
-
-export RESTIC_PASSWORD_FILE="${HOME}/.config/restic/password"
-
-export RESTIC_REPOSITORY='sftp:balerion-backup:/NetBackup/balerion'
-# export RESTIC_REPOSITORY='b2:balerion:/'
-# NOTE: source ~/.config/restic/b2 for b2 credentials
-
 {{ end }}{{ if .gpg -}}
 export GPG_TTY=$(tty)
 {{- end }}
@@ -124,8 +110,7 @@ export MAKEFLAGS='-j {{ .numcpu }}'
 export MAGE_VERBOSE=1
 export XZ_DEFAULTS='--threads=0'
 
-export AWS_PROFILE='ngrok-dev'
-export AWS_DEFAULT_REGION='us-east-2'
+export AWS_DEFAULT_REGION='us-west-2'
 export AWS_DEFAULT_OUTPUT='json'
 export AWS_SDK_LOAD_CONFIG='1'
 
@@ -133,16 +118,20 @@ export _FASD_BACKENDS='native nviminfo'
 export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
 
 {{ if eq .chezmoi.hostname "balerion" -}}
-export NGROK_HOME="${HOME}/ngrok"
-export NGROK_JOBS="{{ .numcpu }}"
-export NGROK_DEVENV_TAG="jawa"
-
 alias open=xdg-open
-alias ngrok.dev="${NGROK_HOME}/devenv/enter.sh"
-alias nd='ngrok.dev'
 
 export WINEARCH=win32
 
-{{ end -}}
+typeset -xU nix_path
+typeset -xT NIX_PATH nix_path :
+nix_path=(
+  nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs
+  $HOME/.nix-defexpr/channels
+  /nix/var/nix/profiles/per-user/root/channels
+  $nix_path
+)
+
+. $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+{{- end }}
 
 # vim: ft=zsh

@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "cpu", "custom/cpufreq", "custom/cputemp", "memory", "clock", "tray"],
+    "modules-right": ["custom/weather", "pulseaudio", "cpu", "temperature", "memory", "clock", "idle_inhibitor", "tray"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -35,10 +35,17 @@
         "format": "{:%A %Y-%m-%d %I:%M:%S %p}"
     },
     "cpu": {
-        "format": "{usage}% "
+        "interval": 1,
+        "format": "{usage}% {min_frequency:.2f}/{avg_frequency:.2f}/{max_frequency:.2f} ",
     },
     "memory": {
         "format": "{}% "
+    },
+    "temperature": {
+        "hwmon-path-abs": "/sys/bus/pci/drivers/k10temp/0000:00:18.3/hwmon",
+        "input-filename": "temp3_input",
+        "format": "{temperatureC}°C🌡",
+        "interval": 1
     },
     "battery": {
         "states": {
@@ -76,19 +83,20 @@
         },
         "on-click": "pavucontrol"
     },
-    "custom/cputemp": {
-      "format": "{}°C🌡",
-      "interval": 1,
-      "exec": "/home/jrubin/bin/cputemp"
-    },
-    "custom/cpufreq": {
-      "format": "{}GHz",
-      "interval": 1,
-      "exec": "/home/jrubin/bin/cpufreq"
-    },
     "custom/spotify": {
         "format": " {}",
         "max-length": 40,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+    },
+    "custom/weather": {
+      "interval": 300,
+      "exec": "ansiweather | cut -d: -f2 | xargs | sed 's| °|°|'"
+    },
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+        "activated": "",
+        "deactivated": ""
+      }
     }
 }

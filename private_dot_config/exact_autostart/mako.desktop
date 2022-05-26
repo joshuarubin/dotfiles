@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Mako
+Exec=mako
+Type=Application
+OnlyShowIn=sway;
+StartupNotify=false

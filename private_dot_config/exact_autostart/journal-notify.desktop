@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=journal-notify
+GenericName=Journal-Notify
+Comment=Notify about log with priority Critical, Alert & Emergency
+Exec=journal-notify -m PRIORITY=0 -m PRIORITY=1 -m PRIORITY=2 -m PRIORITY=3 -i dialog-warning
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=

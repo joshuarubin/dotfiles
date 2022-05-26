@@ -137,3 +137,4 @@ cscope.in.out
 cscope.po.out
 
 .zfs/
+.notags

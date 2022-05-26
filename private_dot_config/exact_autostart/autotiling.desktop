@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Autotiling
+Exec=autotiling
+Type=Application
+OnlyShowIn=sway;
+StartupNotify=false
