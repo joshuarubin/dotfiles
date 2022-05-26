@@ -1,6 +1,26 @@
+{{- $numcpu := "" -}}
+{{- if hasKey . "numcpu" -}}
+{{-   $numcpu = .numcpu -}}
+{{- else -}}
+{{-   $numcpu = 1 -}}
+{{- end -}}
+
+{{- $secrets := "" -}}
+{{- if hasKey . "secrets" -}}
+{{-   $secrets = .secrets -}}
+{{- else -}}
+{{-   $secrets = 1 -}}
+{{- end -}}
+
+{{- $gpg := "" -}}
+{{- if hasKey . "gpg" -}}
+{{-   $gpg = .gpg -}}
+{{- else -}}
+{{-   $gpg = 1 -}}
+{{- end -}}
 ---
 remove: true
 data:
-  numcpu: 1
-  secrets: false
-  gpg: false
+  numcpu: {{ $numcpu }}
+  secrets: {{ $secrets }}
+  gpg: {{ $gpg }}
