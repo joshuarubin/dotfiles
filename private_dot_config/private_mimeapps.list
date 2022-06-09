@@ -88,3 +88,4 @@ image/svg+xml=org.inkscape.Inkscape.desktop;gimp.desktop;
 application/json=nvim-kitty.desktop;
 video/mpeg=vlc.desktop;mpv.desktop;org.gnome.Totem.desktop;
 video/mp4=vlc.desktop;mpv.desktop;
+application/x-wine-extension-pdf=org.gnome.Evince.desktop;firefox.desktop;

@@ -1,0 +1,9 @@
+[Unit]
+Description=teamredminer
+
+[Service]
+ExecStart=/usr/bin/teamredminer -a ethash -o stratum+ssl://eth-us-west.flexpool.io:5555 -u 0x6a220b4A27E8be7C3db10103c90539275e165F0A.balerion -o stratum+ssl://eth-us-east.flexpool.io:5555 -u 0x6a220b4A27E8be7C3db10103c90539275e165F0A.balerion -p x --eth_stratum ethproxy
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

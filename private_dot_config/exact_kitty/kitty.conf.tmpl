@@ -1460,7 +1460,7 @@ map ctrl+c      copy_and_clear_or_interrupt
 #: Paste from clipboard
 
 map kitty_mod+v paste_from_clipboard
-map ctrl+v      paste_from_clipboard
+map ctrl+v      kitten pass_keys.py paste_from_clipboard ctrl+v
 
 #: Paste from selection
 
@@ -1489,8 +1489,8 @@ map kitty_mod+o pass_selection_to_program
 #: Scrolling
 
 map ctrl+e kitten smart_scroll.py scroll_line_down ctrl+e
-map ctrl+d kitten smart_scroll.py scroll_page_down ctrl+d
-map ctrl+u kitten smart_scroll.py scroll_page_up   ctrl+u
+map kitty_mod+d scroll_page_down
+map kitty_mod+u scroll_page_up
 map ctrl+y kitten smart_scroll.py scroll_line_up   ctrl+y
 
 # map kitty_mod+k    scroll_line_up

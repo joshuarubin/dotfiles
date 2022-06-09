@@ -36,8 +36,18 @@ def main():
 def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
     window = boss.window_id_map.get(target_window_id)
     operation = args[1]
-    direction = args[2]
-    key_mapping = args[3]
+
+    direction = ""
+    if len(args) > 2:
+        direction = args[2]
+
+    key_mapping = ""
+    if len(args) > 3:
+        key_mapping = args[3]
+
+    if key_mapping == "":
+        key_mapping = direction
+
     vim_id = "n?vim"
 
     if len(args) > 4 and key_mapping != 'send_text':
@@ -61,3 +71,5 @@ def handle_result(args: List[str], answer: str, target_window_id: int, boss: Bos
             window.write_to_child(encoded)
     elif operation == 'resize_window':
         boss.active_tab.resize_window(direction, 1)
+    elif operation == 'paste_from_clipboard':
+        boss.paste_from_clipboard()

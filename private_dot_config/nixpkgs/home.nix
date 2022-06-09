@@ -1,12 +1,13 @@
-{ config, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
+    alejandra
     bat
+    deadnix
     direnv
     exa
     htop
     jq
+    statix
   ];
 
   # Let Home Manager install and manage itself.
