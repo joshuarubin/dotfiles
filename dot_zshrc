@@ -10,14 +10,17 @@ fi
 zstyle ':zim:git' aliases-prefix 'g'
 
 # zinit
-source ~/.zinit/bin/zinit.zsh
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+source "${ZINIT_HOME}/zinit.zsh"
 
 zinit ice blockf atpull'zinit creinstall -q .'
 
 zinit light-mode for \
+  zdharma-continuum/zinit-annex-as-monitor \
   zdharma-continuum/zinit-annex-readurl \
   zdharma-continuum/zinit-annex-patch-dl \
   zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-rust \
   zimfw/git \
   zimfw/input \
   zsh-users/zsh-history-substring-search \

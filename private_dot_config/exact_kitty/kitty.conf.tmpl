@@ -727,7 +727,11 @@ inactive_text_alpha 1.0
 #: Fade the text in inactive windows by the specified amount (a number
 #: between zero and one, with zero being fully faded).
 
+{{ if eq .chezmoi.os "linux" -}}
 hide_window_decorations yes
+{{- else if eq .chezmoi.os "darwin" -}}
+hide_window_decorations no
+{{- end }}
 
 #: Hide the window decorations (title-bar and window borders) with
 #: yes. On macOS, titlebar-only can be used to only hide the titlebar.
@@ -787,7 +791,7 @@ visual_window_select_characters 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ
 #: insensitive, from the set [0-9A-Z]. Specify your preference as a
 #: string of characters.
 
-confirm_os_window_close -1
+confirm_os_window_close 1
 
 #: Ask for confirmation when closing an OS window or a Tab with at
 #: least this number of kitty windows in it by window manager (e.g.
@@ -1103,7 +1107,11 @@ allow_remote_control yes
 #: from controlling kitty. Reloading the config will not affect this
 #: setting.
 
+{{ if eq .chezmoi.os "linux" -}}
 listen_on unix:@kitty-{kitty_pid}
+{{- else if eq .chezmoi.os "darwin" -}}
+listen_on unix:~/.config/kitty/{kitty_pid}.sock
+{{- end }}
 
 #: Tell kitty to listen to the specified unix/tcp socket for remote
 #: control connections. Note that this will apply to all kitty
@@ -1488,10 +1496,18 @@ map kitty_mod+o pass_selection_to_program
 
 #: Scrolling
 
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+e kitten smart_scroll.py scroll_line_down ctrl+e
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+e kitten scroll_line_down
+{{- end }}
 map kitty_mod+d scroll_page_down
 map kitty_mod+u scroll_page_up
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+y kitten smart_scroll.py scroll_line_up   ctrl+y
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+y kitten scroll_line_up
+{{- end }}
 
 # map kitty_mod+k    scroll_line_up
 # map kitty_mod+j    scroll_line_down
@@ -1513,11 +1529,19 @@ map kitty_mod+z scroll_to_prompt -1
 
 #: Scroll to next shell prompt
 
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+shift+x scroll_to_prompt 1
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+shift+x scroll_to_prompt 1
+{{- end }}
 
 #: Browse scrollback buffer in pager
 
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+shift+s show_scrollback
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+shift+s show_scrollback
+{{- end }}
 
 #::  You can pipe the contents of the current screen + history buffer
 #::  as STDIN to an arbitrary program using the ``launch`` function.
@@ -1531,7 +1555,11 @@ map ctrl+shift+s show_scrollback
 
 #: Browse output of the last shell command in pager
 
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+shift+g show_last_command_output
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+shift+g show_last_command_output
+{{- end }}
 
 #::  You can also define additional shortcuts to get the command
 #::  output. For example, to get the first command output on screen::
@@ -1657,22 +1685,35 @@ map kitty_mod+f8 swap_with_window
 
 #: Next tab
 
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+tab next_tab
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+tab next_tab
+{{- end }}
 
 #: Previous tab
 
-# map kitty_mod+shift+tab previous_tab
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+shift+tab previous_tab
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+shift+tab previous_tab
+{{- end }}
 
 #: New tab
 
-# map kitty_mod+t new_tab_with_cwd
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+t new_tab_with_cwd
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+t new_tab_with_cwd
+{{- end }}
 
 #: Close tab
 
-# map kitty_mod+w close_tab
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+shift+w   close_tab
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+w close_tab
+{{- end }}
 
 #: Close OS window
 
@@ -1680,13 +1721,19 @@ map ctrl+shift+w   close_tab
 
 #: Move tab forward
 
-# map shift+kitty_mod+. move_tab_forward
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+shift+]   move_tab_forward
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+shift+]   move_tab_forward
+{{- end }}
 
 #: Move tab backward
 
-# map shift+kitty_mod+, move_tab_backward
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+shift+[   move_tab_backward
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+shift+[   move_tab_backward
+{{- end }}
 
 #: Set tab title
 
@@ -1699,6 +1746,7 @@ map kitty_mod+alt+t set_tab_title
 
 #:     map ctrl+alt+1 goto_tab 1
 #:     map ctrl+alt+2 goto_tab 2
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+1 goto_tab 1
 map ctrl+2 goto_tab 2
 map ctrl+3 goto_tab 3
@@ -1708,6 +1756,17 @@ map ctrl+6 goto_tab 6
 map ctrl+7 goto_tab 7
 map ctrl+8 goto_tab 8
 map ctrl+9 goto_tab 9
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+1 goto_tab 1
+map kitty_mod+2 goto_tab 2
+map kitty_mod+3 goto_tab 3
+map kitty_mod+4 goto_tab 4
+map kitty_mod+5 goto_tab 5
+map kitty_mod+6 goto_tab 6
+map kitty_mod+7 goto_tab 7
+map kitty_mod+8 goto_tab 8
+map kitty_mod+9 goto_tab 9
+{{- end }}
 
 #: Just as with new_window above, you can also pass the name of
 #: arbitrary commands to run when using new_tab and use
@@ -1776,7 +1835,11 @@ map kitty_mod+0 change_font_size all 0
 
 #: Open URL
 
+{{ if eq .chezmoi.os "linux" -}}
 map kitty_mod+e open_url_with_hints
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+r open_url_with_hints
+{{- end }}
 
 #::  Open a currently visible URL using the keyboard. The program used
 #::  to open the URL is specified in open_url_with.
@@ -1839,7 +1902,11 @@ map kitty_mod+p>y kitten hints --type hyperlink
 
 #: Toggle fullscreen
 
+{{ if eq .chezmoi.os "linux" -}}
 map ctrl+kitty_mod+f toggle_fullscreen
+{{- else if eq .chezmoi.os "darwin" -}}
+map kitty_mod+shift+f toggle_fullscreen
+{{- end }}
 
 #: Toggle maximized
 

@@ -9,6 +9,7 @@
 {{- end }}
 
 {{- if ne .chezmoi.os "linux" }}
+/.config/kitty/*.sock
 /.config/environment.d/
 /.config/fontconfig/
 /.config/i3/

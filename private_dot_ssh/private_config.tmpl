@@ -3,7 +3,6 @@ Host *
   ControlMaster auto
   ControlPersist 300
   ControlPath ~/.ssh/connections/%r_%h_%p
-  IdentityFile ~/.ssh/id_ed25519
 
 Host syrax pi3 balerion pi4
   # forward local port 2489 for lemonade copy/paste server
@@ -14,7 +13,6 @@ Host syrax
 
 Host pub1
   HostName pub1.rubixconsulting.com
-  IdentityFile ~/.ssh/id_rsa_legacy
 
 Host pi4
   HostName pi4.local

@@ -5,7 +5,7 @@
 	am = am -s
 	di = diff
 	dis = diff
-  dft = difftool
+	dft = difftool
 	co = checkout
 	br = branch
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -78,7 +78,9 @@
 	required = true
 [tag]
 	sort = version:refname
+{{- if .gpg }}
 	forceSignAnnotated = true
+{{- end }}
 [user]
 	name = Joshua Rubin
 	email = me@jawa.dev
