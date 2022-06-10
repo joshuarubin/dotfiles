@@ -15,6 +15,9 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 zinit ice blockf atpull'zinit creinstall -q .'
 
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+
 zinit light-mode for \
   zdharma-continuum/zinit-annex-as-monitor \
   zdharma-continuum/zinit-annex-readurl \
@@ -52,9 +55,6 @@ function zle-keymap-select {
 
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd prompt_lean_precmd_patch
-
-zinit ice from"gh-r" as"program"
-zinit load junegunn/fzf-bin
 
 setopt extended_glob no_nomatch
 
