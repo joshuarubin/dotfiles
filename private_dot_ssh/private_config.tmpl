@@ -42,6 +42,9 @@ Match exec "/usr/bin/sft resolve -q  %h"
   ProxyCommand "/usr/bin/sft" proxycommand  %h
   UserKnownHostsFile /home/jrubin/.local/share/ScaleFT/proxycommand_known_hosts
 {{- else if eq .chezmoi.os "darwin" -}}
+Match exec "/usr/local/bin/sft resolve -q  %h"
+  ProxyCommand "/usr/local/bin/sft" proxycommand  %h
+  UserKnownHostsFile "/Users/jrubin/Library/Application Support/ScaleFT/proxycommand_known_hosts"
 {{- end }}
 
 # vim: ft=sshconfig
