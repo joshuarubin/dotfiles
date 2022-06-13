@@ -37,4 +37,11 @@ Host pi-star
   HostName pi-star.local
   User pi-star
 
+{{ if eq .chezmoi.os "linux" -}}
+Match exec "/usr/bin/sft resolve -q  %h"
+  ProxyCommand "/usr/bin/sft" proxycommand  %h
+  UserKnownHostsFile /home/jrubin/.local/share/ScaleFT/proxycommand_known_hosts
+{{- else if eq .chezmoi.os "darwin" -}}
+{{- end }}
+
 # vim: ft=sshconfig
