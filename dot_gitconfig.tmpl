@@ -93,7 +93,7 @@
 {{- if eq .chezmoi.os "darwin" }}
 [credential]
 	helper = osxkeychain
-{{- else if .chezmoi.hostname "balerion" }}
+{{- else if eq .chezmoi.hostname "balerion" }}
 [credential]
 	helper = /usr/lib/git-core/git-credential-libsecret
 {{- else if eq .chezmoi.os "linux" }}
