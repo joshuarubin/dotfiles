@@ -9,14 +9,14 @@
 {{- if hasKey . "secrets" -}}
 {{-   $secrets = .secrets -}}
 {{- else -}}
-{{-   $secrets = 1 -}}
+{{-   $secrets = 0 -}}
 {{- end -}}
 
 {{- $gpg := "" -}}
 {{- if hasKey . "gpg" -}}
 {{-   $gpg = .gpg -}}
 {{- else -}}
-{{-   $gpg = 1 -}}
+{{-   $gpg = 0 -}}
 {{- end -}}
 
 {{- $email := "" -}}
