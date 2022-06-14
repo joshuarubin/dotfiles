@@ -71,7 +71,7 @@
 	default = upstream
 	followTags = true
 [pull]
-  ff = only
+	ff = only
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -105,10 +105,10 @@
 	helper = !/usr/bin/gh auth git-credential
 {{- end }}
 [rerere]
-  enabled = true
+	enabled = true
 [protocol "keybase"]
-  allow = always
+	allow = always
 [init]
 	defaultBranch = main
 
-# vim: ft=gitconfig
+# vim: ft=gitconfig noexpandtab
