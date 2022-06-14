@@ -1,0 +1,9 @@
+[Unit]
+Description=waynergy
+
+[Service]
+ExecStart=/usr/bin/waynergy
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

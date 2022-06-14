@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+MOTU_IN_1='alsa_input.usb-MOTU_M4_M40000033738-00.pro-input-0:capture_AUX0'
+
+MOTU_OUT_1='alsa_output.usb-MOTU_M4_M40000033738-00.pro-output-0:playback_AUX0'
+MOTU_OUT_2='alsa_output.usb-MOTU_M4_M40000033738-00.pro-output-0:playback_AUX1'
+
+# mic input for pulse
+/usr/bin/pw-link "${MOTU_IN_1}" 'Heil PR 40:input_1' || true
+
+# jack_mixer to motu 1-2
+/usr/bin/pw-link 'jack_mixer:Main L' "${MOTU_OUT_1}" || true
+/usr/bin/pw-link 'jack_mixer:Main R' "${MOTU_OUT_2}" || true

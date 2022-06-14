@@ -1,0 +1,9 @@
+[Unit]
+Description=link pipewire when motu is connected
+After=pipewire.service
+Requires=pipewire.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 5
+ExecStart=/home/jrubin/bin/motu
