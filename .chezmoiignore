@@ -18,20 +18,20 @@
 /.config/sway/
 /.config/systemd/
 /.config/waybar/
-/bin/pinentry-auto
-/bin/pbcopy
-/bin/pbpaste
+/.local/bin/pinentry-auto
+/.local/bin/pbcopy
+/.local/bin/pbpaste
 {{- end }}
 
 {{- if or (ne .chezmoi.hostname "balerion") (eq .chezmoi.username "root") }}
-/bin/jc
-/bin/lock
-/bin/motu
-/bin/pwlink.sh
-/bin/screencapture
-/bin/screenshot
-/bin/volume-bar
-/bin/wallpaper
+/.local/bin/jc
+/.local/bin/lock
+/.local/bin/motu
+/.local/bin/pwlink.sh
+/.local/bin/screencapture
+/.local/bin/screenshot
+/.local/bin/volume-bar
+/.local/bin/wallpaper
 {{- end }}
 
 {{- if not .secrets }}
