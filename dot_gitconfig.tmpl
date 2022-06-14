@@ -93,9 +93,16 @@
 {{- if eq .chezmoi.os "darwin" }}
 [credential]
 	helper = osxkeychain
-{{- else if eq .chezmoi.os "linux" }}
+{{- else if .chezmoi.hostname "balerion" }}
 [credential]
 	helper = /usr/lib/git-core/git-credential-libsecret
+{{- else if eq .chezmoi.os "linux" }}
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
 {{- end }}
 [rerere]
   enabled = true
