@@ -24,6 +24,7 @@
 {{- end }}
 
 {{- if or (ne .chezmoi.hostname "balerion") (eq .chezmoi.username "root") }}
+/.local/bin/dracut-install
 /.local/bin/jc
 /.local/bin/lock
 /.local/bin/motu

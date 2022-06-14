@@ -1,0 +1,18 @@
+#!/bin/bash -ex
+
+kernels=()
+kernels+=("linux")
+kernels+=("linux-zen")
+
+for kernel in "${kernels[@]}"; do
+	path="$(grep -lE "^${kernel}\$" /usr/lib/modules/*/pkgbase)"
+	version=$(basename "${path%/pkgbase}")
+    read -r pkgbase < "$path"
+
+    install -Dm0644 "/${path%'/pkgbase'}/vmlinuz" "/boot/vmlinuz-${pkgbase}"
+
+	echo ":: Building initramfs for $kernel-$version"
+	dracut -f --no-hostonly-cmdline "/boot/initramfs-${kernel}.img" --kver "${version}"
+	echo ":: Building fallback initramfs for $kernel-$version"
+	dracut -f -N "/boot/initramfs-${kernel}-fallback.img" --kver "${version}"
+done
