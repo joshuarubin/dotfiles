@@ -24,7 +24,13 @@
 {{- end }}
 
 {{- if or (ne .chezmoi.hostname "balerion") (eq .chezmoi.username "root") }}
+/bin/jc
 /bin/lock
+/bin/motu
+/bin/pwlink.sh
+/bin/screencapture
+/bin/screenshot
+/bin/volume-bar
 /bin/wallpaper
 {{- end }}
 
