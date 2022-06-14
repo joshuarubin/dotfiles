@@ -49,18 +49,6 @@ typeset -gU cdpath fpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  ${HOME}/bin
-  ${HOME}/go/bin
-  ${HOME}/.yarn/bin
-  ${HOME}/.rbenv/bin
-  ${HOME}/.rbenv/shims
-  ${HOME}/.cargo/bin
-  ${HOME}/.cabal/bin
-  ${HOME}/.nodenv/bin
-  ${HOME}/.nodenv/shims
-  ${HOME}/.node-build/bin
-  ${HOME}/.luarocks/bin
-  ${HOME}/.local/bin
   ${HOME}/Library/Python/3.7/bin
   ${HOME}/Library/Python/2.7/bin
   ${HOME}/.gem/ruby/2.3.0/bin
@@ -69,9 +57,7 @@ path=(
   ${HOME}/.gem/ruby/2.7.0/bin
   ${HOME}/.gem/ruby/3.0.0/bin
   /opt/google-cloud-sdk/bin
-  /snap/bin
   /usr/local/go/bin
-  /usr/local/{bin,sbin}
   /usr/local/opt/mysql-client/bin
   $path
 )
@@ -102,8 +88,7 @@ WORDCHARS='*?_-.[]~&;!#$%^(){}<>|'
 
 PROMPT_LEAN_VIMODE="1"
 
-{{ if eq .chezmoi.hostname "balerion" -}}
-{{ end }}{{ if .gpg -}}
+{{ if .gpg -}}
 export GPG_TTY=$(tty)
 {{- end }}
 export MAKEFLAGS='-j {{ .numcpu }}'
