@@ -5,6 +5,6 @@ Name=kitty
 GenericName=Terminal emulator
 Comment=Fast, feature-rich, GPU based terminal
 TryExec=kitty
-Exec=kitty --class=kitty_autostart --session /home/jrubin/.config/kitty/autostart.conf
+Exec=kitty --class=kitty_autostart --session {{ .chezmoi.homeDir }}/.config/kitty/autostart.conf
 Icon=kitty
 Categories=System;TerminalEmulator;

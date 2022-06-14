@@ -64,10 +64,10 @@ exec dbus-update-activation-environment --systemd \
 # Example configuration:
 
 exec swayidle -w \
-  lock         '~/bin/lock' \
-  before-sleep '~/bin/lock' \
+  lock         '~/.local/bin/lock' \
+  before-sleep '~/.local/bin/lock' \
   idlehint 600              \
-  timeout  600 '~/bin/lock'
+  timeout  600 '~/.local/bin/lock'
   # timeout 3600 'systemctl suspend -i'
   # timeout 1200 'swaymsg "output * dpms off"' \
   # resume 'swaymsg "output * dpms on"'
@@ -302,7 +302,7 @@ bindsym $mod+r mode "resize"
 bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
 bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
 bindsym XF86AudioMute        exec pamixer -t
-bindsym Print                exec ~/bin/screenshot
+bindsym Print                exec ~/.local/bin/screenshot
 
 default_border normal 2
 bindsym $mod+Period border toggle

@@ -1,5 +1,5 @@
 {{ if eq .chezmoi.hostname "balerion" -}}
-pinentry-program {{ .chezmoi.homeDir }}/bin/pinentry-auto
+pinentry-program {{ .chezmoi.homeDir }}/.local/bin/pinentry-auto
 {{ else if eq .chezmoi.os "darwin" -}}
 pinentry-program /opt/homebrew/bin/pinentry-mac
 {{ end -}}

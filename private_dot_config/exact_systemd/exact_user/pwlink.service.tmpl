@@ -1,0 +1,12 @@
+[Unit]
+Description=PipeWire Links
+After=pipewire.service
+Requires=pipewire.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 5
+ExecStart={{ .chezmoi.homeDir }}/.local/bin/pwlink.sh
+
+[Install]
+WantedBy=pipewire.service

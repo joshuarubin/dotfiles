@@ -1,9 +1,0 @@
-[Unit]
-Description=lemonade server
-
-[Service]
-ExecStart=/home/jrubin/go/bin/lemonade server -port 2490 -allow 10.42.0.0/16,172.17.0.0/16,127.0.0.1,::1
-Restart=on-failure
-
-[Install]
-WantedBy=default.target
