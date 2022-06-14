@@ -1499,14 +1499,14 @@ map kitty_mod+o pass_selection_to_program
 {{ if eq .chezmoi.os "linux" -}}
 map ctrl+e kitten smart_scroll.py scroll_line_down ctrl+e
 {{- else if eq .chezmoi.os "darwin" -}}
-map kitty_mod+e kitten scroll_line_down
+map kitty_mod+e kitten smart_scroll.py scroll_line_down kitty_mod+e
 {{- end }}
 map kitty_mod+d scroll_page_down
 map kitty_mod+u scroll_page_up
 {{ if eq .chezmoi.os "linux" -}}
 map ctrl+y kitten smart_scroll.py scroll_line_up   ctrl+y
 {{- else if eq .chezmoi.os "darwin" -}}
-map kitty_mod+y kitten scroll_line_up
+map kitty_mod+y kitten smart_scroll.py scroll_line_up kitty_mod+y
 {{- end }}
 
 # map kitty_mod+k    scroll_line_up
