@@ -18,9 +18,17 @@
 {{- else -}}
 {{-   $gpg = 1 -}}
 {{- end -}}
+
+{{- $email := "" -}}
+{{- if hasKey . "email" -}}
+{{-   $email = .email -}}
+{{- else -}}
+{{-   $email = "me@jawa.dev" -}}
+{{- end -}}
 ---
 remove: true
 data:
+  email: {{ $email }}
   numcpu: {{ $numcpu }}
   secrets: {{ $secrets }}
   gpg: {{ $gpg }}
