@@ -8,6 +8,8 @@ from typing import List
 
 
 def is_window_vim(window, vim_id):
+    if re.search(" - "+vim_id+"$", window.title, re.I):
+        return True
     fp = window.child.foreground_processes
     return any(re.search(vim_id, p['cmdline'][0] if len(p['cmdline']) else '', re.I) for p in fp)
 
