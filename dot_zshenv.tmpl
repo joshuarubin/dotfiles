@@ -92,28 +92,31 @@ export AWS_SDK_LOAD_CONFIG='1'
 
 export _FASD_BACKENDS='native nviminfo'
 export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
+{{- if ne .chezmoi.os "darwin" }}
 
-{{ if ne .chezmoi.os "darwin" -}}
 if [[ -z "${SSH_AUTH_SOCK}" ]]; then
-export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
+  export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
 fi
 {{- end }}
+{{- if eq .chezmoi.os "linux" }}
 
-{{ if eq .chezmoi.hostname "balerion" -}}
 alias open=xdg-open
-
 export WINEARCH=win32
-
-typeset -xU nix_path
-typeset -xT NIX_PATH nix_path :
-nix_path=(
-  nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs
-  $HOME/.nix-defexpr/channels
-  /nix/var/nix/profiles/per-user/root/channels
-  $nix_path
-)
-
-. $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 {{- end }}
+
+if [ -d "/nix" -a -d "${HOME}/.nix-defexpr" -a -L "${HOME}/.nix-profile" ]; then
+  typeset -xU nix_path
+  typeset -xT NIX_PATH nix_path :
+  nix_path=(
+    nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs
+    $HOME/.nix-defexpr/channels
+    /nix/var/nix/profiles/per-user/root/channels
+    $nix_path
+  )
+
+  if [ -f "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+    . "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+  fi
+fi
 
 # vim: ft=zsh
