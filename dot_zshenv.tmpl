@@ -95,9 +95,7 @@ export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
 
 {{ if ne .chezmoi.os "darwin" -}}
 if [[ -z "${SSH_AUTH_SOCK}" ]]; then
-{{- end }}
 export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
-{{ if ne .chezmoi.os "darwin" -}}
 fi
 {{- end }}
 
