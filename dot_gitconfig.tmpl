@@ -84,10 +84,11 @@
 [user]
 	name = Joshua Rubin
 	email = {{ .email }}
-{{- if .gpg }}
 [commit]
+{{- if .gpg }}
 	gpgSign = true
 {{- end }}
+	template = ~/.gitmessage
 [http]
 	cookiefile = ~/.gitcookies
 {{- if eq .chezmoi.os "darwin" }}
