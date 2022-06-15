@@ -1,11 +1,10 @@
 Host *
+{{- if .secrets }}
   IdentityAgent ~/.1password/agent.sock
+{{- end }}
   ControlMaster auto
   ControlPersist 300
   ControlPath ~/.ssh/connections/%r_%h_%p
-
-Host git.groq.io
-  IdentityAgent none
 
 Host jrubin git.groq.io
   ForwardAgent yes
