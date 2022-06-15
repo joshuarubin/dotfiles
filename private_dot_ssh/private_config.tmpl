@@ -7,6 +7,9 @@ Host *
   ControlPath ~/.ssh/connections/%r_%h_%p
 
 Host jrubin git.groq.io
+{{- if eq .chezmoi.hostname "vhagar" }}
+  IdentityAgent SSH_AUTH_SOCK
+{{- end }}
   ForwardAgent yes
 
 Host syrax pi3 balerion pi4 jrubin
