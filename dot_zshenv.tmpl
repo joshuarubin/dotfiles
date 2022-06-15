@@ -101,7 +101,10 @@ export AWS_SDK_LOAD_CONFIG='1'
 
 export _FASD_BACKENDS='native nviminfo'
 export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
-export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
+
+if [[ -v SSH_AUTH_SOCK ]]; then
+  export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
+fi
 
 {{ if eq .chezmoi.hostname "balerion" -}}
 alias open=xdg-open
