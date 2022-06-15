@@ -1,4 +1,4 @@
-Host jrubin
+Host jrubin git.groq.io
   ControlMaster no
 
 Host *
@@ -46,13 +46,13 @@ Host pi-star
   User pi-star
 
 {{ if eq .chezmoi.os "linux" -}}
-Match exec "/usr/bin/sft resolve -q  %h"
-  ProxyCommand "/usr/bin/sft" proxycommand  %h
+Match exec "/usr/bin/sft resolve -q %h"
+  ProxyCommand "/usr/bin/sft" proxycommand %h
   UserKnownHostsFile {{ .chezmoi.homeDir }}/.local/share/ScaleFT/proxycommand_known_hosts
 {{- else if eq .chezmoi.os "darwin" -}}
-Match exec "/usr/local/bin/sft resolve -q  %h"
-  ProxyCommand "/usr/local/bin/sft" proxycommand  %h
+Match exec "/usr/local/bin/sft resolve -q %h"
+  ProxyCommand "/usr/local/bin/sft" proxycommand %h
   UserKnownHostsFile "{{ .chezmoi.homeDir }}/Library/Application Support/ScaleFT/proxycommand_known_hosts"
 {{- end }}
 
-# vim: ft=sshconfig
+# vim: ft=sshconfig nospell
