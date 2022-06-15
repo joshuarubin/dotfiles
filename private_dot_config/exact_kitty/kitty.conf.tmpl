@@ -1705,8 +1705,10 @@ map kitty_mod+shift+tab previous_tab
 
 {{ if eq .chezmoi.os "linux" -}}
 map ctrl+t new_tab_with_cwd
+map ctrl+shift+t new_tab
 {{- else if eq .chezmoi.os "darwin" -}}
 map kitty_mod+t new_tab_with_cwd
+map kitty_mod+shift+t new_tab
 {{- end }}
 
 #: Close tab
