@@ -7,6 +7,10 @@ if [ -e /etc/zsh/zprofile ]; then
   source /etc/zsh/zprofile
 fi
 
+if [ -e /etc/zprofile ]; then
+  source /etc/zprofile
+fi
+
 zstyle ':zim:git' aliases-prefix 'g'
 
 # zinit
