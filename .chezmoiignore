@@ -2,9 +2,9 @@
 /README.md
 
 {{- if ne .chezmoi.os "darwin" }}
-/.chunkwmrc
 /.config/karabiner/
-/.skhdrc
+/.config/skhd/
+/.config/yabai/
 /Library/
 {{- end }}
 
