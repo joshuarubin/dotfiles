@@ -47,9 +47,11 @@ WORDCHARS='*?_-.[]~&;!#$%^(){}<>|'
 
 PROMPT_LEAN_VIMODE="1"
 
-{{ if .gpg -}}
+{{- if .gpg }}
+
 export GPG_TTY=$(tty)
 {{- end }}
+
 export MAKEFLAGS='-j {{ .numcpu }}'
 export MAGE_VERBOSE=1
 export XZ_DEFAULTS='--threads=0'
@@ -60,17 +62,16 @@ export AWS_SDK_LOAD_CONFIG='1'
 
 export _FASD_BACKENDS='native nviminfo'
 export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
-{{- if ne .chezmoi.os "darwin" }}
+{{- if ne .chezmoi.os "darwin" }}{{ if .secrets }}
 
 if [[ -z "${SSH_AUTH_SOCK}" ]]; then
   export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
 fi
-{{- end }}
+{{- end }}{{ end }}
 {{- if eq .chezmoi.os "linux" }}
 
 alias open=xdg-open
 export WINEARCH=win32
 {{- end }}
-
 
 # vim: ft=zsh
