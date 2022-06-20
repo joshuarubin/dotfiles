@@ -23,7 +23,7 @@ if [[ -z "$LANG" ]]; then
 fi
 
 if [[ -z "$LC_ALL" ]]; then
-  export LC_ALL=$LANG
+  export LC_ALL="$LANG"
 fi
 
 #
@@ -52,7 +52,7 @@ PROMPT_LEAN_VIMODE="1"
 
 {{- if .gpg }}
 
-export GPG_TTY=$(tty)
+export GPG_TTY="$(tty)"
 {{- end }}
 
 export MAKEFLAGS='-j {{ .numcpu }}'
