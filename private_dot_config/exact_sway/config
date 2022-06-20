@@ -46,9 +46,15 @@ set $menu albert toggle
 # output DP-3 pos    0 0 res 2560x1440
 # output DP-1 pos 2560 0 res 3840x2160@59.997002Hz scale 1.5
 # output DP-2 pos 5120 0 res 2560x1440@143.856003Hz adaptive_sync on
-output DP-3 pos    0    0 res 2560x1440 transform 90
-output DP-1 pos 1440 1440 res 3840x2160@59.997002Hz scale 1.5
-output DP-2 pos 1440    0 res 2560x1440@143.856003Hz adaptive_sync on
+
+# output DP-3 pos    0    0 res 2560x1440 transform 90
+# output DP-1 pos 1440 1440 res 3840x2160@59.997002Hz scale 1.5
+# output DP-2 pos 1440    0 res 2560x1440@143.856003Hz adaptive_sync on
+
+# 2560x1440
+output DP-2 pos    0  0 res 3840x2160@59.997002Hz scale 1.5
+# 3200x1333
+output DP-1 pos 2560 53 res 3840x1600@143.998Hz   scale 1.2 adaptive_sync on
 
 exec dbus-update-activation-environment --systemd \
   DESKTOP_SESSION \
