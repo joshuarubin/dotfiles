@@ -86,6 +86,7 @@ yabai -m config window_gap 0
 # Custom app rules
 yabai -m rule --add app="^Fantastical Helper$" manage=off border=off
 yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add label="Firfox PIP" app="^Firefox$" title="^(Picture-in-Picture)$" manage=off
 
 # Destroy empty spaces when leaving them
 yabai -m signal --add event=space_changed action='(RSINDEX=$(yabai -m query --spaces | jq -re ".[] | select(.id == $YABAI_RECENT_SPACE_ID).index") && [ "$(yabai -m query --spaces --space $RSINDEX | jq -re ".windows | length")" -eq 0 ] && yabai -m space $RSINDEX --destroy); hs -c "YabaiBar:update()"'

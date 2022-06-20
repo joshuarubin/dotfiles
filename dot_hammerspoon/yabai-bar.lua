@@ -68,14 +68,16 @@ function YabaiBar:update()
 					disp = disp .. self.spaceSeparator
 				end
 
-				if self.spaces[space]["has-focus"] == true then
-					disp = disp .. hs.styledtext.new(space, self.focusedStyle)
-				elseif self.spaces[space]["is-visible"] == true then
-					disp = disp .. hs.styledtext.new(space, self.visibleStyle)
-				elseif self.spaces[space]["first-window"] ~= 0 then
-					disp = disp .. hs.styledtext.new(space, self.hasWindowsStyle)
-				else
-					disp = disp .. hs.styledtext.new(space, self.noWindowsStyle)
+				if self.spaces[space] ~= nil then
+					if self.spaces[space]["has-focus"] == true then
+						disp = disp .. hs.styledtext.new(space, self.focusedStyle)
+					elseif self.spaces[space]["is-visible"] == true then
+						disp = disp .. hs.styledtext.new(space, self.visibleStyle)
+					elseif self.spaces[space]["first-window"] ~= 0 then
+						disp = disp .. hs.styledtext.new(space, self.hasWindowsStyle)
+					else
+						disp = disp .. hs.styledtext.new(space, self.noWindowsStyle)
+					end
 				end
 			end
 		end
