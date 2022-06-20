@@ -83,6 +83,9 @@ alt + shift - l : yabai -m window --warp east || (yabai -m window --display east
 alt - 0x21 : yabai -m space --focus prev # [
 alt - 0x1E : yabai -m space --focus next # ]
 
+alt + shift - 0x21 : yabai -m space --move prev && /usr/local/bin/hs -c 'YabaiBar:update()'
+alt + shift - 0x1E : yabai -m space --move next && /usr/local/bin/hs -c 'YabaiBar:update()'
+
 alt - 1 : ( \
             [ "$(yabai -m query --spaces --space | jq -r '.index')" -eq 1 ] || \
             yabai -m space --focus 1 \
