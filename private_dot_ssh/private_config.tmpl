@@ -12,15 +12,9 @@ Host jrubin git.groq.io
 {{- end }}
   ForwardAgent yes
 
-Host syrax pi3 balerion pi4 jrubin
+Host balerion pi4 jrubin
   # forward local port 2489 for lemonade copy/paste server
   RemoteForward 2489 127.0.0.1:2489
-
-Host syrax
-  HostName syrax.rubixconsulting.com
-
-Host pub1
-  HostName pub1.rubixconsulting.com
 
 Host pi4
   HostName pi4.local
@@ -39,12 +33,14 @@ Host pi-star
 {{ if eq .chezmoi.os "linux" -}}
 # Match exec "/usr/bin/sft resolve -q %h"
 Host jrubin
-  ProxyCommand "/usr/bin/sft" proxycommand %h
+  # ProxyCommand "/usr/bin/sft" proxycommand %h
+  ProxyCommand "/usr/bin/sft" proxycommand jrubin
   UserKnownHostsFile {{ .chezmoi.homeDir }}/.local/share/ScaleFT/proxycommand_known_hosts
 {{- else if eq .chezmoi.os "darwin" -}}
 # Match exec "/usr/local/bin/sft resolve -q %h"
 Host jrubin
-  ProxyCommand "/usr/local/bin/sft" proxycommand %h
+  # ProxyCommand "/usr/local/bin/sft" proxycommand %h
+  ProxyCommand "/usr/local/bin/sft" proxycommand jrubin
   UserKnownHostsFile "{{ .chezmoi.homeDir }}/Library/Application Support/ScaleFT/proxycommand_known_hosts"
 {{- end }}
 
