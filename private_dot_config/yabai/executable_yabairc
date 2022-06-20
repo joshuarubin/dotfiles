@@ -12,8 +12,6 @@
 #  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
 #
 
-PATH="/usr/local/bin:${PATH}"
-
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
@@ -89,14 +87,14 @@ yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add label="Firfox PIP" app="^Firefox$" title="^(Picture-in-Picture)$" manage=off
 
 # Destroy empty spaces when leaving them
-yabai -m signal --add event=space_changed action='(RSINDEX=$(yabai -m query --spaces | jq -re ".[] | select(.id == $YABAI_RECENT_SPACE_ID).index") && [ "$(yabai -m query --spaces --space $RSINDEX | jq -re ".windows | length")" -eq 0 ] && yabai -m space $RSINDEX --destroy); hs -c "YabaiBar:update()"'
+yabai -m signal --add event=space_changed action='(RSINDEX=$(yabai -m query --spaces | jq -re ".[] | select(.id == $YABAI_RECENT_SPACE_ID).index") && [ "$(yabai -m query --spaces --space $RSINDEX | jq -re ".windows | length")" -eq 0 ] && yabai -m space $RSINDEX --destroy); /usr/local/bin/hs -c "YabaiBar:update()"'
 
 # for when the current display changes
-yabai -m signal --add event=display_changed action="hs -c 'YabaiBar:update()'"
+yabai -m signal --add event=display_changed action="/usr/local/bin/hs -c 'YabaiBar:update()'"
 
 # display_changed does not trigger when the display changes
 # but the front-most application stays the same
-yabai -m signal --add event=application_front_switched action="hs -c 'YabaiBar:update()'"
+yabai -m signal --add event=application_front_switched action="/usr/local/bin/hs -c 'YabaiBar:update()'"
 
 echo "yabai configuration loaded.."
 
