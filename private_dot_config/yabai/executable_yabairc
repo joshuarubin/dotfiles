@@ -11,13 +11,16 @@
 # see this wiki page for information:
 #  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
 #
+
+PATH="/usr/local/bin:${PATH}"
+
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
 
 # set mouse follows focus mode (default: off)
-yabai -m config mouse_follows_focus off
+yabai -m config mouse_follows_focus on
 
 # set focus follows mouse mode (default: off, options: off, autoraise, autofocus)
 yabai -m config focus_follows_mouse autoraise
@@ -30,7 +33,7 @@ yabai -m config window_origin_display focused
 yabai -m config window_placement second_child
 
 # floating windows are always on top (default: off)
-yabai -m config window_topmost on
+yabai -m config window_topmost off
 
 # modify window shadows (default: on, options: on, off, float)
 # example: show shadows only for floating windows
@@ -47,14 +50,16 @@ yabai -m config window_border off
 yabai -m config window_border_width 6
 yabai -m config active_window_border_color 0xff775759
 yabai -m config normal_window_border_color 0xff555555
-# Floating point value between 0 and 1 (default: 0.5)
-yabai -m config split_ratio 0.50
 
+# Floating point value between 0 and 1 (default: 0.5)
+yabai -m config split_ratio 0.618 # golden ratio
+
+# Balance the window tree upon change, so that all windows occupy the same area
 # on or off (default: off)
 yabai -m config auto_balance off
 
-# set mouse interaction modifier key (default: fn)
-yabai -m config mouse_modifier fn
+# set mouse interaction modifier key (default: fn, options: cmd, alt, shift, ctrl, fn)
+yabai -m config mouse_modifier alt
 
 # set modifier + left-click drag to move window (default: move)
 yabai -m config mouse_action1 move
@@ -68,15 +73,29 @@ yabai -m config mouse_drop_action swap
 
 # general space settings
 
-# bsp or float (default: float)
+# bsp or float (default: float, options: bsp, stack, float)
 yabai -m config layout bsp
 
 # Set all padding and gaps to 20pt (default: 0)
-yabai -m config top_padding 12
-yabai -m config bottom_padding 12
-yabai -m config left_padding 12
-yabai -m config right_padding 12
-yabai -m config window_gap 12
+yabai -m config top_padding 0
+yabai -m config bottom_padding 0
+yabai -m config left_padding 0
+yabai -m config right_padding 0
+yabai -m config window_gap 0
+
+# Custom app rules
+yabai -m rule --add app="^Fantastical Helper$" manage=off border=off
+yabai -m rule --add app="^System Preferences$" manage=off
+
+# Destroy empty spaces when leaving them
+yabai -m signal --add event=space_changed action='(RSINDEX=$(yabai -m query --spaces | jq -re ".[] | select(.id == $YABAI_RECENT_SPACE_ID).index") && [ "$(yabai -m query --spaces --space $RSINDEX | jq -re ".windows | length")" -eq 0 ] && yabai -m space $RSINDEX --destroy); hs -c "YabaiBar:update()"'
+
+# for when the current display changes
+yabai -m signal --add event=display_changed action="hs -c 'YabaiBar:update()'"
+
+# display_changed does not trigger when the display changes
+# but the front-most application stays the same
+yabai -m signal --add event=application_front_switched action="hs -c 'YabaiBar:update()'"
 
 echo "yabai configuration loaded.."
 

@@ -5,6 +5,7 @@
 /.config/karabiner/
 /.config/skhd/
 /.config/yabai/
+/.hammerspoon/
 /Library/
 {{- end }}
 
