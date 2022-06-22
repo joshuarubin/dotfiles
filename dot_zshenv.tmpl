@@ -76,5 +76,9 @@ fi
 alias open=xdg-open
 export WINEARCH=win32
 {{- end }}
+{{- if eq .chezmoi.hostname "jrubin" }}
+
+export COPILOT_DISABLED=1
+{{- end }}
 
 # vim: ft=zsh
