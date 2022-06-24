@@ -73,6 +73,7 @@ end
 local function move_around(win, pane, direction_wez, direction_nvim)
 	local name = process_name(pane)
 
+	-- better to pass through the keys in these situations :'(
 	if pane:get_domain_name() ~= "local" or name == "ssh" then
 		win:perform_action(wezterm.action({ SendKey = { mods = "CTRL", key = direction_nvim } }), pane)
 		return
@@ -98,6 +99,7 @@ end
 local function resize(win, pane, direction_wez, direction_nvim)
 	local name = process_name(pane)
 
+	-- better to pass through the keys in these situations :'(
 	if pane:get_domain_name() ~= "local" or name == "ssh" then
 		win:perform_action(wezterm.action({ SendString = "\x01" .. direction_nvim }), pane)
 		return
@@ -118,6 +120,16 @@ local function resize(win, pane, direction_wez, direction_nvim)
 	end
 
 	win:perform_action(wezterm.action({ AdjustPaneSize = { direction_wez, 1 } }), pane)
+end
+
+local function smart_split(win, pane, domain)
+	local dims = pane:get_dimensions()
+	-- estimate that column width is roughly half the row height (in pixels)
+	if dims.cols > 2 * dims.viewport_rows then
+		win:perform_action(wezterm.action({ SplitHorizontal = { domain = domain } }), pane)
+	else
+		win:perform_action(wezterm.action({ SplitVertical = { domain = domain } }), pane)
+	end
 end
 
 wezterm.on("update-right-status", function(win, pane)
@@ -180,7 +192,7 @@ return {
 		{ mods = "SUPER|SHIFT", key = "T", action = wezterm.action({ SpawnTab = "DefaultDomain" }) },
 
 		-- select specific tab
-		{ mods = "SUPER", key = "w", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
+		{ mods = "SUPER", key = "w", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 		{ mods = "SUPER", key = "1", action = wezterm.action({ ActivateTab = 0 }) },
 		{ mods = "SUPER", key = "2", action = wezterm.action({ ActivateTab = 1 }) },
 		{ mods = "SUPER", key = "3", action = wezterm.action({ ActivateTab = 2 }) },
@@ -192,7 +204,7 @@ return {
 		{ mods = "SUPER", key = "9", action = wezterm.action({ ActivateTab = -1 }) },
 
 		-- select specific tab
-		{ mods = "CTRL|SHIFT", key = "W", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
+		{ mods = "CTRL|SHIFT", key = "W", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 		{ mods = "CTRL|SHIFT", key = "!", action = wezterm.action({ ActivateTab = 0 }) },
 		{ mods = "CTRL|SHIFT", key = "@", action = wezterm.action({ ActivateTab = 1 }) },
 		{ mods = "CTRL|SHIFT", key = "#", action = wezterm.action({ ActivateTab = 2 }) },
@@ -230,17 +242,12 @@ return {
 		{ mods = "SHIFT", key = "UpArrow", action = wezterm.action({ ScrollToPrompt = -1 }) },
 		{ mods = "SHIFT", key = "DownArrow", action = wezterm.action({ ScrollToPrompt = 1 }) },
 
-		{ mods = "SUPER", key = "k", action = wezterm.action({ ScrollToPrompt = -1 }) },
-		{ mods = "SUPER", key = "j", action = wezterm.action({ ScrollToPrompt = 1 }) },
+		{ mods = "SUPER", key = "[", action = wezterm.action({ ScrollToPrompt = -1 }) },
+		{ mods = "SUPER", key = "]", action = wezterm.action({ ScrollToPrompt = 1 }) },
 
 		-- reload config
 		{ mods = "SUPER", key = "r", action = "ReloadConfiguration" },
 		{ mods = "CTRL|SHIFT", key = "R", action = "ReloadConfiguration" },
-
-		{ mods = "SUPER", key = "h", action = "HideApplication" }, -- macOS only
-
-		-- clear scrollback
-		{ mods = "CMD", key = "l", action = wezterm.action({ ClearScrollback = "ScrollbackAndViewport" }) },
 
 		{ mods = "CTRL|SHIFT", key = "D", action = "ShowDebugOverlay" },
 
@@ -255,18 +262,12 @@ return {
 		{
 			mods = "SUPER",
 			key = "Enter",
-			action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+			action = wezterm.action_callback(function(win, pane)
+				smart_split(win, pane, "CurrentPaneDomain")
+			end),
 		},
-		{
-			mods = "CTRL|ALT|SHIFT",
-			key = '"',
-			action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
-		},
-		{
-			mods = "CTRL|ALT|SHIFT",
-			key = "%",
-			action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
-		},
+		{ mods = "SUPER", key = ",", action = wezterm.action({ RotatePanes = "CounterClockwise" }) },
+		{ mods = "SUPER", key = ".", action = wezterm.action({ RotatePanes = "Clockwise" }) },
 
 		-- resize panes
 		{ mods = "CTRL|SHIFT|ALT", key = "LeftArrow", action = wezterm.action({ AdjustPaneSize = { "Left", 1 } }) },
@@ -309,6 +310,11 @@ return {
 		{ mods = "CTRL|SHIFT", key = "UpArrow", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
 		{ mods = "CTRL|SHIFT", key = "DownArrow", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
 
+		{ mods = "SUPER", key = "h", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
+		{ mods = "SUPER", key = "j", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
+		{ mods = "SUPER", key = "k", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
+		{ mods = "SUPER", key = "l", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
+
 		{
 			mods = "CTRL",
 			key = "h",
@@ -339,6 +345,7 @@ return {
 		},
 
 		{ mods = "CMD", key = "z", action = "TogglePaneZoomState" },
+		{ mods = "SUPER", key = "x", action = wezterm.action({ DetachDomain = "CurrentPaneDomain" }) },
 	},
 	key_tables = {
 		search_mode = {
