@@ -50,6 +50,7 @@ WORDCHARS='*?_-.[]~&;!#$%^(){}<>|'
 
 # hack to show hostname if connected over wezterm mux
 [ "${WEZTERM_EXECUTABLE#*wezterm-mux-server}" != "${WEZTERM_EXECUTABLE}" ] && SSH_CONNECTION=1
+
 PROMPT_LEAN_VIMODE="1"
 
 {{- if .gpg }}
@@ -81,6 +82,8 @@ export WINEARCH=win32
 {{- if eq .chezmoi.hostname "jrubin" }}
 
 export COPILOT_DISABLED=1
+export SSH_AUTH_SOCK="$(ss -lnp | rg 'ssh.*agent' | awk '{print $5}')"
+export SFT_AUTH_SOCK="$(ss -lnp | rg client_trust | awk '{print $5}')"
 {{- end }}
 
 # vim: ft=zsh
