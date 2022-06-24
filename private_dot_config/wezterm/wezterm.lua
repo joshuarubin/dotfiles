@@ -15,11 +15,9 @@ local function italic(data)
 end
 
 local function basename(s)
+	s = s or ""
 	local ret = string.gsub(s, "(.*[/\\])(.*)", "%2")
-	if ret == nil then
-		return ""
-	end
-	return ret
+	return ret or ""
 end
 
 local function tmpdir()
@@ -75,6 +73,11 @@ end
 local function move_around(win, pane, direction_wez, direction_nvim)
 	local name = process_name(pane)
 
+	if pane:get_domain_name() ~= "local" or name == "ssh" then
+		win:perform_action(wezterm.action({ SendKey = { mods = "CTRL", key = direction_nvim } }), pane)
+		return
+	end
+
 	if name == "nvim" then
 		local code = nvim_navigator(win, pane, direction_nvim, "move")
 		if code == 0 then
@@ -93,7 +96,14 @@ local function move_around(win, pane, direction_wez, direction_nvim)
 end
 
 local function resize(win, pane, direction_wez, direction_nvim)
-	if process_name(pane) == "nvim" then
+	local name = process_name(pane)
+
+	if pane:get_domain_name() ~= "local" or name == "ssh" then
+		win:perform_action(wezterm.action({ SendString = "\x01" .. direction_nvim }), pane)
+		return
+	end
+
+	if name == "nvim" then
 		local code = nvim_navigator(win, pane, direction_nvim, "resize")
 		if code == 0 then
 			win:perform_action(wezterm.action({ SendString = "\x01" .. direction_nvim }), pane)
@@ -389,7 +399,7 @@ return {
 	use_fancy_tab_bar = true,
 	bold_brightens_ansi_colors = true,
 	default_cursor_style = "SteadyBlock",
-	hide_tab_bar_if_only_one_tab = true,
+	hide_tab_bar_if_only_one_tab = false,
 	enable_wayland = true,
 	automatically_reload_config = true,
 	exit_behavior = "CloseOnCleanExit",
@@ -422,7 +432,7 @@ return {
 	unzoom_on_switch_pane = true,
 	use_resize_increments = false,
 	warn_about_missing_glyphs = true,
-	window_decorations = "RESIZE",
+	window_decorations = "TITLE | RESIZE",
 	window_padding = {
 		left = 0,
 		right = 0,
