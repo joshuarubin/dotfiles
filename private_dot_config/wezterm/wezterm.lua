@@ -212,8 +212,8 @@ return {
 		-- move tab
 		{ mods = "CTRL|SHIFT", key = "PageUp", action = wezterm.action({ MoveTabRelative = -1 }) },
 		{ mods = "CTRL|SHIFT", key = "PageDown", action = wezterm.action({ MoveTabRelative = 1 }) },
-		{ mods = "SUPER|SHIFT", key = "[", action = wezterm.action({ MoveTabRelative = -1 }) },
-		{ mods = "SUPER|SHIFT", key = "]", action = wezterm.action({ MoveTabRelative = 1 }) },
+		{ mods = "SUPER|SHIFT", key = "{", action = wezterm.action({ MoveTabRelative = -1 }) },
+		{ mods = "SUPER|SHIFT", key = "}", action = wezterm.action({ MoveTabRelative = 1 }) },
 
 		-- scrolling
 		{ mods = "SHIFT", key = "PageUp", action = wezterm.action({ ScrollByPage = -1 }) },
