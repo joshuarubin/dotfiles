@@ -39,7 +39,7 @@ local function nvim_socket(pane)
 end
 
 local function nvim_cmd(pane, dir, action)
-	return os.getenv("HOME")
+	return wezterm.home_dir
 		.. "/.local/bin/nvim.navigator"
 		.. " -addr "
 		.. nvim_socket(pane)
@@ -134,7 +134,16 @@ end
 
 wezterm.on("update-right-status", function(win, pane)
 	local date = wezterm.strftime("%a %d %b %l:%M:%S %P ")
-	win:set_right_status(wezterm.format({ { Text = date } }))
+	win:set_right_status(wezterm.format({ { Text = wezterm.nerdfonts.mdi_clock .. " " .. date } }))
+end)
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local title = (tab.tab_index + 1) .. ": "
+	if tab.active_pane.domain_name and tab.active_pane.domain_name ~= "local" then
+		title = title .. "(" .. tab.active_pane.domain_name .. ") "
+	end
+	title = title .. tab.active_pane.title
+	return { { Text = title } }
 end)
 
 return {
@@ -156,6 +165,12 @@ return {
 				weight = "Bold",
 			}),
 		},
+	},
+	window_frame = {
+		font = wezterm.font({
+			family = "Helvetica Neue",
+			weight = "Bold",
+		}),
 	},
 	disable_default_key_bindings = true,
 	keys = {
