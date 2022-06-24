@@ -48,6 +48,8 @@ cdpath=(
 # Treat these characters as part of a word.
 WORDCHARS='*?_-.[]~&;!#$%^(){}<>|'
 
+# hack to show hostname if connected over wezterm mux
+[ "${WEZTERM_EXECUTABLE#*wezterm-mux-server}" != "${WEZTERM_EXECUTABLE}" ] && SSH_CONNECTION=1
 PROMPT_LEAN_VIMODE="1"
 
 {{- if .gpg }}
