@@ -185,6 +185,20 @@ return {
 		{ key = "Paste", action = wezterm.action({ PasteFrom = "Clipboard" }) },
 		{ mods = "CTRL", key = "Insert", action = wezterm.action({ CopyTo = "PrimarySelection" }) },
 		{ mods = "SHIFT", key = "Insert", action = wezterm.action({ PasteFrom = "PrimarySelection" }) },
+		{
+			mods = "CTRL",
+			key = "c",
+			action = wezterm.action_callback(function(win, pane)
+				wezterm.log_info("(ctrl-c)")
+				if win:get_selection_text_for_pane(pane) ~= "" then
+					win:perform_action(wezterm.action.CopyTo("ClipboardAndPrimarySelection"), pane)
+					win:perform_action(wezterm.action.ClearSelection, pane)
+				else
+					win:perform_action(wezterm.action({ SendKey = { mods = "CTRL", key = "c" } }), pane)
+				end
+			end),
+		},
+		{ mods = "CTRL", key = "v", action = wezterm.action({ PasteFrom = "Clipboard" }) },
 
 		-- window management
 		{ mods = "SUPER", key = "m", action = "Hide" },
@@ -416,6 +430,10 @@ return {
 				"#d5c4a1",
 			},
 		},
+	},
+	inactive_pane_hsb = {
+		saturation = 0.4,
+		brightness = 0.4,
 	},
 	color_scheme = "Gruvbox Dark Hard",
 	use_fancy_tab_bar = true,
