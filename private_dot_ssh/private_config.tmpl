@@ -1,20 +1,17 @@
 Host *
-{{- if .secrets }}
+{{- if eq .chezmoi.hostname "vhagar" }}
+  IdentityAgent SSH_AUTH_SOCK
+{{- else if .secrets }}
   IdentityAgent ~/.1password/agent.sock
 {{- end }}
   ControlMaster auto
   ControlPersist 300
   ControlPath ~/.ssh/connections/%r_%h_%p
 
-Host jrubin git.groq.io
-{{- if eq .chezmoi.hostname "vhagar" }}
-  IdentityAgent SSH_AUTH_SOCK
-{{- end }}
-  ForwardAgent yes
-
 Host balerion pi4 jrubin
   # forward local port 2489 for lemonade copy/paste server
   RemoteForward 2489 127.0.0.1:2489
+  ForwardAgent yes
 
 Host pi4
   HostName pi4.local
