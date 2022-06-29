@@ -1,0 +1,11 @@
+[Unit]
+Description=nvim headless
+
+[Service]
+Environment="PATH=/home/jrubin/.local/bin:/home/jrubin/go/bin:/home/jrubin/.cargo/bin:/home/jrubin/.luarocks/bin:/home/jrubin/.yarn/bin:/snap/bin:/home/jrubin/.local/share/zinit/plugins/joshuarubin---zsh-jawa/bin:/home/jrubin/.local/share/zinit/plugins/junegunn---fzf-bin:/home/jrubin/.local/share/zinit/polaris/bin:/usr/share/safe-rm/bin:/home/jrubin/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+WorkingDirectory=/home/jrubin
+ExecStart=/usr/bin/nvim --headless --listen localhost:6666
+Restart=always
+
+[Install]
+WantedBy=default.target
