@@ -190,7 +190,6 @@ return {
 			mods = "CTRL",
 			key = "c",
 			action = wezterm.action_callback(function(win, pane)
-				wezterm.log_info("(ctrl-c)")
 				if win:get_selection_text_for_pane(pane) ~= "" then
 					win:perform_action(wezterm.action.CopyTo("ClipboardAndPrimarySelection"), pane)
 					win:perform_action(wezterm.action.ClearSelection, pane)
