@@ -1,0 +1,7 @@
+[user]
+	email = jrubin@groq.com
+
+[credential]
+	username = jrubin_groq
+
+# vim: ft=gitconfig noexpandtab

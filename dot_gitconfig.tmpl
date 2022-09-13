@@ -94,7 +94,7 @@
 	cookiefile = ~/.gitcookies
 {{- if eq .chezmoi.os "darwin" }}
 [credential]
-	helper = osxkeychain
+	helper = /usr/local/share/gcm-core/git-credential-manager-core
 {{- else if eq .chezmoi.hostname "balerion" }}
 [credential]
 	helper = /usr/lib/git-core/git-credential-libsecret
@@ -112,5 +112,7 @@
 	allow = always
 [init]
 	defaultBranch = main
+[includeIf "gitdir:~/dev/groq/"]
+	path = ~/.gitconfig.groq
 
 # vim: ft=gitconfig noexpandtab

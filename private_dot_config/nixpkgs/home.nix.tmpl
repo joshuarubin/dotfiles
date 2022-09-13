@@ -1,12 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     alejandra
-    bat
     deadnix
-    direnv
-    exa
-    htop
-    jq
     statix
   ];
 
@@ -29,17 +24,5 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "20.09";
-
-  programs.readline = {
-    enable = true;
-    includeSystemConfig = false;
-    extraConfig = "set editing-mode vi";
-  };
-
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
-
-  services = {
-    lorri.enable = true;
-  };
 }
+# vim: ft=nix

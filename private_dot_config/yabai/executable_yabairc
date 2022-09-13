@@ -84,6 +84,8 @@ yabai -m config window_gap 0
 # Custom app rules
 yabai -m rule --add app="^Fantastical Helper$" manage=off border=off
 yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Parcel$" manage=off
+yabai -m rule --add app="^1Password$" manage=off
 yabai -m rule --add label="Firfox PIP" app="^Firefox$" title="^(Picture-in-Picture)$" manage=off
 
 # Destroy empty spaces when leaving them

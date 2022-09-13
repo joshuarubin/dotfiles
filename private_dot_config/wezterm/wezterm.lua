@@ -339,10 +339,12 @@ return {
 		{ mods = "CTRL|SHIFT", key = "UpArrow", action = wezterm.action.ActivatePaneDirection("Up") },
 		{ mods = "CTRL|SHIFT", key = "DownArrow", action = wezterm.action.ActivatePaneDirection("Down") },
 
+		{ mods = "SUPER", key = "[", action = wezterm.action.ActivatePaneDirection("Left") },
 		{ mods = "SUPER", key = "h", action = wezterm.action.ActivatePaneDirection("Left") },
 		{ mods = "SUPER", key = "j", action = wezterm.action.ActivatePaneDirection("Down") },
 		{ mods = "SUPER", key = "k", action = wezterm.action.ActivatePaneDirection("Up") },
 		{ mods = "SUPER", key = "l", action = wezterm.action.ActivatePaneDirection("Right") },
+		{ mods = "SUPER", key = "]", action = wezterm.action.ActivatePaneDirection("Right") },
 
 		{
 			mods = "CTRL",
