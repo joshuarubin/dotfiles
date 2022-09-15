@@ -65,3 +65,5 @@ setopt extended_glob no_nomatch
 # remove non-existent directories
 path=($^path(N))
 cdpath=($^cdpath(N))
+
+unalias gd

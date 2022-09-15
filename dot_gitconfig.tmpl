@@ -112,7 +112,7 @@
 	allow = always
 [init]
 	defaultBranch = main
-[includeIf "gitdir:~/dev/groq/"]
+[includeIf "hasconfig:remote.*.url:https://github.com/groqcloud/**"]
 	path = ~/.gitconfig.groq
 
 # vim: ft=gitconfig noexpandtab
