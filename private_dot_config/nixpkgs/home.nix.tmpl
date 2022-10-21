@@ -1,8 +1,27 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     alejandra
+{{- if ne .chezmoi.os "darwin" }}
+    bat
+    cpplint
+{{- end }}
     deadnix
+{{- if ne .chezmoi.os "darwin" }}
+    direnv
+    exa
+    git
+    htop
+    jq
+    kubectl
+    kubernetes-helm
+    neovim-remote
+    pre-commit
+    sqlfluff
+{{- end }}
     statix
+{{- if ne .chezmoi.os "darwin" }}
+    terraform
+{{- end }}
   ];
 
   # Let Home Manager install and manage itself.
@@ -23,6 +42,22 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "20.09";
+  home.stateVersion = "22.11";
+{{ if ne .chezmoi.os "darwin" }}
+  programs.readline = {
+    enable = true;
+    includeSystemConfig = false;
+    extraConfig = "set editing-mode vi";
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  services = {
+    lorri.enable = true;
+  };
+{{- end }}
 }
 # vim: ft=nix

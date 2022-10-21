@@ -1,4 +1,7 @@
 [credential]
 	username = joshuarubin
+{{- if eq .chezmoi.os "linux" }}
+	credentialStore = gpg
+{{- end }}
 
 # vim: ft=gitconfig noexpandtab
