@@ -100,10 +100,8 @@
 	helper = /usr/lib/git-core/git-credential-libsecret
 {{- else if eq .chezmoi.os "linux" }}
 [credential "https://github.com"]
-	helper =
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper =
 	helper = !/usr/bin/gh auth git-credential
 {{- end }}
 [rerere]
@@ -112,7 +110,11 @@
 	allow = always
 [init]
 	defaultBranch = main
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+	path = ~/.gitconfig.github
 [includeIf "hasconfig:remote.*.url:https://github.com/groqcloud/**"]
+	path = ~/.gitconfig.groq
+[includeIf "hasconfig:remote.*.url:https://github.com/groq-psw/**"]
 	path = ~/.gitconfig.groq
 
 # vim: ft=gitconfig noexpandtab
