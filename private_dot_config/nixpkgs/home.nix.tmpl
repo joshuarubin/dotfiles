@@ -43,7 +43,9 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "22.11";
-{{ if ne .chezmoi.os "darwin" }}
+
+{{- if ne .chezmoi.os "darwin" }}
+
   programs.readline = {
     enable = true;
     includeSystemConfig = false;
