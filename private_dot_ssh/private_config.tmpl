@@ -1,5 +1,5 @@
 Host *
-{{- if eq .chezmoi.hostname "vhagar" }}
+{{- if eq .chezmoi.os "darwin" }}
   IdentityAgent SSH_AUTH_SOCK
 {{- else if .secrets }}
   IdentityAgent ~/.1password/agent.sock
@@ -9,10 +9,11 @@ Host *
   ControlPath ~/.ssh/connections/%r_%h_%p
   Compression yes
 
-Host balerion pi4 jrubin
-  # forward local port 2489 for lemonade copy/paste server
-  RemoteForward 2489 127.0.0.1:2489
+Host balerion pi4 jrubin jrubin.dev
   ForwardAgent yes
+
+Host jrubin.dev
+  HostName jrubin.dev.psw.groq.io
 
 Host pi4
   HostName pi4.local
@@ -29,16 +30,12 @@ Host pi-star
   User pi-star
 
 {{ if eq .chezmoi.os "linux" -}}
-# Match exec "/usr/bin/sft resolve -q %h"
-Host jrubin
-  # ProxyCommand "/usr/bin/sft" proxycommand %h
-  ProxyCommand "/usr/bin/sft" proxycommand jrubin
+Match exec "/usr/bin/sft resolve -q %h"
+  ProxyCommand "/usr/bin/sft" proxycommand %h
   UserKnownHostsFile {{ .chezmoi.homeDir }}/.local/share/ScaleFT/proxycommand_known_hosts
 {{- else if eq .chezmoi.os "darwin" -}}
-# Match exec "/usr/local/bin/sft resolve -q %h"
-Host jrubin
-  # ProxyCommand "/usr/local/bin/sft" proxycommand %h
-  ProxyCommand "/usr/local/bin/sft" proxycommand jrubin
+Match exec "/usr/local/bin/sft resolve -q %h"
+  ProxyCommand "/usr/local/bin/sft" proxycommand %h
   UserKnownHostsFile "{{ .chezmoi.homeDir }}/Library/Application Support/ScaleFT/proxycommand_known_hosts"
 {{- end }}
 
