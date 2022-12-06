@@ -1,6 +1,5 @@
 Host *
 {{- if eq .chezmoi.os "darwin" }}
-  IdentityAgent SSH_AUTH_SOCK
 {{- else if .secrets }}
   IdentityAgent ~/.1password/agent.sock
 {{- end }}
@@ -9,35 +8,37 @@ Host *
   ControlPath ~/.ssh/connections/%r_%h_%p
   Compression yes
   ServerAliveInterval 120
+  ServerAliveCountMax 3
+  CanonicalizeHostname always
+  CanonicalDomains dev.psw.groq.internal groq.tech local
 
-Host balerion pi4 jrubin jrubin.dev
+Host balerion pi4 *.sft *.dev.psw.groq.internal *.groq.tech *.local
   ForwardAgent yes
 
-Host jrubin.dev
-  HostName jrubin.dev.psw.groq.io
-
 Host pi4
-  HostName pi4.local
   User pi
 
 Host github.com
   User git
 
-Host balerion
-  HostName balerion.local
-
 Host pi-star
-  HostName pi-star.local
   User pi-star
 
-{{ if eq .chezmoi.os "linux" -}}
-Match exec "/usr/bin/sft resolve -q %h"
-  ProxyCommand "/usr/bin/sft" proxycommand %h
-  UserKnownHostsFile {{ .chezmoi.homeDir }}/.local/share/ScaleFT/proxycommand_known_hosts
-{{- else if eq .chezmoi.os "darwin" -}}
-Match exec "/usr/local/bin/sft resolve -q %h"
-  ProxyCommand "/usr/local/bin/sft" proxycommand %h
-  UserKnownHostsFile "{{ .chezmoi.homeDir }}/Library/Application Support/ScaleFT/proxycommand_known_hosts"
+Host *.sft
+  ProxyCommand sft proxycommand "$(basename -s .sft %h)"
+{{- if eq .chezmoi.os "linux" }}
+  UserKnownHostsFile ~/.local/share/ScaleFT/proxycommand_known_hosts
+{{- else if eq .chezmoi.os "darwin" }}
+  UserKnownHostsFile ~/Library/Application\ Support/ScaleFT/proxycommand_known_hosts
 {{- end }}
+
+Match canonical host *.dev.psw.groq.internal exec "(find ~/.cloudflared/%n.groq.tech-cf_key-cert.pub -mmin -3 2>/dev/null || true) | grep -q . || cloudflared access ssh-gen --hostname %n.groq.tech"
+  IdentityFile ~/.cloudflared/%n.groq.tech-cf_key
+  CertificateFile ~/.cloudflared/%n.groq.tech-cf_key-cert.pub
+
+Match canonical host *.groq.tech exec "(find ~/.cloudflared/%h-cf_key-cert.pub -mmin -3 2>/dev/null || true) | grep -q . || cloudflared access ssh-gen --hostname %h"
+  IdentityFile ~/.cloudflared/%h-cf_key
+  CertificateFile ~/.cloudflared/%h-cf_key-cert.pub
+  ProxyCommand cloudflared access ssh --hostname %h
 
 # vim: ft=sshconfig nospell

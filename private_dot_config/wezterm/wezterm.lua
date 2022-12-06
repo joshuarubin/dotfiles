@@ -70,11 +70,26 @@ local function process_name(pane)
 	return basename(name)
 end
 
+local function paste(win, pane, key)
+	local name = process_name(pane)
+
+	if name == "nvim" then
+		if key.mods == "SUPER" and key.key == "v" then
+			win:perform_action(wezterm.action.SendString("\x01v"), pane)
+		else
+			win:perform_action(wezterm.action.SendKey(key), pane)
+		end
+		return
+	end
+
+	win:perform_action(wezterm.action.PasteFrom("Clipboard"), pane)
+end
+
 local function move_around(win, pane, direction_wez, direction_nvim)
 	local name = process_name(pane)
 
 	-- better to pass through the keys in these situations :'(
-	if pane:get_domain_name() ~= "local" or name == "ssh" then
+	if pane:get_domain_name() ~= "local" or name == "ssh" or name == "gcloud" or name == "et" then
 		win:perform_action(wezterm.action.SendKey({ mods = "CTRL", key = direction_nvim }), pane)
 		return
 	end
@@ -179,11 +194,29 @@ return {
 
 		-- copy/paste
 		{ mods = "SUPER", key = "c", action = wezterm.action.CopyTo("Clipboard") },
-		{ mods = "SUPER", key = "v", action = wezterm.action.PasteFrom("Clipboard") },
+		{
+			mods = "SUPER",
+			key = "v",
+			action = wezterm.action_callback(function(win, pane)
+				paste(win, pane, { mods = "SUPER", key = "v" })
+			end),
+		},
 		{ mods = "CTRL|SHIFT", key = "C", action = wezterm.action.CopyTo("Clipboard") },
-		{ mods = "CTRL|SHIFT", key = "V", action = wezterm.action.PasteFrom("Clipboard") },
+		{
+			mods = "CTRL|SHIFT",
+			key = "V",
+			action = wezterm.action_callback(function(win, pane)
+				paste(win, pane, { mods = "CTRL|SHIFT", key = "V" })
+			end),
+		},
 		{ key = "Copy", action = wezterm.action.CopyTo("Clipboard") },
-		{ key = "Paste", action = wezterm.action.PasteFrom("Clipboard") },
+		{
+			-- mods = "SUPER",
+			key = "Paste",
+			action = wezterm.action_callback(function(win, pane)
+				paste(win, pane, { key = "Paste" })
+			end),
+		},
 		{ mods = "CTRL", key = "Insert", action = wezterm.action.CopyTo("PrimarySelection") },
 		{ mods = "SHIFT", key = "Insert", action = wezterm.action.PasteFrom("PrimarySelection") },
 		{
@@ -198,7 +231,13 @@ return {
 				end
 			end),
 		},
-		{ mods = "CTRL", key = "v", action = wezterm.action.PasteFrom("Clipboard") },
+		{
+			mods = "CTRL",
+			key = "v",
+			action = wezterm.action_callback(function(win, pane)
+				paste(win, pane, { mods = "CTRL", key = "v" })
+			end),
+		},
 
 		-- window management
 		{ mods = "SUPER", key = "m", action = "Hide" },
