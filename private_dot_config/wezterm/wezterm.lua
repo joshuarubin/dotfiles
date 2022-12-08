@@ -115,7 +115,7 @@ local function resize(win, pane, direction_wez, direction_nvim)
 	local name = process_name(pane)
 
 	-- better to pass through the keys in these situations :'(
-	if pane:get_domain_name() ~= "local" or name == "ssh" then
+	if pane:get_domain_name() ~= "local" or name == "ssh" or name == "gcloud" or name == "et" then
 		win:perform_action(wezterm.action.SendString("\x01" .. direction_nvim), pane)
 		return
 	end
