@@ -231,13 +231,6 @@ return {
 				end
 			end),
 		},
-		{
-			mods = "CTRL",
-			key = "v",
-			action = wezterm.action_callback(function(win, pane)
-				paste(win, pane, { mods = "CTRL", key = "v" })
-			end),
-		},
 
 		-- window management
 		{ mods = "SUPER", key = "m", action = "Hide" },
