@@ -11,7 +11,7 @@ Host *
   ServerAliveCountMax 3
 
 # make things fast for things we know shouldn't be canonicalized
-Host * !github.com !*.sft !*.dev.psw.groq.internal !*.groq.tech
+Host * !github.com !*.sft !*.dev.psw.groq.internal !*.groq.tech !*.local
   CanonicalizeHostname always
   CanonicalDomains dev.psw.groq.internal groq.tech local
 
