@@ -1,5 +1,4 @@
 local wezterm = require("wezterm")
-local os = require("os")
 
 local function italic(data)
 	data = data or {}
@@ -20,60 +19,37 @@ local function basename(s)
 	return ret or ""
 end
 
-local function tmpdir()
-	local dir = os.getenv("XDG_RUNTIME_DIR")
-	if dir then
-		return dir
-	end
-
-	dir = os.getenv("TMPDIR")
-	if dir then
-		return dir
-	end
-
-	return "/tmp"
-end
-
-local function nvim_socket(pane)
-	return tmpdir() .. "/nvim-wezterm-pane-" .. pane:pane_id()
-end
-
-local function nvim_cmd(pane, dir, action)
-	return wezterm.home_dir
-		.. "/.local/bin/nvim.navigator"
-		.. " -addr "
-		.. nvim_socket(pane)
-		.. " -dir "
-		.. dir
-		.. " -action "
-		.. action
-end
-
-local function nvim_navigator(win, pane, dir, action)
-	local p = io.popen(nvim_cmd(pane, dir, action), "r")
-	if not p then
-		win:toast_notification("wezterm", "failed to start nvim.navigator")
-		return
-	end
-
-	local _, _, code = p:close()
-
-	if code ~= 0 and code ~= 1 then
-		win:toast_notification("wezterm", "nvim.navigator failed with code: " .. code)
-	end
-
-	return code
+local function is_local_domain(pane)
+	return pane:get_domain_name() == "local"
 end
 
 local function process_name(pane)
-	local name = pane:get_foreground_process_name()
-	return basename(name)
+	if is_local_domain(pane) then
+		local name = pane:get_foreground_process_name()
+		return basename(name)
+	end
+
+	local title = pane:get_title()
+
+	local first = title:sub(1, 1)
+	if first == "/" or first == "~" then
+		return ""
+	end
+
+	local nvim_title = " - NVIM"
+	if title:sub(-#nvim_title) == nvim_title then
+		return "nvim"
+	end
+
+	return title:match("([^ ]*)")
+end
+
+local function is_vim(pane)
+	return process_name(pane):find("n?vim") ~= nil
 end
 
 local function paste(win, pane, key)
-	local name = process_name(pane)
-
-	if name == "nvim" then
+	if is_local_domain(pane) and is_vim(pane) then
 		if key.mods == "SUPER" and key.key == "v" then
 			win:perform_action(wezterm.action.SendString("\x01v"), pane)
 		else
@@ -85,27 +61,27 @@ local function paste(win, pane, key)
 	win:perform_action(wezterm.action.PasteFrom("Clipboard"), pane)
 end
 
-local function move_around(win, pane, direction_wez, direction_nvim)
-	local name = process_name(pane)
+local function active_pane_info(win)
+	local mux_tab = win:active_tab()
 
-	-- better to pass through the keys in these situations :'(
-	if pane:get_domain_name() ~= "local" or name == "ssh" or name == "gcloud" or name == "et" then
-		win:perform_action(wezterm.action.SendKey({ mods = "CTRL", key = direction_nvim }), pane)
+	if mux_tab == nil then
+		wezterm.log_warn("smart_split: couldn't find tab")
 		return
 	end
 
-	if name == "nvim" then
-		local code = nvim_navigator(win, pane, direction_nvim, "move")
-		if code == 0 then
-			win:perform_action(wezterm.action.SendKey({ mods = "CTRL", key = direction_nvim }), pane)
-			return
+	for _, item in ipairs(mux_tab:panes_with_info()) do
+		if item.is_active then
+			return item
 		end
+	end
+end
 
-		-- code 1 means vim couldn't move in the requested direction, anything
-		-- else is an error
-		if code ~= 1 then
-			return
-		end
+local function move_around(win, pane, direction_wez, direction_nvim)
+	local name = process_name(pane)
+
+	if is_vim(pane) or name == "ssh" or name == "gcloud" or name == "et" then
+		win:perform_action(wezterm.action.SendKey({ mods = "CTRL", key = direction_nvim }), pane)
+		return
 	end
 
 	win:perform_action(wezterm.action.ActivatePaneDirection(direction_wez), pane)
@@ -114,24 +90,9 @@ end
 local function resize(win, pane, direction_wez, direction_nvim)
 	local name = process_name(pane)
 
-	-- better to pass through the keys in these situations :'(
-	if pane:get_domain_name() ~= "local" or name == "ssh" or name == "gcloud" or name == "et" then
+	if is_vim(pane) or name == "ssh" or name == "gcloud" or name == "et" then
 		win:perform_action(wezterm.action.SendString("\x01" .. direction_nvim), pane)
 		return
-	end
-
-	if name == "nvim" then
-		local code = nvim_navigator(win, pane, direction_nvim, "resize")
-		if code == 0 then
-			win:perform_action(wezterm.action.SendString("\x01" .. direction_nvim), pane)
-			return
-		end
-
-		-- code 1 means vim couldn't move in the requested direction, anything
-		-- else is an error
-		if code ~= 1 then
-			return
-		end
 	end
 
 	-- TODO(jawa) AdjustPaneSize shouldn't require a table, but plain args don't work
@@ -139,9 +100,14 @@ local function resize(win, pane, direction_wez, direction_nvim)
 end
 
 local function smart_split(win, pane, domain)
-	local dims = pane:get_dimensions()
-	-- estimate that column width is roughly half the row height (in pixels)
-	if dims.cols > 2 * dims.viewport_rows then
+	local info = active_pane_info(win)
+
+	if info == nil then
+		wezterm.log_warn("smart_split: couldn't find pane")
+		return
+	end
+
+	if info.pixel_width > info.pixel_height then
 		win:perform_action(wezterm.action.SplitHorizontal({ domain = domain }), pane)
 	else
 		win:perform_action(wezterm.action.SplitVertical({ domain = domain }), pane)
@@ -155,11 +121,34 @@ end)
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local title = (tab.tab_index + 1) .. ": "
-	if tab.active_pane.domain_name and tab.active_pane.domain_name ~= "local" then
+	if tab.active_pane and tab.active_pane.domain_name and tab.active_pane.domain_name ~= "local" then
 		title = title .. "(" .. tab.active_pane.domain_name .. ") "
 	end
 	title = title .. tab.active_pane.title
 	return { { Text = title } }
+end)
+
+wezterm.on("user-var-changed", function(window, pane, name, value)
+	local overrides = window:get_config_overrides() or {}
+	if name == "ZEN_MODE" then
+		local incremental = value:find("+")
+		local number_value = tonumber(value)
+		if incremental ~= nil then
+			while number_value > 0 do
+				window:perform_action(wezterm.action.IncreaseFontSize, pane)
+				number_value = number_value - 1
+			end
+			overrides.enable_tab_bar = false
+		elseif number_value < 0 then
+			window:perform_action(wezterm.action.ResetFontSize, pane)
+			overrides.font_size = nil
+			overrides.enable_tab_bar = true
+		else
+			overrides.font_size = number_value
+			overrides.enable_tab_bar = false
+		end
+	end
+	window:set_config_overrides(overrides)
 end)
 
 return {
@@ -325,6 +314,13 @@ return {
 			key = "Enter",
 			action = wezterm.action_callback(function(win, pane)
 				smart_split(win, pane, "CurrentPaneDomain")
+			end),
+		},
+		{
+			mods = "SUPER|SHIFT",
+			key = "Enter",
+			action = wezterm.action_callback(function(win, pane)
+				smart_split(win, pane, "DefaultDomain")
 			end),
 		},
 		{ mods = "SUPER", key = ",", action = wezterm.action.RotatePanes("CounterClockwise") },
@@ -513,7 +509,7 @@ return {
 		top = 0,
 		bottom = 0,
 	},
-	ssh_backend = "Ssh2",
+	ssh_backend = "LibSsh",
 	ssh_domains = {
 		{
 			name = "balerion",
